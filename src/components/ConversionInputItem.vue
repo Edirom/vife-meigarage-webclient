@@ -13,12 +13,6 @@
       id: String,
       label: String,
       input: Object
-    },
-    methods: {
-      fetchOutputs: function(id) {
-        console.log('trying to fetch outputs…')
-        this.$store.dispatch("fetchOutputs",{id});
-      }
     }
   };
 </script>

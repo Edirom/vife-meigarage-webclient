@@ -5,16 +5,23 @@
         <Breadcrumb/>
       </div>
       <div class="column col-12">
-        <h1>musicxml2mei</h1>
-        <p>Convert MusicXML files to MEI</p>
+        <h1>{{this.$route.params.inputFormat}} to {{this.$route.params.outputFormat}}</h1>
+        <p>Convert {{input}} files to {{output}}</p>
         <div class="viewBox">
           <div class="viewBoxInner">
-            <h1>Options</h1>
+            <!--<h1>Options</h1>
             <p>
               trololo
-            </p>
+            </p>-->
             <h1>File Upload</h1>
-            <button class="btn btn-primary">Convert</button>
+
+            <form id="conversionForm" method="post" name="conversionForm" enctype="multipart/form-data">
+              <div id="fileInput">
+				<span><strong id="lang_selectfile">Select file to convert</strong><br/><br/><br/>
+				<input type="file" id="fileToConvert" name="fileToConvert"><br><br></span>
+              </div>
+            </form>
+            <button v-on:click="convert" class="btn btn-primary">Convert</button>
           </div>
         </div>
       </div>
@@ -30,7 +37,31 @@ export default {
   name: "conversion-options",
   components: {
     Breadcrumb
-  }
+  },
+    methods: {
+      convert: function() {
+          console.log("Call " + this.href)
+      }
+    },
+    computed: {
+        input () {
+            return this.$store.getters.input(this.$route.params.inputFormat).label
+        },
+        output () {
+            for(let output of this.$store.getters.outputs(this.$route.params.inputFormat)) {
+                if(output.id === this.$route.params.outputFormat)
+                    return output.label
+            }
+            return 'Unknown'
+        },
+        href () {
+            for(let output of this.$store.getters.outputs(this.$route.params.inputFormat)) {
+                if(output.id === this.$route.params.outputFormat)
+                    return output.href
+            }
+            return '#'
+        }
+    }
 };
 </script>
 

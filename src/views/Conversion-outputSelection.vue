@@ -1,5 +1,5 @@
 <template>
-  <div>{{fetchOutputs($route.params.inputFormat)}}
+  <div>
     <div class="columns">
       <div class="column col-12">
         <Breadcrumb/>
@@ -17,7 +17,7 @@
                 </tr>
               </thead>
               <tbody id="inputFormats" ref="container">
-                <ConversionOutputItem v-for="output in outputs" :id="output.id" :label="output.label"/>
+                <ConversionOutputItem v-for="output in outputs" :id="output.id" :label="output.label" :input="output.input"/>
               </tbody>
             </table>
           </div>
@@ -38,25 +38,19 @@ export default {
     Breadcrumb,
     ConversionOutputItem
   },
-  /*methods: {
-    fetchInputs: function() {
-      this.$store.dispatch("fetchInputs");
+    data () {
+      return {
+          inputFormat: ''
+      }
+    },
+    created () {
+      this.inputFormat = this.$route.params.inputFormat;
+    },
+    computed: {
+        outputs () {
+            return this.$store.getters.outputs(this.inputFormat)
+        }
     }
-  },*/
-  methods: {
-    fetchOutputs: function(id) {
-      console.log('trying to fetch outputs… for ' + id)
-      console.log(typeof this.outputs)
-      this.$store.dispatch("fetchOutputs",{id});
-    }
-  },
-  computed: {
-    outputs: function() {
-      //console.log($route.params)
-      //this.fetchOutputs();
-      return Array.from(this.$store.state.inputs.values())
-    }
-  }
 };
 </script>
 

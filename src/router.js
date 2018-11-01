@@ -26,19 +26,19 @@ export default new Router({
       path: "/conversions",
       name: "conversions",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Conversion-inputSelection.vue")
+        import("./views/Conversion-inputSelection.vue")
     },
     {
       path: "/conversions/:inputFormat",
       name: "input",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Conversion-outputSelection.vue")
+        import("./views/Conversion-outputSelection.vue")
     },
     {
       path: "/conversions/:inputFormat/:outputFormat",
       name: "output",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Conversion-options.vue")
+        import("./views/Conversion-options.vue")
     }
   ]
 });

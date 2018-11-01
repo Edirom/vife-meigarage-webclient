@@ -42,15 +42,10 @@ export default {
   components: {
     Breadcrumb,
     ConversionInputItem
-  },/* 
-  methods: {
-    fetchInputs: function() {
-      this.$store.dispatch("fetchInputs");
-    }
-  },*/
+  },
   computed: {
     inputs () {
-      let mapValues = this.$store.state.inputs.values();
+      let mapValues = this.$store.getters.inputs.values();
       return Array.from(mapValues)
     }
   }

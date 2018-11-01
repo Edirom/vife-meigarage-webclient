@@ -58,7 +58,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><router-link to="/conversions/input">MusicXML to MEI</router-link></td>
+                <td><router-link to="/conversions/musicxml/mei21">MusicXML to MEI</router-link></td>
               </tr>
               <tr>
                 <td>MEI to PDF</td>
@@ -105,21 +105,14 @@
     
   </div>
   
-  
-  <!--<div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to the MEI Garage"/>
-  </div>-->
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
   },
   methods: {
     goBack() {
