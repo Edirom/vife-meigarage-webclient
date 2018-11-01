@@ -13,7 +13,7 @@
       </p>
     </div>
   
-    <div class="column col-4 col-md-6 col-xs-12">
+    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
       <div class="card">
         <div class="card-header">
           <div class="card-title h5">Validation</div>
@@ -38,12 +38,12 @@
               </tr>
             </tbody>
           </table>
-          <router-link to="/about" class="btn btn-sm float-right seeAllButton">See all</router-link>
+          <router-link to="#" class="btn btn-sm float-right seeAllButton">Coming soon</router-link>
         </div>
       </div>
     </div>
     
-    <div class="column col-4 col-md-6 col-xs-12">
+    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
       <div class="card">
         <div class="card-header">
           <div class="card-title h5">Conversion</div>
@@ -57,14 +57,17 @@
               </tr>
             </thead>
             <tbody>
+            <tr>
+              <td><router-link to="/conversions/mei21/mei30">MEI 2.1 to MEI 3.0</router-link></td>
+            </tr>
               <tr>
-                <td><router-link to="/conversions/musicxml/mei21">MusicXML to MEI</router-link></td>
+                <td><router-link to="/conversions/musicxml/mei30">MusicXML to MEI</router-link></td>
               </tr>
               <tr>
-                <td>MEI to PDF</td>
+                <td>MEI to PDF (coming soon)</td>
               </tr>
               <tr>
-                <td>MEI to Audio</td>
+                <td>MEI to Audio (coming soon)</td>
               </tr>
             </tbody>
           </table>
@@ -72,8 +75,38 @@
         </div>
       </div>
     </div>
+
+    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title h5">Customization</div>
+          <div class="card-subtitle text-gray">Customize the MEI Schema</div>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th>Common customizations:</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>MEI All</td>
+            </tr>
+            <tr>
+              <td>MEI CMN (2013+)</td>
+            </tr>
+            <tr>
+              <td>Local Customization File</td>
+            </tr>
+            </tbody>
+          </table>
+          <router-link to="#" class="btn btn-sm float-right seeAllButton">Coming soon</router-link>
+        </div>
+      </div>
+    </div>
     
-    <div class="column col-4 col-md-6 col-xs-12">
+    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
       <div class="card">
         <div class="card-header">
           <div class="card-title h5">Data Configuration</div>
@@ -98,7 +131,7 @@
               </tr>
             </tbody>
           </table>
-          <router-link to="/about" class="btn btn-sm float-right seeAllButton">See all</router-link>
+          <router-link to="#" class="btn btn-sm float-right seeAllButton">Coming soon</router-link>
         </div>
       </div>
     </div>
@@ -127,5 +160,10 @@ export default {
 <style lang="scss">
   .seeAllButton {
     margin-top: .5rem;
+  }
+
+  .column {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
   }
 </style>
