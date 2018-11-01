@@ -48,16 +48,23 @@ export default {
           axios.post(this.href, formData, { headers: {'Content-Type': 'multipart/form-data' }})
               .then(function (response) {
                   //handle success
-                  let regexp = new RegExp('filename="([^"]*)"');
-                  let filename = response.headers['content-disposition'];
-                  filename = regexp.exec(filename)[1];
 
-                  const url = window.URL.createObjectURL(new Blob([response.data]));
+                  const blob = new Blob([response.data], {type: response.data.type});
+                  const url = window.URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = url;
-                  link.setAttribute('download', filename);
+                  const contentDisposition = response.headers['content-disposition'];
+                  let fileName = 'unknown';
+                  if (contentDisposition) {
+                      const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
+                      if (fileNameMatch.length === 2)
+                          fileName = fileNameMatch[1];
+                  }
+                  link.setAttribute('download', fileName);
                   document.body.appendChild(link);
                   link.click();
+                  link.remove();
+                  window.URL.revokeObjectURL(url);
               })
               .catch(function (response) {
                   //handle error
