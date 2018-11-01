@@ -32,7 +32,7 @@ export default new Vuex.Store({
     fetchInputs({ commit }) {
       return new Promise((resolve, reject) => {
         console.log('Fetching available input formats…')
-        fetch('https://meigarage.edirom.de/ege-webservice/Conversions/')
+        fetch(process.env.VUE_APP_WEBSERVICE_URL + 'Conversions/')
           .then(response => response.text()) //add error handling for failing requests
           .then(data => {
             let parser = new DOMParser();
