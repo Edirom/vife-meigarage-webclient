@@ -32,6 +32,7 @@
 <script>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
+import axios from 'axios';
 
 export default {
   name: "conversion-options",
@@ -40,7 +41,29 @@ export default {
   },
     methods: {
       convert: function() {
-          console.log("Call " + this.href)
+
+          let myForm = document.getElementById('conversionForm');
+          let formData = new FormData(myForm);
+
+          axios.post(this.href, formData, { headers: {'Content-Type': 'multipart/form-data' }})
+              .then(function (response) {
+                  //handle success
+                  let regexp = new RegExp('filename="([^"]*)"');
+                  let filename = response.headers['content-disposition'];
+                  filename = regexp.exec(filename)[1];
+
+                  const url = window.URL.createObjectURL(new Blob([response.data]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', filename);
+                  document.body.appendChild(link);
+                  link.click();
+              })
+              .catch(function (response) {
+                  //handle error
+                  console.log(response);
+              });
+
       }
     },
     computed: {
