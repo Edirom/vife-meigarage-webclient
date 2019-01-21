@@ -25,20 +25,17 @@ export default new Router({
     {
       path: "/conversions",
       name: "conversions",
-      component: () =>
-        import("./views/Conversion-inputSelection.vue")
+      component: () => import("./views/Conversion-inputSelection.vue")
     },
     {
       path: "/conversions/:inputFormat",
       name: "input",
-      component: () =>
-        import("./views/Conversion-outputSelection.vue")
+      component: () => import("./views/Conversion-outputSelection.vue")
     },
     {
       path: "/conversions/:inputFormat/:outputFormat",
       name: "output",
-      component: () =>
-        import("./views/Conversion-options.vue")
+      component: () => import("./views/Conversion-options.vue")
     }
   ]
 });

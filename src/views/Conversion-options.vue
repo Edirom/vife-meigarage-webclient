@@ -9,42 +9,49 @@
         <p>Convert {{input}} files to {{output}}</p>
         <div class="viewBox">
           <div class="viewBoxInner">
-            <!--<h1>Options</h1>
-            <p>
-              trololo
-            </p>-->
             <h1>File Upload</h1>
-
             <form id="conversionForm" method="post" name="conversionForm" enctype="multipart/form-data">
               <div id="fileInput">
-				<span><strong id="lang_selectfile">Select file to convert</strong><br/><br/><br/>
-				<input type="file" id="fileToConvert" name="fileToConvert"><br><br></span>
+				        <span><strong id="lang_selectfile">Select file to convert</strong><br>
+                  <br>
+                  <br>
+				          <input type="file" id="fileToConvert" name="fileToConvert"><br>
+                  <br>
+                </span>
               </div>
             </form>
             <button v-on:click="convert" class="btn btn-primary">Convert</button>
           </div>
         </div>
+        <div class="parameterBox">
+          <h1><i class="icon icon-caret"></i>Conversion Steps and Parameters</h1>
+          <div class="parametersList">
+            <ConversionStep v-for="step in steps" v-bind="step" :step="step" :label="step.label" :id="step.id"/>
+          </div>
+        </div>
       </div>
-    </div>  
-  </div> 
+    </div>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import axios from 'axios';
+import ConversionStep from "@/components/ConversionStep.vue";
 
 export default {
   name: "conversion-options",
   components: {
-    Breadcrumb
+    Breadcrumb,
+    ConversionStep
   },
     methods: {
       convert: function() {
 
           let myForm = document.getElementById('conversionForm');
           let formData = new FormData(myForm);
-
+          //todo: consider parameters
           axios.post(this.href, formData, { headers: {'Content-Type': 'multipart/form-data' }})
               .then(function (response) {
                   //handle success
@@ -84,6 +91,13 @@ export default {
             }
             return 'Unknown'
         },
+        steps () {
+            for(let output of this.$store.getters.outputs(this.$route.params.inputFormat)) {
+                if(output.id === this.$route.params.outputFormat)
+                    return output.steps
+            }
+            return []
+        },
         href () {
             for(let output of this.$store.getters.outputs(this.$route.params.inputFormat)) {
                 if(output.id === this.$route.params.outputFormat)
@@ -102,9 +116,22 @@ export default {
     border-radius: 3px;
     padding: 2rem;
   }
-  
+
   .viewBoxInner {
     background-color: #ffffff;
     padding: 1rem;
+  }
+
+  .parameterBox {
+    margin: 2rem 0;
+    background-color: #e5e5e5;
+    border: .5px solid #999999;
+    border-radius: 3px;
+    padding: .5rem;
+
+    h1 {
+      text-align: left;
+      font-size: 1.2rem;
+    }
   }
 </style>

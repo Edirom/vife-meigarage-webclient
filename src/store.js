@@ -8,25 +8,25 @@ export default new Vuex.Store({
     inputs: new Map()
   },
   mutations: {
-    FETCH_INPUTS (state, inputs) {
-      inputs.forEach((input) => {
+    FETCH_INPUTS(state, inputs) {
+      inputs.forEach(input => {
         state.inputs.set(input.id,input);
         this.dispatch("fetchOutputs", input.id);
       })
     },
-    FETCH_OUTPUTS (state, data) {
-        state.inputs.get(data.id).outputsLoaded = true;
+    FETCH_OUTPUTS(state, data) {
+      state.inputs.get(data.id).outputsLoaded = true;
       state.inputs.get(data.id).outputs = data.outputs;
     }
   },
   getters: {
-      inputs: state => state.inputs,
-      input: (state) => (id) => {
-          return state.inputs.get(id);
-      },
-      outputs: (state) => (id) => {
-          return state.inputs.get(id).outputs;
-      }
+    inputs: state => state.inputs,
+    input: state => id => {
+      return state.inputs.get(id);
+    },
+    outputs: state => id => {
+      return state.inputs.get(id).outputs;
+    }
   },
   actions: {
     fetchInputs({ commit }) {
@@ -45,15 +45,15 @@ export default new Vuex.Store({
               let mimetype = formatInfo[2].split(',')[1];
               let label = formatInfo[1];
               let targetsDef = format.getAttribute('xlink:href');
-              
+
               let input = {'id': id, 'label': label, 'targetsDef': targetsDef, 'mimetype': mimetype, 'outputsLoaded': false}
               inputs.push(input);
             });
             commit("FETCH_INPUTS", inputs);
           });
-        })
-      },
-      
+      });
+    },
+
     fetchOutputs({ commit, state }, inputID) {
       let input = state.inputs.get(inputID);
       if(input.outputsLoaded) return;
@@ -68,7 +68,7 @@ export default new Vuex.Store({
             let outputs = [];
             let outputsXML = xmlData.querySelectorAll('conversions-path');
             outputsXML.forEach((path) => {
-                let conversion = path.querySelector('conversion:last-of-type');
+                let conversionTarget = path.querySelector('conversion:last-of-type');
                 let href = path.getAttribute('xlink:href');
 
                 //I:
@@ -79,12 +79,35 @@ export default new Vuex.Store({
                 // MEI 3.0 XML Document (.xml):
                 // mei30,text/xml(MEI XSL Converter)
 
-              let formatInfo = conversion.id.split(':');
+              let formatInfo = conversionTarget.id.split(':');
               let id = encodeURI(formatInfo[6].split(',')[0]);
-              let full = conversion.id;
               let label = formatInfo[5];
-              
-              let output = {'id': id, 'label': label, 'input': inputID, 'href': href};
+
+              let steps = [];
+              let stepElements = path.querySelectorAll('conversion');
+              stepElements.forEach((step) => {
+                let stepFormatInfo = step.id.split(':');
+                let stepId = encodeURI(stepFormatInfo[6].split(',')[0]);
+                let stepLabel = stepFormatInfo[5];
+                let stepHref = step.getAttribute('xlink:href');
+
+                let parameters =  [];
+                let paramElements = step.querySelectorAll('property');
+                paramElements.forEach((paramElem) => {
+                  let paramType = paramElem.querySelector('type').textContent;
+                  let paramLabel = paramElem.querySelector('property-name').textContent;
+                  let parameter = {'id': paramElem.id, 'type': paramType,'label': paramLabel};
+                  if(paramType === 'array') {
+                    let paramValues = paramElem.querySelector('value').textContent.split(',');
+                    parameter.values = paramValues;
+                  }
+                  parameters.push(parameter);
+                })
+
+                steps.push({'id': stepId,'label':stepLabel,'href': stepHref,'parameters':parameters});
+              })
+
+              let output = {'id': id, 'label': label, 'input': inputID, 'href': href,'steps': steps};
               outputs.push(output);
             });
             commit("FETCH_OUTPUTS", {'id': inputID, 'outputs': outputs});

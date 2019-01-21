@@ -28,8 +28,8 @@
           </div>
         </div>
       </div>
-    </div>  
-  </div>  
+    </div>
+  </div>
 </template>
 
 <script>
@@ -59,7 +59,7 @@ export default {
     border-radius: 3px;
     padding: 2rem;
   }
-  
+
   .viewBoxInner {
     background-color: #ffffff;
     padding: 1rem;
