@@ -26,7 +26,7 @@
         <div class="parameterBox">
           <h1><i class="icon icon-caret"></i>Conversion Steps and Parameters</h1>
           <div class="parametersList">
-            <ConversionStep v-for="step in steps" v-bind="step" :step="step" :label="step.label" :id="step.id"/>
+            <ConversionStep v-for="step in steps" :step="step" :label="step.label" :id="step.id"/>
           </div>
         </div>
       </div>

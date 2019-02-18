@@ -3,7 +3,7 @@
     <h1>{{label}}</h1>
     <div v-if="step.parameters.length > 0">
       <h2>Parameters:</h2>
-      <div class="parameter" v-for="param in step.parameters" v-bind="param">
+      <div class="parameter" v-for="param in step.parameters" :param="param">
         <div v-if="param.type === 'pathBoolean'">
           <div class="form-group">
             <label class="form-checkbox">
@@ -16,7 +16,7 @@
           <label class="selectBoxLabel">{{param.label}}</label>
           <div class="selectBox form-group">
             <select class="form-select">
-              <option v-for="value in param.values" v-bind="value" :value="value">{{value}}</option>
+              <option v-for="value in param.values" :value="value">{{value}}</option>
             </select>
           </div>
         </div>
