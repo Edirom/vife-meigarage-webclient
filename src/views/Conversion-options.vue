@@ -14,7 +14,6 @@
               <div id="fileInput">
 				        <span><strong id="lang_selectfile">Select file to convert</strong><br>
                   <br>
-                  <br>
 				          <input type="file" id="fileToConvert" name="fileToConvert"><br>
                   <br>
                 </span>
@@ -46,6 +45,9 @@ export default {
     Breadcrumb,
     ConversionStep
   },
+  /*async getInitialData({this.$store, this.$route}) {
+    await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
+  },*/
     methods: {
       convert: function() {
 
@@ -60,6 +62,9 @@ export default {
                   const url = window.URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = url;
+
+                  console.log('getting this back…')
+
                   const contentDisposition = response.headers['content-disposition'];
                   let fileName = 'unknown';
                   if (contentDisposition) {

@@ -13,6 +13,7 @@ export default new Vuex.Store({
         state.inputs.set(input.id,input);
         this.dispatch("fetchOutputs", input.id);
       })
+      state.inputsLoaded = true;
     },
     FETCH_OUTPUTS(state, data) {
       state.inputs.get(data.id).outputsLoaded = true;

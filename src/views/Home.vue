@@ -1,18 +1,18 @@
 <template>
   <div class="columns">
-  
+
     <div class="column col-12">
       <h1>MEIGarage</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
-        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
-        mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa 
-        quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, 
-        rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
-        Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. 
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
+        quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo,
+        rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+        Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
       </p>
     </div>
-  
+
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
       <div class="card">
         <div class="card-header">
@@ -38,11 +38,11 @@
               </tr>
             </tbody>
           </table>
-          <router-link to="#" class="btn btn-sm float-right seeAllButton">Coming soon</router-link>
+          <router-link to="/validation" class="btn btn-sm float-right seeAllButton">See all</router-link>
         </div>
       </div>
     </div>
-    
+
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
       <div class="card">
         <div class="card-header">
@@ -105,7 +105,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
       <div class="card">
         <div class="card-header">
@@ -135,9 +135,9 @@
         </div>
       </div>
     </div>
-    
+
   </div>
-  
+
 </template>
 
 <script>
@@ -152,7 +152,7 @@ export default {
       window.history.length > 1
         ? this.$router.go(-1)
         : this.$router.push('/')
-    } 
+    }
   }
 };
 </script>
