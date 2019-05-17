@@ -26,6 +26,9 @@
       <li v-if="$route.path == '/validation/mei/4.0.1/50ea0681-85dd-4242-995f-c8008ed04917'" class="breadcrumb-item">
         50ea0681-85dd-4242-995f-c8008ed04917
       </li>
+      <li v-if="$route.path == '/customization'" class="breadcrumb-item">
+        <router-link to="/customization">Customization</router-link>
+      </li>
     </ul>
   </div>
 </template>

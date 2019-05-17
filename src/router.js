@@ -101,6 +101,11 @@ export default new Router({
       path: "/validation/:format/:version/50ea0681-85dd-4242-995f-c8008ed04917",
       name: "validation-failure",
       component: () => import("./views/Validation-failure.vue")
+    },
+    {
+      path: "/customization",
+      name: "customization",
+      component: () => import("./views/Customization.vue")
     }
   ]
 });
