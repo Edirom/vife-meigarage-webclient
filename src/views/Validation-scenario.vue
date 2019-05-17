@@ -74,6 +74,16 @@
 
         </div>
 
+        <div class="static">
+          <h1>Static Validation</h1>
+          <p>You may add the following lines to your local files to validate against this schema.
+            This requires an active internet connection.</p>
+            <div class="validationURL">
+              &lt;?xml-model href="https://www.music-encoding.org/schema/current/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?&gt;<br/>
+              &lt;?xml-model href="http://www.music-encoding.org/schema/current/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?&gt;
+            </div>
+        </div>
+
         <div class="rest">
           <h1>REST</h1>
           <p>This validation is available as a RESTful API. Please use the
@@ -125,6 +135,9 @@
           <router-link to="/validation/mei/4.0.1/50ea0681-85dd-4242-995f-c8008ed04917">
             <button style="margin-left: .25rem;" class="btn btn-lg btn-error">Nicht-valides Beispiel</button>
           </router-link>
+          <p style="margin-top: 1rem;">Ich bin nicht sicher, ob wir den Bereich "Static Validation"
+            brauchen. Es ist aber vielleicht ein netter Service, wenn wir's
+            gleich dazuschreiben?</p>
         </div>
       </div>
     </div>
@@ -205,7 +218,7 @@ export default {
 
   }
 
-  .rest {
+  .rest, .static {
     margin: 3rem 0 1rem;
     text-align: left;
 
@@ -217,10 +230,17 @@ export default {
       margin: 0 0 .2rem;
     }
 
+    .validationURL {
+      font-family: 'Courier New', 'Courier', monospace;
+      font-weight: 400;
+      font-size: .75rem;
+      margin: 0;
+    }
+
     .restURL {
       font-family: 'Courier New', 'Courier', monospace;
       font-weight: 400;
-      font-size: .8rem;
+      font-size: .75rem;
       margin: 0 0 1rem;
     }
   }
