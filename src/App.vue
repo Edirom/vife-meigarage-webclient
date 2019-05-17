@@ -2,26 +2,22 @@
   <div id="app">
     <header class="navbar">
       <section class="navbar-section">
-        <router-link to="/" class="navbar-brand mr-2"><img alt="ViFE Logo" id="vifeLogo" src="./assets/vife-logo.png"></router-link>
-        <a href="https://edirom.de" class="btn btn-link">ViFE</a>
+        <a id="meiLink" href="http://music-encoding.org" target="_blank" class="btn btn-link"><img alt="Music Encoding Initiative" id="meiLogo" src="./assets/meilogo.png"></a>
       </section>
       <section class="navbar-section">
-      <div class="input-group input-inline">
-        <a href="http://music-encoding.org" class="btn btn-link">MEI</a>
-      </div>
+        <a id="vifeLink" href="https://edirom.de" target="_blank" class="btn btn-link"><img alt="ViFE" id="vifeLogo" src="./assets/vife-logo.svg"></a>
       </section>
     </header>
 
-    <!--<div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>-->
     <div class="container grid-lg">
 
         <router-view/>
 
     </div>
-
+    <footer>
+      <router-link to="/about" class="btn btn-link">About</router-link> |
+      <a class="btn btn-link" href="https://music-encoding.org/community/community-contacts.html" target="_blank">Contact</a>
+    </footer>
   </div>
 </template>
 
@@ -33,16 +29,32 @@
   text-align: center;
   color: #2c3e50;
 }
-#vifeLogo {
-  width: 3em;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+header.navbar {
+  background-color: #f5f5f5;
+  border-bottom: .5px solid #cccccc;
+  height: 2rem;
+
+  #meiLink {
+    margin: 0;
+    padding: 0 1rem;
+    line-height: 1rem;
+    position: absolute;
+    top: .1rem;
+
+    #meiLogo {
+      width: 3rem;
+    }
+  }
+
+  #vifeLink {
+    margin: 0;
+    padding: 0 1rem;
+    line-height: 1rem;
+    position: absolute;
+    top: -.2rem;
+
+    #vifeLogo {
+      width: 2.5rem;
     }
   }
 }
