@@ -131,7 +131,7 @@
               </tr>
             </tbody>
           </table>
-          <router-link to="#" class="btn btn-sm float-right seeAllButton">Coming soon</router-link>
+          <router-link to="/configuration" class="btn btn-sm float-right seeAllButton">See all</router-link>
         </div>
       </div>
     </div>

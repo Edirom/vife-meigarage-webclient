@@ -106,6 +106,11 @@ export default new Router({
       path: "/customization",
       name: "customization",
       component: () => import("./views/Customization.vue")
+    },
+    {
+      path: "/configuration",
+      name: "configuration",
+      component: () => import("./views/Configuration.vue")
     }
   ]
 });

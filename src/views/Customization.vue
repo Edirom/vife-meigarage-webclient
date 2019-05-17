@@ -149,7 +149,7 @@
                 <td><a href="https://github.com/music-encoding/music-encoding/releases/tag/v2.1.1" target="_blank">b9dff53</a></td>
               </tr>
               <tr>
-                <td>MEI 3.0.0</td>
+                <td>MEI 2.0.0</td>
                 <td>2012</td>
                 <td><a href="https://github.com/music-encoding/music-encoding/releases/tag/v3.0.0" target="_blank">1233176</a></td>
               </tr>

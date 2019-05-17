@@ -29,6 +29,9 @@
       <li v-if="$route.path == '/customization'" class="breadcrumb-item">
         <router-link to="/customization">Customization</router-link>
       </li>
+      <li v-if="$route.path == '/configuration'" class="breadcrumb-item">
+        <router-link to="/configuration">Data Configuration</router-link>
+      </li>
     </ul>
   </div>
 </template>
