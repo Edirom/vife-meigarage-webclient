@@ -7,15 +7,13 @@
 </template>
 
 <script>
-  export default {
-    name: "ConversionOutputItem",
-    props: {
-      input: String,
-      id: String,
-      label: String
-    },
-    computed: {
-      
-    }
-  };
+export default {
+  name: "ConversionOutputItem",
+  props: {
+    input: String,
+    id: String,
+    label: String
+  },
+  computed: {}
+};
 </script>

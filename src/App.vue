@@ -31,7 +31,7 @@
 }
 header.navbar {
   background-color: #f5f5f5;
-  border-bottom: .5px solid #cccccc;
+  border-bottom: 0.5px solid #cccccc;
   height: 2rem;
 
   #meiLink {
@@ -39,7 +39,7 @@ header.navbar {
     padding: 0 1rem;
     line-height: 1rem;
     position: absolute;
-    top: .1rem;
+    top: 0.1rem;
 
     #meiLogo {
       width: 3rem;
@@ -51,7 +51,7 @@ header.navbar {
     padding: 0 1rem;
     line-height: 1rem;
     position: absolute;
-    top: -.2rem;
+    top: -0.2rem;
 
     #vifeLogo {
       width: 2.5rem;

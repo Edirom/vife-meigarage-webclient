@@ -7,12 +7,12 @@
 </template>
 
 <script>
-  export default {
-    name: "ConversionInputItem",
-    props: {
-      id: String,
-      label: String,
-      input: Object
-    }
-  };
+export default {
+  name: "ConversionInputItem",
+  props: {
+    id: String,
+    label: String,
+    input: Object
+  }
+};
 </script>

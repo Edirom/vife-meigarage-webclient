@@ -156,100 +156,98 @@ export default {
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
   },*/
-    methods: {
-
+  methods: {},
+  computed: {
+    format() {
+      return this.$route.params.format;
     },
-    computed: {
-        format () {
-          return this.$route.params.format
-        },
 
-        version () {
-          return this.$route.params.version
-        }
+    version() {
+      return this.$route.params.version;
     }
+  }
 };
 </script>
 
 <style scoped lang="scss">
+.format,
+.version {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
 
-  .format, .version {
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
+.viewBox {
+  background-color: #f5f5f5;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 2rem;
+}
 
-  .viewBox {
-    background-color: #f5f5f5;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    padding: 2rem;
-  }
+.viewBoxInner {
+  background-color: #ffffff;
+  padding: 1rem;
+}
 
-  .viewBoxInner {
-    background-color: #ffffff;
-    padding: 1rem;
-  }
+.parameterBox {
+  margin: 2rem 0;
+  background-color: #e5e5e5;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 0.5rem;
 
-  .parameterBox {
-    margin: 2rem 0;
-    background-color: #e5e5e5;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    padding: .5rem;
-
-    h1 {
-      text-align: left;
-      font-size: 1.2rem;
-    }
-
-    h2 {
-      text-align: left;
-      font-size: 1rem;
-    }
-
-    .optionsBox {
-      margin: 0 .2rem;
-      background-color: #f5f5f5;
-      border: .5px solid #999999;
-      border-radius: 3px;
-      padding: .5rem;
-      text-align: left;
-    }
-
-  }
-
-  .rest, .static {
-    margin: 3rem 0 1rem;
+  h1 {
     text-align: left;
-
-    h1 {
-      font-size: 1.2rem;
-    }
-
-    p {
-      margin: 0 0 .2rem;
-    }
-
-    .validationURL {
-      font-family: 'Courier New', 'Courier', monospace;
-      font-weight: 400;
-      font-size: .75rem;
-      margin: 0;
-    }
-
-    .restURL {
-      font-family: 'Courier New', 'Courier', monospace;
-      font-weight: 400;
-      font-size: .75rem;
-      margin: 0 0 1rem;
-    }
+    font-size: 1.2rem;
   }
 
-  .internalComment {
-    background-color: #ff666666;
-    border: 5px solid #ff6666;
-    padding: 1.5rem;
-    border-radius: .5rem;
-    margin: 2rem 0;
+  h2 {
+    text-align: left;
+    font-size: 1rem;
   }
+
+  .optionsBox {
+    margin: 0 0.2rem;
+    background-color: #f5f5f5;
+    border: 0.5px solid #999999;
+    border-radius: 3px;
+    padding: 0.5rem;
+    text-align: left;
+  }
+}
+
+.rest,
+.static {
+  margin: 3rem 0 1rem;
+  text-align: left;
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin: 0 0 0.2rem;
+  }
+
+  .validationURL {
+    font-family: "Courier New", "Courier", monospace;
+    font-weight: 400;
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  .restURL {
+    font-family: "Courier New", "Courier", monospace;
+    font-weight: 400;
+    font-size: 0.75rem;
+    margin: 0 0 1rem;
+  }
+}
+
+.internalComment {
+  background-color: #ff666666;
+  border: 5px solid #ff6666;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
 </style>

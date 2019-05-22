@@ -117,7 +117,7 @@
         <div class="internalComment">
           <h1>Interne Hinweise zur Umsetzung</h1>
           <p>
-            Die Seite hier ist noch ziemlicher Käse – da müssen wir erst noch
+            Die Seite hier ist noch ziemlicher Käse – da müssen wir erst noch
             genauer überlegen, wie das eigentlich gehen soll. Ich hatte mal
             über Drag&amp;Drop einzelner Schritte in einen Arbeitsbereich
             nachgedacht, aber wir müssen dort ja auch bestimmte Reihenfolgen
@@ -145,61 +145,56 @@ export default {
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
   },*/
-    methods: {
-
-    }
+  methods: {}
 };
 </script>
 
 <style scoped lang="scss">
+.columnBox {
+  text-align: left;
 
-  .columnBox {
+  h2 {
+    font-size: 1rem;
+  }
+}
 
-    text-align: left;
+.transform {
+  background-color: #f5f5f5;
+  margin: 0 0 0.5rem;
+  padding-left: 0.5rem;
+  border-radius: 0.3rem;
+  border: 0.5px solid #999999;
 
-    h2 {
-      font-size: 1rem;
-    }
+  .btn.btn-link {
+    color: #666666;
+  }
+}
+
+.rest {
+  margin: 3rem 0 1rem;
+  text-align: left;
+
+  h1 {
+    font-size: 1.2rem;
   }
 
-  .transform {
-
-    background-color: #f5f5f5;
-    margin: 0 0 .5rem;
-    padding-left: .5rem;
-    border-radius: .3rem;
-    border: .5px solid #999999;
-
-    .btn.btn-link {
-      color: #666666;
-    }
+  p {
+    margin: 0 0 0.2rem;
   }
 
-  .rest {
-    margin: 3rem 0 1rem;
-    text-align: left;
-
-    h1 {
-      font-size: 1.2rem;
-    }
-
-    p {
-      margin: 0 0 .2rem;
-    }
-
-    .restURL {
-      font-family: 'Courier New', 'Courier', monospace;
-      font-weight: 400;
-      font-size: .75rem;
-      margin: 0 0 1rem;
-    }
+  .restURL {
+    font-family: "Courier New", "Courier", monospace;
+    font-weight: 400;
+    font-size: 0.75rem;
+    margin: 0 0 1rem;
   }
+}
 
-  .internalComment {
-    background-color: #ff666666;
-    border: 5px solid #ff6666;
-    padding: 1.5rem;
-    border-radius: .5rem;
-    margin: 2rem 0;
-  }
+.internalComment {
+  background-color: #ff666666;
+  border: 5px solid #ff6666;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
 </style>

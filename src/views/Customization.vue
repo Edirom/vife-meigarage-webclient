@@ -169,7 +169,7 @@
           <h1>Interne Hinweise zur Umsetzung</h1>
           <p>
             Alle Kombinationen oberhalb der Striche bei Source und Customization können m.E.
-            statisch hinterlegt werden – da ändert sich ja nichts. Man könnte immer noch
+            statisch hinterlegt werden – da ändert sich ja nichts. Man könnte immer noch
             die aktuelle dev-Version dazunehmen (das gilt dann aber genauso für Validation…).
           </p>
           <p>
@@ -214,104 +214,99 @@ export default {
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
   },*/
-    methods: {
-
-    }
+  methods: {}
 };
 </script>
 
 <style scoped lang="scss">
+h2 {
+  text-align: left;
+  font-size: 1rem;
+}
 
-  h2 {
-    text-align: left;
-    font-size: 1rem;
+.optionsBox {
+  margin: 0 0.2rem;
+  background-color: #f5f5f5;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+hr {
+  border: 0.5px solid #999999;
+}
+
+.rest {
+  margin: 3rem 0 1rem;
+  text-align: left;
+
+  h1 {
+    font-size: 1.2rem;
   }
 
-  .optionsBox {
-    margin: 0 .2rem;
+  p {
+    margin: 0 0 0.2rem;
+  }
+
+  .restURL {
+    font-family: "Courier New", "Courier", monospace;
+    font-weight: 400;
+    font-size: 0.75rem;
+    margin: 0 0 1rem;
+  }
+}
+
+#results {
+  margin: 2rem 0 0;
+
+  .columnBox {
+    margin: 0 0.2rem;
     background-color: #f5f5f5;
-    border: .5px solid #999999;
+    border: 0.5px solid #999999;
     border-radius: 3px;
-    padding: .5rem;
-    text-align: left;
-  }
+    padding: 0.5rem;
 
-  hr {
-    border: .5px solid #999999;
-  }
-
-  .rest {
-    margin: 3rem 0 1rem;
-    text-align: left;
-
-    h1 {
-      font-size: 1.2rem;
+    &#btnBox {
+      text-align: center;
+      padding: 1.5rem 1rem;
     }
 
-    p {
-      margin: 0 0 .2rem;
-    }
-
-    .restURL {
-      font-family: 'Courier New', 'Courier', monospace;
-      font-weight: 400;
-      font-size: .75rem;
-      margin: 0 0 1rem;
-    }
-  }
-
-  #results {
-    margin: 2rem 0 0;
-
-    .columnBox {
-      margin: 0 .2rem;
-      background-color: #f5f5f5;
-      border: .5px solid #999999;
-      border-radius: 3px;
-      padding: .5rem;
-
-      &#btnBox {
-        text-align: center;
-        padding: 1.5rem 1rem;
-      }
-
-      &#logBox {
-        text-align: left;
-        padding: .5rem;
-        #logs {
-          font-family: 'Courier New', 'Courier',monospace;
-          font-size: .7rem;
-          max-height: 5rem;
-          overflow: auto;
-        }
-
-      }
-    }
-  }
-
-  .versionInfo {
-
-    margin: 2rem 0 0;
-
-    h1 {
-      font-size: .9rem;
+    &#logBox {
       text-align: left;
-    }
-
-    table {
-      font-size: .7rem;
-
-      td {
-        padding: .2em .4rem;
+      padding: 0.5rem;
+      #logs {
+        font-family: "Courier New", "Courier", monospace;
+        font-size: 0.7rem;
+        max-height: 5rem;
+        overflow: auto;
       }
     }
   }
+}
 
-  .internalComment {
-    background-color: #ff666666;
-    border: 5px solid #ff6666;
-    padding: 1.5rem;
-    border-radius: .5rem;
-    margin: 2rem 0;
+.versionInfo {
+  margin: 2rem 0 0;
+
+  h1 {
+    font-size: 0.9rem;
+    text-align: left;
   }
+
+  table {
+    font-size: 0.7rem;
+
+    td {
+      padding: 0.2em 0.4rem;
+    }
+  }
+}
+
+.internalComment {
+  background-color: #ff666666;
+  border: 5px solid #ff6666;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
 </style>

@@ -46,9 +46,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .pageHeader h1 {
-    margin: 0;
-    font-size: 1.1rem;
-    text-align: left;
-  }
+.pageHeader h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  text-align: left;
+}
 </style>

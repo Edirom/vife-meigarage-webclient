@@ -53,55 +53,56 @@ export default {
     Breadcrumb
   },
   computed: {
-      format () {
-        return this.$route.params.format
-      },
+    format() {
+      return this.$route.params.format;
+    },
 
-      version () {
-        return this.$route.params.version
-      }
+    version() {
+      return this.$route.params.version;
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
+.filename,
+.format,
+.version {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
 
-  .filename, .format, .version {
-    font-size: 1.2rem;
-    font-weight: 700;
+.viewBox {
+  background-color: #1dbf2a;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 2rem;
+}
+
+.viewBoxInner {
+  background-color: #ffffff;
+  padding: 1rem;
+
+  p {
+    margin: 1rem 0 0;
   }
+}
 
-  .viewBox {
-    background-color: #1dbf2a;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    padding: 2rem;
-  }
+.additionalInfo {
+  margin: 2rem 0;
+  text-align: left;
+}
 
-  .viewBoxInner {
-    background-color: #ffffff;
-    padding: 1rem;
+#remainingTime {
+  font-size: 1rem;
+  font-weight: 700;
+}
 
-    p {
-      margin: 1rem 0 0;
-    }
-  }
-
-  .additionalInfo {
-    margin: 2rem 0;
-    text-align: left;
-  }
-
-  #remainingTime {
-    font-size: 1rem;
-    font-weight: 700;
-  }
-
-  .internalComment {
-    background-color: #ff666666;
-    border: 5px solid #ff6666;
-    padding: 1.5rem;
-    border-radius: .5rem;
-    margin: 2rem 0;
-  }
+.internalComment {
+  background-color: #ff666666;
+  border: 5px solid #ff6666;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
 </style>

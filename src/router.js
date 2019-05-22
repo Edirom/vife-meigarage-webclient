@@ -6,7 +6,6 @@ import store from "./store.js";
 Vue.use(Router);
 
 const checkInputsLoaded = (to, from, next) => {
-
   /*console.log('\nto')
   console.log(to)
   console.log('from')
@@ -14,39 +13,39 @@ const checkInputsLoaded = (to, from, next) => {
   console.log('store')
   console.log(store)
   */
-  let target = to.path.split('/')
+  let target = to.path.split("/");
   target = target[target.length - 1];
 
   function proceed() {
-    console.log('proceeding')
+    console.log("proceeding");
     if (store.state.inputs.has(target)) {
-      console.log('will load now');
+      console.log("will load now");
       next();
     }
   }
   if (!store.state.inputs.has(target)) {
-    console.log('I need to load first')
+    console.log("I need to load first");
     store.watch(
-      (state) => {
-        console.log('\n---coming back')
-        console.log(state)
-        console.log(store.state.inputs)
-        if(state.inputs.has(target)) {
-          console.log('-------halllo-------')
-          proceed()
+      state => {
+        console.log("\n---coming back");
+        console.log(state);
+        console.log(store.state.inputs);
+        if (state.inputs.has(target)) {
+          console.log("-------halllo-------");
+          proceed();
         }
       },
-      (value) => {
-        console.log('change is now happening: ' + value)
+      value => {
+        console.log("change is now happening: " + value);
         if (value === true) {
-          proceed()
+          proceed();
         }
       }
-    )
+    );
   } else {
-    proceed()
+    proceed();
   }
-}
+};
 
 export default new Router({
   mode: "history",

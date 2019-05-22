@@ -98,23 +98,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .viewBox {
-    background-color: #f5f5f5;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    padding: 2rem;
-  }
+.viewBox {
+  background-color: #f5f5f5;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 2rem;
+}
 
-  .viewBoxInner {
-    background-color: #ffffff;
-    padding: 1rem;
-  }
+.viewBoxInner {
+  background-color: #ffffff;
+  padding: 1rem;
+}
 
-  .internalComment {
-    background-color: #ff666666;
-    border: 5px solid #ff6666;
-    padding: 1.5rem;
-    border-radius: .5rem;
-    margin: 2rem 0;
-  }
+.internalComment {
+  background-color: #ff666666;
+  border: 5px solid #ff6666;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
 </style>

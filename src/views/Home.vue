@@ -145,25 +145,22 @@
 
 export default {
   name: "home",
-  components: {
-  },
+  components: {},
   methods: {
     goBack() {
-      window.history.length > 1
-        ? this.$router.go(-1)
-        : this.$router.push('/')
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     }
   }
 };
 </script>
 
 <style lang="scss">
-  .seeAllButton {
-    margin-top: .5rem;
-  }
+.seeAllButton {
+  margin-top: 0.5rem;
+}
 
-  .column {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-  }
+.column {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 </style>

@@ -39,35 +39,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .conversionStep {
-    text-align: left;
-    margin: 0 0 .5rem .2rem;
-    padding: .5rem 1rem;
-    border-radius: 3px;
-    border: .5px solid #999999;
-    background-color: #f5f5f5;
+.conversionStep {
+  text-align: left;
+  margin: 0 0 0.5rem 0.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  border: 0.5px solid #999999;
+  background-color: #f5f5f5;
 
-    h1 {
-      font-size: 1rem;
-      margin: 0 0 0 -.5rem;
-    }
-
-    h2 {
-      font-size: .9rem;
-      margin: .3rem 0 .2rem 0;
-    }
-
-    .parameter {
-      margin: 0 0 .2rem 0;
-    }
-
-    h3 {
-      font-size: .8rem;
-      font-weight: 100;
-    }
-
-    .selectBoxLabel {
-      
-    }
+  h1 {
+    font-size: 1rem;
+    margin: 0 0 0 -0.5rem;
   }
+
+  h2 {
+    font-size: 0.9rem;
+    margin: 0.3rem 0 0.2rem 0;
+  }
+
+  .parameter {
+    margin: 0 0 0.2rem 0;
+  }
+
+  h3 {
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+
+  .selectBoxLabel {
+  }
+}
 </style>

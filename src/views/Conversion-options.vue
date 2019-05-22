@@ -36,7 +36,7 @@
 <script>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
-import axios from 'axios';
+import axios from "axios";
 import ConversionStep from "@/components/ConversionStep.vue";
 
 export default {
@@ -48,95 +48,98 @@ export default {
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
   },*/
-    methods: {
-      convert: function() {
+  methods: {
+    convert: function() {
+      let myForm = document.getElementById("conversionForm");
+      let formData = new FormData(myForm);
+      //todo: consider parameters
+      axios
+        .post(this.href, formData, {
+          headers: { "Content-Type": "multipart/form-data" }
+        })
+        .then(function(response) {
+          //handle success
 
-          let myForm = document.getElementById('conversionForm');
-          let formData = new FormData(myForm);
-          //todo: consider parameters
-          axios.post(this.href, formData, { headers: {'Content-Type': 'multipart/form-data' }})
-              .then(function (response) {
-                  //handle success
+          const blob = new Blob([response.data], { type: response.data.type });
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
 
-                  const blob = new Blob([response.data], {type: response.data.type});
-                  const url = window.URL.createObjectURL(blob);
-                  const link = document.createElement('a');
-                  link.href = url;
+          console.log("getting this back…");
 
-                  console.log('getting this back…')
-
-                  const contentDisposition = response.headers['content-disposition'];
-                  let fileName = 'unknown';
-                  if (contentDisposition) {
-                      const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
-                      if (fileNameMatch.length === 2)
-                          fileName = fileNameMatch[1];
-                  }
-                  link.setAttribute('download', fileName);
-                  document.body.appendChild(link);
-                  link.click();
-                  link.remove();
-                  window.URL.revokeObjectURL(url);
-              })
-              .catch(function (response) {
-                  //handle error
-                  console.log(response);
-              });
-
-      }
-    },
-    computed: {
-        input () {
-            return this.$store.getters.input(this.$route.params.inputFormat).label
-        },
-        output () {
-            for(let output of this.$store.getters.outputs(this.$route.params.inputFormat)) {
-                if(output.id === this.$route.params.outputFormat)
-                    return output.label
-            }
-            return 'Unknown'
-        },
-        steps () {
-            for(let output of this.$store.getters.outputs(this.$route.params.inputFormat)) {
-                if(output.id === this.$route.params.outputFormat)
-                    return output.steps
-            }
-            return []
-        },
-        href () {
-            for(let output of this.$store.getters.outputs(this.$route.params.inputFormat)) {
-                if(output.id === this.$route.params.outputFormat)
-                    return output.href
-            }
-            return '#'
-        }
+          const contentDisposition = response.headers["content-disposition"];
+          let fileName = "unknown";
+          if (contentDisposition) {
+            const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
+            if (fileNameMatch.length === 2) fileName = fileNameMatch[1];
+          }
+          link.setAttribute("download", fileName);
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(function(response) {
+          //handle error
+          console.log(response);
+        });
     }
+  },
+  computed: {
+    input() {
+      return this.$store.getters.input(this.$route.params.inputFormat).label;
+    },
+    output() {
+      for (let output of this.$store.getters.outputs(
+        this.$route.params.inputFormat
+      )) {
+        if (output.id === this.$route.params.outputFormat) return output.label;
+      }
+      return "Unknown";
+    },
+    steps() {
+      for (let output of this.$store.getters.outputs(
+        this.$route.params.inputFormat
+      )) {
+        if (output.id === this.$route.params.outputFormat) return output.steps;
+      }
+      return [];
+    },
+    href() {
+      for (let output of this.$store.getters.outputs(
+        this.$route.params.inputFormat
+      )) {
+        if (output.id === this.$route.params.outputFormat) return output.href;
+      }
+      return "#";
+    }
+  }
 };
 </script>
 
 <style scoped lang="scss">
-  .viewBox {
-    background-color: #f5f5f5;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    padding: 2rem;
-  }
+.viewBox {
+  background-color: #f5f5f5;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 2rem;
+}
 
-  .viewBoxInner {
-    background-color: #ffffff;
-    padding: 1rem;
-  }
+.viewBoxInner {
+  background-color: #ffffff;
+  padding: 1rem;
+}
 
-  .parameterBox {
-    margin: 2rem 0;
-    background-color: #e5e5e5;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    padding: .5rem;
+.parameterBox {
+  margin: 2rem 0;
+  background-color: #e5e5e5;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 0.5rem;
 
-    h1 {
-      text-align: left;
-      font-size: 1.2rem;
-    }
+  h1 {
+    text-align: left;
+    font-size: 1.2rem;
   }
+}
 </style>

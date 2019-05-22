@@ -44,24 +44,24 @@ export default {
     ConversionInputItem
   },
   computed: {
-    inputs () {
+    inputs() {
       let mapValues = this.$store.getters.inputs.values();
-      return Array.from(mapValues)
+      return Array.from(mapValues);
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-  .viewBox {
-    background-color: #f5f5f5;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    padding: 2rem;
-  }
+.viewBox {
+  background-color: #f5f5f5;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  padding: 2rem;
+}
 
-  .viewBoxInner {
-    background-color: #ffffff;
-    padding: 1rem;
-  }
+.viewBoxInner {
+  background-color: #ffffff;
+  padding: 1rem;
+}
 </style>
