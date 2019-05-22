@@ -1,32 +1,57 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import parser from "fast-xml-parser";
+
+const parserOptions = {
+  attributeNamePrefix: "@_",
+  attrNodeName: "attr",
+  textNodeName: "text",
+  ignoreAttributes: false,
+  parseNodeValue: true,
+  parseAttributeValue: true
+};
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    inputs: new Map()
+    inputs: {}
   },
   mutations: {
     FETCH_INPUTS(state, inputs) {
       inputs.forEach(input => {
-        state.inputs.set(input.id, input);
+        const created = {};
+        created[input.id] = input;
+        state.inputs = Object.assign({}, state.inputs, created);
         this.dispatch("fetchOutputs", input.id).then(() => {});
       });
       state.inputsLoaded = true;
     },
     FETCH_OUTPUTS(state, data) {
-      state.inputs.get(data.id).outputsLoaded = true;
-      state.inputs.get(data.id).outputs = data.outputs;
+      state.inputs[data.id].outputsLoaded = true;
+      state.inputs[data.id].outputs = data.outputs;
+      state.inputs = Object.assign({}, state.inputs);
     }
   },
   getters: {
-    inputs: state => state.inputs,
-    input: state => id => {
-      return state.inputs.get(id);
+    inputs: state => {
+      const keys = Object.keys(state.inputs);
+      const values = [];
+      for (const key of keys) {
+        values.push(state.inputs[key]);
+      }
+      return values;
     },
-    outputs: state => id => {
-      return state.inputs.get(id).outputs;
+    input: state => id => {
+      return state.inputs[id];
+    },
+    outputs: (state, getters) => id => {
+      const input = getters.input(id);
+      if (!input || !input.outputs) {
+        return [];
+      }
+      return input.outputs;
     }
   },
   actions: {
@@ -36,26 +61,28 @@ export default new Vuex.Store({
         fetch(process.env.VUE_APP_WEBSERVICE_URL + "Conversions/")
           .then(response => response.text()) //add error handling for failing requests
           .then(data => {
-            let parser = new DOMParser();
-            let xmlData = parser.parseFromString(data, "text/xml");
             let inputs = [];
-            let inputsXML = xmlData.querySelectorAll("input-data-type");
-            inputsXML.forEach(format => {
-              let formatInfo = format.id.split(":");
-              let id = encodeURI(formatInfo[2].split(",")[0]);
-              let mimetype = formatInfo[2].split(",")[1];
-              let label = formatInfo[1];
-              let targetsDef = format.getAttribute("xlink:href");
-
-              let input = {
-                id: id,
-                label: label,
-                targetsDef: targetsDef,
-                mimetype: mimetype,
-                outputsLoaded: false
-              };
-              inputs.push(input);
-            });
+            const parsed = parser.parse(data, parserOptions);
+            if (
+              parsed["input-data-types"] &&
+              parsed["input-data-types"]["input-data-type"]
+            ) {
+              inputs = parsed["input-data-types"]["input-data-type"].map(
+                dataType => {
+                  // eslint-disable-next-line no-unused-vars
+                  const [_, label, mime] = dataType.attr["@_id"].split(":");
+                  const [id, mimetype] = mime.split(",");
+                  const targetsDef = dataType.attr["@_xlink:href"];
+                  return {
+                    id,
+                    mimetype,
+                    label,
+                    targetsDef,
+                    outputsLoaded: false
+                  };
+                }
+              );
+            }
             commit("FETCH_INPUTS", inputs);
             resolve();
           });
@@ -63,82 +90,68 @@ export default new Vuex.Store({
     },
 
     fetchOutputs({ commit, state }, inputID) {
-      let input = state.inputs.get(inputID);
+      let input = state.inputs[inputID];
       if (input.outputsLoaded) return Promise.resolve();
 
       return new Promise(resolve => {
-        console.log(
-          "Fetching available output formats from " + input.targetsDef
-        );
         fetch(input.targetsDef)
           .then(response => response.text()) //add error handling for failing requests
           .then(data => {
-            let parser = new DOMParser();
-            let xmlData = parser.parseFromString(data, "text/xml");
             let outputs = [];
-            let outputsXML = xmlData.querySelectorAll("conversions-path");
-            outputsXML.forEach(path => {
-              let conversionTarget = path.querySelector(
-                "conversion:last-of-type"
-              );
-              let href = path.getAttribute("xlink:href");
-
-              //I:
-              // Scores:
-              // MEI 2.1 XML Document:
-              // mei21,text/xml/O:
-              // Scores:
-              // MEI 3.0 XML Document (.xml):
-              // mei30,text/xml(MEI XSL Converter)
-
-              let formatInfo = conversionTarget.id.split(":");
-              let id = encodeURI(formatInfo[6].split(",")[0]);
-              let label = formatInfo[5];
-
-              let steps = [];
-              let stepElements = path.querySelectorAll("conversion");
-              stepElements.forEach(step => {
-                let stepFormatInfo = step.id.split(":");
-                let stepId = encodeURI(stepFormatInfo[6].split(",")[0]);
-                let stepLabel = stepFormatInfo[5];
-                let stepHref = step.getAttribute("xlink:href");
-
-                let parameters = [];
-                let paramElements = step.querySelectorAll("property");
-                paramElements.forEach(paramElem => {
-                  let paramType = paramElem.querySelector("type").textContent;
-                  let paramLabel = paramElem.querySelector("property-name")
-                    .textContent;
-                  let parameter = {
-                    id: paramElem.id,
-                    type: paramType,
-                    label: paramLabel
-                  };
-                  if (paramType === "array") {
-                    parameter.values = paramElem
-                      .querySelector("value")
-                      .textContent.split(",");
+            const parsed = parser.parse(data, parserOptions);
+            if (
+              parsed["conversions-paths"] &&
+              parsed["conversions-paths"]["conversions-path"]
+            ) {
+              outputs = parsed["conversions-paths"]["conversions-path"].map(
+                path => {
+                  if (!Array.isArray(path.conversion)) {
+                    path.conversion = [path.conversion];
                   }
-                  parameters.push(parameter);
-                });
-
-                steps.push({
-                  id: stepId,
-                  label: stepLabel,
-                  href: stepHref,
-                  parameters: parameters
-                });
-              });
-
-              let output = {
-                id: id,
-                label: label,
-                input: inputID,
-                href: href,
-                steps: steps
-              };
-              outputs.push(output);
-            });
+                  const href = path.attr["@_xlink:href"];
+                  const steps = path.conversion.map(step => {
+                    const [label, format] = step.attr["@_id"]
+                      .split(":")
+                      .slice(5, 7);
+                    const id = encodeURI(format.split(",")[0]);
+                    const stepHref = step.attr["@_xlink:href"];
+                    if (!step["property"]) {
+                      step["property"] = [];
+                    }
+                    if (!Array.isArray(step["property"])) {
+                      step["property"] = [step["property"]];
+                    }
+                    const parameters = step["property"].map(param => {
+                      const type = param["type"];
+                      const label = param["property-name"];
+                      const parameter = {
+                        id: param.attr["@_id"],
+                        type,
+                        label
+                      };
+                      if (type === "array") {
+                        parameter.values = param["value"].split(",");
+                      }
+                      return parameter;
+                    });
+                    return {
+                      id,
+                      label,
+                      href: stepHref,
+                      parameters
+                    };
+                  });
+                  const target = steps[steps.length - 1];
+                  return {
+                    id: target.id,
+                    label: target.label,
+                    href,
+                    steps,
+                    input: inputID
+                  };
+                }
+              );
+            }
             commit("FETCH_OUTPUTS", { id: inputID, outputs: outputs });
             resolve();
           });

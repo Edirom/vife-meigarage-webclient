@@ -44,9 +44,8 @@ export default {
     ConversionInputItem
   },
   computed: {
-    inputs() {
-      let mapValues = this.$store.getters.inputs.values();
-      return Array.from(mapValues);
+    inputs: function() {
+      return this.$store.getters.inputs;
     }
   }
 };

@@ -87,7 +87,11 @@ export default {
   },
   computed: {
     input() {
-      return this.$store.getters.input(this.$route.params.inputFormat).label;
+      const input = this.$store.getters.input(this.$route.params.inputFormat);
+      if (!input) {
+        return "";
+      }
+      return input.label;
     },
     output() {
       for (let output of this.$store.getters.outputs(

@@ -18,19 +18,19 @@ const checkInputsLoaded = (to, from, next) => {
 
   function proceed() {
     console.log("proceeding");
-    if (store.state.inputs.has(target)) {
+    if (target in store.state.inputs) {
       console.log("will load now");
       next();
     }
   }
-  if (!store.state.inputs.has(target)) {
+  if (!(target in store.state.inputs)) {
     console.log("I need to load first");
     store.watch(
       state => {
         console.log("\n---coming back");
         console.log(state);
         console.log(store.state.inputs);
-        if (state.inputs.has(target)) {
+        if (target in state.inputs) {
           console.log("-------halllo-------");
           proceed();
         }
