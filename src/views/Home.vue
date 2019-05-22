@@ -14,151 +14,102 @@
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title h5">Validation</div>
-          <div class="card-subtitle text-gray">Validate files</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Common validation scenarios:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Validate MEI 3.0.0</td>
-              </tr>
-              <tr>
-                <td>Validate MEI 4.0.0</td>
-              </tr>
-              <tr>
-                <td>Validate MusicXML 3.1</td>
-              </tr>
-            </tbody>
-          </table>
-          <router-link to="/validation" class="btn btn-sm float-right seeAllButton">See all</router-link>
-        </div>
-      </div>
+      <home-card title="Validation" subtitle="Validate files" link="/validation"
+                 description="Common validation scenarios:" :contents="validations"></home-card>
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title h5">Conversion</div>
-          <div class="card-subtitle text-gray">Convert between formats</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Common file conversions:</th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><router-link to="/conversions/mei21/mei30">MEI 2.1 to MEI 3.0</router-link></td>
-            </tr>
-              <tr>
-                <td><router-link to="/conversions/musicxml/mei30">MusicXML to MEI</router-link></td>
-              </tr>
-              <tr>
-                <td>MEI to PDF (coming soon)</td>
-              </tr>
-              <tr>
-                <td>MEI to Audio (coming soon)</td>
-              </tr>
-            </tbody>
-          </table>
-          <router-link to="/conversions" class="btn btn-sm float-right seeAllButton">See all</router-link>
-        </div>
-      </div>
+      <home-card title="Conversion" subtitle="Convert between formats" link="/conversions"
+                 description="Common file conversions:" :contents="conversions"></home-card>
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title h5">Customization</div>
-          <div class="card-subtitle text-gray">Customize the MEI Schema</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-            <tr>
-              <th>Common customizations:</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>MEI All</td>
-            </tr>
-            <tr>
-              <td>MEI CMN (2013+)</td>
-            </tr>
-            <tr>
-              <td>Local Customization File</td>
-            </tr>
-            </tbody>
-          </table>
-          <router-link to="/customization" class="btn btn-sm float-right seeAllButton">See all</router-link>
-        </div>
-      </div>
+      <home-card title="Customization" subtitle="Customize the MEI Schema" link="/customization"
+                 description="Common customizations:" :contents="customizations"></home-card>
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title h5">Data Configuration</div>
-          <div class="card-subtitle text-gray">Set data profiles</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Common data configurations:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Adjust MEI Controlevents</td>
-              </tr>
-              <tr>
-                <td>Add timestamps</td>
-              </tr>
-              <tr>
-                <td>Add IDs</td>
-              </tr>
-            </tbody>
-          </table>
-          <router-link to="/configuration" class="btn btn-sm float-right seeAllButton">See all</router-link>
-        </div>
-      </div>
+      <home-card title="Data Configuration" subtitle="Set data profiles" link="/configuration"
+                 description="Common data configurations:" :contents="configurations"></home-card>
     </div>
-
   </div>
 
 </template>
 
 <script>
 // @ is an alias to /src
+import HomeCard from "@/components/Card.vue";
 
 export default {
   name: "home",
-  components: {},
+  components: {
+    HomeCard
+  },
   methods: {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     }
+  },
+  data() {
+    return {
+      validations: [
+        {
+          name: "Validate MEI 3.0.0"
+        },
+        {
+          name: "Validate MEI 4.0.0"
+        },
+        {
+          name: "Validate MusicXML 3.1"
+        }
+      ],
+      conversions: [
+        {
+          name: "MEI 2.1 to MEI 3.0",
+          link: "/conversions/mei21/mei30"
+        },
+        {
+          name: "MusicXML to MEI",
+          link: "/conversions/musicxml/mei30"
+        },
+        {
+          name: "MEI to PDF (coming soon)"
+        },
+        {
+          name: "MEI to Audio (coming soon)"
+        },
+        {
+          name: "Dummy"
+        }
+      ],
+      customizations: [
+        {
+          name: "MEI All"
+        },
+        {
+          name: "MEI CMN (2013+)"
+        },
+        {
+          name: "Local Customization File"
+        }
+      ],
+      configurations: [
+        {
+          name: "Adjust MEI Controlevents"
+        },
+        {
+          name: "Add timestamps"
+        },
+        {
+          name: "Add IDs"
+        }
+      ]
+    };
   }
 };
 </script>
 
 <style lang="scss">
-.seeAllButton {
-  margin-top: 0.5rem;
-}
-
 .column {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
