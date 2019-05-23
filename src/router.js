@@ -87,7 +87,7 @@ export default new Router({
       component: () => import("./views/Validation-scenarioList.vue")
     },
     {
-      path: "/validation/:format/:version",
+      path: "/validation/:format/:version?",
       name: "validation",
       component: () => import("./views/Validation-scenario.vue")
     },

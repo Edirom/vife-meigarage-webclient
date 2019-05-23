@@ -6,7 +6,7 @@
       </div>
       <div class="column col-12">
         <h1>Validation</h1>
-        <p>Validating files against <span class="format">{{format}}</span>
+        <p>Validating files against <span class="format">{{formatDisplay}}</span>
           in version <span class="version">{{version}}</span></p>
 
         <div class="viewBox">
@@ -24,33 +24,20 @@
             <button class="btn btn-primary">Validate</button>
           </div>
         </div>
-        <div class="parameterBox">
-          <h1><i class="icon icon-caret"></i>Validation Options</h1>
-          <div class="columns">
-            <div class="column col-6">
+        <div class="parameterBox accordion">
+          <input type="checkbox" id="options-accordion" name="accordion-checkbox" hidden/>
+          <label for="options-accordion" class="accordion-header">
+            <h1><i class="icon icon-arrow-right mr-1"></i>Validation Options</h1>
+          </label>
+          <div class="columns accordion-body">
+            <div class="column col-6" v-if="profiles.length > 0">
 
               <div class="optionsBox profiles">
                 <h2>Available Profiles</h2>
                 <div id="profileRadios" class="form-group">
-                  <label class="form-radio">
-                    <input type="radio" name="profile" checked>
-                    <i class="form-icon"></i> MEI All
-                  </label>
-                  <label class="form-radio">
-                    <input type="radio" name="profile">
-                    <i class="form-icon"></i> MEI anyStart
-                  </label>
-                  <label class="form-radio">
-                    <input type="radio" name="profile">
-                    <i class="form-icon"></i> MEI CMN
-                  </label>
-                  <label class="form-radio">
-                    <input type="radio" name="profile">
-                    <i class="form-icon"></i> MEI Mensural
-                  </label>
-                  <label class="form-radio">
-                    <input type="radio" name="profile">
-                    <i class="form-icon"></i> MEI Neumes
+                  <label class="form-radio" v-for="(profile, index) in profiles" :key="profile.id" :profile="profile">
+                    <input type="radio" name="profile" :value="index" v-model="activeProfileIndex"/>
+                    <i class="form-icon"></i> {{ profile.name }}
                   </label>
                 </div>
               </div>
@@ -163,8 +150,28 @@ export default {
     },
 
     version() {
-      return this.$route.params.version;
+      // TODO: specify 'latest'
+      return this.$route.params.version || "4.0.1";
+    },
+
+    formatDisplay() {
+      if (this.profiles.length > this.activeProfileIndex) {
+        return this.profiles[this.activeProfileIndex].name;
+      }
+      return this.format;
     }
+  },
+  data() {
+    return {
+      activeProfileIndex: 0,
+      profiles: [
+        { id: "all", name: "MEI All" },
+        { id: "anystart", name: "MEI anyStart" },
+        { id: "cmd", name: "MEI CMD" },
+        { id: "mensural", name: "MEI Mensural" },
+        { id: "neumes", name: "MEI Neumes" }
+      ]
+    };
   }
 };
 </script>
