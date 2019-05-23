@@ -1,35 +1,35 @@
 <template>
   <div>
-    <div class="columns">
-      <div class="column col-12">
-        <Breadcrumb/>
-      </div>
-      <div class="column col-12">
-        <h1>{{this.$route.params.inputFormat}} to {{this.$route.params.outputFormat}}</h1>
-        <p>Convert {{input}} files to {{output}}</p>
-        <div class="viewBox">
-          <div class="viewBoxInner">
-            <h1>File Upload</h1>
-            <form id="conversionForm" method="post" name="conversionForm" enctype="multipart/form-data">
+    <form id="conversionForm" method="post" name="conversionForm" enctype="multipart/form-data">
+      <div class="columns">
+        <div class="column col-12">
+          <Breadcrumb/>
+        </div>
+        <div class="column col-12">
+          <h1>{{this.$route.params.inputFormat}} to {{this.$route.params.outputFormat}}</h1>
+          <p>Convert {{input}} files to {{output}}</p>
+          <div class="viewBox">
+            <div class="viewBoxInner">
+              <h1>File Upload</h1>
               <div id="fileInput">
-				        <span><strong id="lang_selectfile">Select file to convert</strong><br>
-                  <br>
-				          <input type="file" id="fileToConvert" name="fileToConvert"><br>
-                  <br>
+                <span><strong id="lang_selectfile">Select file to convert</strong><br/>
+                  <br/>
+                  <input type="file" id="fileToConvert" name="fileToConvert"/><br/>
+                  <br/>
                 </span>
               </div>
-            </form>
-            <button v-on:click="convert" class="btn btn-primary">Convert</button>
+              <button type="button" v-on:click="convert" class="btn btn-primary">Convert</button>
+            </div>
           </div>
-        </div>
-        <div class="parameterBox">
-          <h1><i class="icon icon-caret"></i>Conversion Steps and Parameters</h1>
-          <div class="parametersList">
-            <ConversionStep v-for="step in steps" :step="step" :label="step.label" :id="step.id"/>
+          <div class="parameterBox">
+            <h1><i class="icon icon-caret"></i>Conversion Steps and Parameters</h1>
+            <div class="parametersList">
+              <ConversionStep v-for="step in steps" :step="step" :label="step.label" :id="step.id" :key="step.id"/>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -52,7 +52,11 @@ export default {
     convert: function() {
       let myForm = document.getElementById("conversionForm");
       let formData = new FormData(myForm);
-      //todo: consider parameters
+      // we require the file to be present
+      const file = formData.get("fileToConvert");
+      if (!file || file.size === 0) {
+        return;
+      }
       axios
         .post(this.href, formData, {
           headers: { "Content-Type": "multipart/form-data" }
