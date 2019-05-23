@@ -13,25 +13,13 @@
             <div class="optionsBox">
               <h2>MEI Source</h2>
               <div id="profileRadios" class="form-group">
-                <label class="form-radio">
-                  <input type="radio" name="source" checked>
-                  <i class="form-icon"></i> MEI v4.0.1
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="source">
-                  <i class="form-icon"></i> MEI v3.0.0
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="source">
-                  <i class="form-icon"></i> MEI v2.1.1
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="source">
-                  <i class="form-icon"></i> MEI v2.0.0
+                <label class="form-radio" v-for="(source, index) in sources" :source="source" :key="source.id">
+                  <input type="radio" name="source" :value="index" v-model="selectedSource" :disabled="processing"/>
+                  <i class="form-icon"></i> {{ source.name }}
                 </label>
                 <hr/>
                 <label class="form-radio">
-                  <input type="radio" name="source">
+                  <input type="radio" name="source" :value="sources.length" v-model="selectedSource" :disabled="processing"/>
                   <i class="form-icon"></i> Local Source [filePicker]
                 </label>
               </div>
@@ -41,31 +29,16 @@
           <div class="column col-4 col-lg-6 col-md-12">
             <div class="optionsBox">
               <h2>Customization</h2>
-              <div id="profileRadios" class="form-group">
-                <label class="form-radio">
-                  <input type="radio" name="customization" checked>
-                  <i class="form-icon"></i> MEI All
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="customization">
-                  <i class="form-icon"></i> MEI All anyStart
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="customization">
-                  <i class="form-icon"></i> MEI CMN
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="customization">
-                  <i class="form-icon"></i> MEI Mensural
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="customization">
-                  <i class="form-icon"></i> MEI Neumes
+              <div id="customizationRadios" class="form-group">
+                <label class="form-radio" v-for="(customization, index) in customizations"
+                       :customization="customization" :key="customization.id">
+                  <input type="radio" name="customization" :value="index" v-model="selectedCustomization" :disabled="processing"/>
+                  <i class="form-icon"></i> {{ customization.name }}
                 </label>
                 <hr/>
                 <label class="form-radio">
-                  <input type="radio" name="customization">
-                  <i class="form-icon"></i> Local Customization [filePicker]
+                  <input type="radio" name="customization" :value="customizations.length" v-model="selectedCustomization" :disabled="processing"/>
+                  <i class="form-icon"></i> Local Source [filePicker]
                 </label>
               </div>
             </div>
@@ -73,14 +46,11 @@
           <div class="column col-4 col-lg-12 col-md-12">
             <div class="optionsBox">
               <h2>Output</h2>
-              <div id="profileRadios" class="form-group">
-                <label class="form-radio">
-                  <input type="radio" name="output" checked>
-                  <i class="form-icon"></i> RelaxNG
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="output">
-                  <i class="form-icon"></i> Compiled ODD
+              <div id="outputRadios" class="form-group">
+                <label class="form-radio" v-for="(output, index) in outputs"
+                       :output="output" :key="output.id">
+                  <input type="radio" name="output" :value="index" v-model="selectedOutput" :disabled="processing"/>
+                  <i class="form-icon"></i> {{ output.name }}
                 </label>
               </div>
             </div>
@@ -91,10 +61,9 @@
           <div class="columns">
             <div class="column col-4">
               <div id="btnBox" class="columnBox">
-                <button class="btn btn-primary btn-lg">Process</button>
+                <button class="btn btn-primary btn-lg" @click="buttonClick" :disabled="processing">{{buttonText}}</button>
 
-                <div id="processing">
-                  processing
+                <div id="processing" v-if="processing">
                   <progress class="progress" max="100"></progress>
                 </div>
               </div>
@@ -214,7 +183,77 @@ export default {
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
   },*/
-  methods: {}
+  methods: {
+    buttonClick() {
+      switch (this.processState) {
+        case 0:
+          this.processState++;
+          break;
+        case 1:
+          break;
+        case 2:
+          // TODO: trigger download
+          break;
+      }
+    }
+  },
+  data() {
+    return {
+      processState: 0, // 0 = initial, 1 = processing, 2 = ready for download
+      sources: [
+        { id: "4.0.1", name: "MEI v4.0.1" },
+        { id: "3.0.0", name: "MEI v3.0.0" },
+        { id: "2.1.1", name: "MEI v2.1.1" },
+        { id: "2.0.0", name: "MEI v2.0.0" }
+      ],
+      customizations: [
+        { id: "all", name: "MEI All" },
+        { id: "anystart", name: "MEI All anyStart" },
+        { id: "cmn", name: "MEI CMN" },
+        { id: "mensural", name: "MEI Mensural" },
+        { id: "neumes", name: "MEI Neumes" }
+      ],
+      outputs: [
+        { id: "relax", name: "RelaxNG" },
+        { id: "odd", name: "Compiled ODD" }
+      ],
+      selectedSource: 0,
+      selectedCustomization: 0,
+      selectedOutput: 0
+    };
+  },
+  computed: {
+    buttonText() {
+      switch (this.processState) {
+        case 0:
+          return "Process";
+        case 1:
+          return "processing";
+        case 2:
+          return "Download";
+      }
+    },
+    processing() {
+      return this.processState === 1;
+    }
+  },
+  watch: {
+    selectedSource(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.processState = 0;
+      }
+    },
+    selectedCustomization(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.processState = 0;
+      }
+    },
+    selectedOutput(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.processState = 0;
+      }
+    }
+  }
 };
 </script>
 
