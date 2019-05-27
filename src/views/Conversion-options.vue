@@ -21,7 +21,7 @@
               <button type="button" v-on:click="convert" class="btn btn-primary">Convert</button>
             </div>
           </div>
-          <div class="parameterBox">
+          <div class="parameterBox" v-if="hasParameters">
             <h1><i class="icon icon-caret"></i>Conversion Steps and Parameters</h1>
             <div class="parametersList">
               <ConversionStep v-for="step in steps" :step="step" :label="step.label" :id="step.id" :key="step.id"/>
@@ -120,6 +120,15 @@ export default {
         if (output.id === this.$route.params.outputFormat) return output.href;
       }
       return "#";
+    },
+    hasParameters() {
+      const steps = this.steps;
+      for (const step of steps) {
+        if (step && step.parameters && step.parameters.length > 0) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 };
