@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import parser from "fast-xml-parser";
+import axios from "axios";
 
 const parserOptions = {
   attributeNamePrefix: "@_",
@@ -12,11 +13,47 @@ const parserOptions = {
   parseAttributeValue: true
 };
 
+const api = process.env.VUE_APP_WEBSERVICE_URL;
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    inputs: {}
+    inputs: {},
+    customizations: {},
+    // dummy data for now
+    customizationVersions: [
+      {
+        version: "Current Development Version",
+        date: "some date",
+        hash: "482220",
+        link: "commit/482220a54c0dc4da78b1591b99b542649514e618"
+      },
+      {
+        version: "MEI 4.0.1",
+        date: "2019-04-12",
+        hash: "5e43035",
+        link: "releases/tag/v4.0.1"
+      },
+      {
+        version: "MEI 3.0.0",
+        date: "2016-06-15",
+        hash: "86dbcaf",
+        link: "releases/tag/v3.0.0"
+      },
+      {
+        version: "MEI 2.1.1",
+        date: "2013",
+        hash: "b9dff53",
+        link: "releases/tag/v2.1.1"
+      },
+      {
+        version: "MEI 2.0.0",
+        date: "2012",
+        hash: "1233176",
+        link: "releases/tag/v2.0.0"
+      }
+    ]
   },
   mutations: {
     FETCH_INPUTS(state, inputs) {
@@ -32,6 +69,12 @@ export default new Vuex.Store({
       state.inputs[data.id].outputsLoaded = true;
       state.inputs[data.id].outputs = data.outputs;
       state.inputs = Object.assign({}, state.inputs);
+    },
+    SET_CUSTOMIZATIONS(state, conversions) {
+      state.customizations = conversions;
+    },
+    ADD_CUSTOMIZATION_VERSION(state, version) {
+      state.customizationVersions.push(version);
     }
   },
   getters: {
@@ -52,13 +95,19 @@ export default new Vuex.Store({
         return [];
       }
       return input.outputs;
+    },
+    customizations: state => {
+      return state.customizations;
+    },
+    customizationVersions: state => {
+      return state.customizationVersions;
     }
   },
   actions: {
     fetchInputs({ commit }) {
       return new Promise(resolve => {
         console.log("Fetching available input formats…");
-        fetch(process.env.VUE_APP_WEBSERVICE_URL + "Conversions/")
+        fetch(api + "Conversions/")
           .then(response => response.text()) //add error handling for failing requests
           .then(data => {
             let inputs = [];
@@ -156,6 +205,84 @@ export default new Vuex.Store({
             resolve();
           });
       });
+    },
+
+    fetchCustomizations({ commit }) {
+      return new Promise(resolve => {
+        fetch(api + "Customization/")
+          .then(response => response.text())
+          .then(data => {
+            const parsed = parser.parse(data, parserOptions);
+            const storedCustomizations = {};
+            if (
+              parsed["customizations"] &&
+              parsed["customizations"]["customization-setting"]
+            ) {
+              let settings = parsed["customizations"]["customization-setting"];
+              if (!Array.isArray(settings)) {
+                settings = [settings];
+              }
+              settings.forEach(setting => {
+                const id = setting.attr["@_id"];
+                let xmlCustomizations =
+                  setting["customizations"]["customization"];
+                if (!Array.isArray(xmlCustomizations)) {
+                  xmlCustomizations = [xmlCustomizations];
+                }
+                const customizations = xmlCustomizations.map(customization => {
+                  return {
+                    id: customization.attr["@_id"],
+                    name: customization.attr["@_name"],
+                    path: customization.attr["@_path"],
+                    type: customization.attr["@_type"]
+                  };
+                });
+                let xmlOutputFormats = setting["outputFormats"]["outputFormat"];
+                if (!Array.isArray(xmlOutputFormats)) {
+                  xmlOutputFormats = [xmlOutputFormats];
+                }
+                const outputFormats = xmlOutputFormats.map(outputFormat => {
+                  return {
+                    name: outputFormat.attr["@_name"]
+                  };
+                });
+                let xmlSources = setting["sources"]["source"];
+                if (!Array.isArray(xmlSources)) {
+                  xmlSources = [xmlSources];
+                }
+                const sources = xmlSources.map(source => {
+                  return {
+                    id: source.attr["@_id"],
+                    name: source.attr["@_name"],
+                    type: source.attr["@_type"],
+                    path: source.attr["@_path"]
+                  };
+                });
+                storedCustomizations[id] = {
+                  customizations,
+                  outputFormats,
+                  sources
+                };
+              });
+            }
+
+            commit("SET_CUSTOMIZATIONS", storedCustomizations);
+            resolve();
+          });
+      });
+    },
+
+    triggerCustomization(
+      store,
+      { settingId, sourceId, customizationId, outputFormat, formData }
+    ) {
+      const href = `${api}Customization/${settingId}/${sourceId}/${customizationId}/${outputFormat}/`;
+      return axios.post(href, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      // TODO: the result should be stored for a certain amount of time
     }
   }
 });

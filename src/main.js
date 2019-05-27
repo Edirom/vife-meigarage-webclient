@@ -20,3 +20,4 @@ document.vue = new Vue({
 }).$mount("#app");
 
 store.dispatch("fetchInputs");
+store.dispatch("fetchCustomizations");

@@ -7,55 +7,54 @@
       <div class="column col-12">
         <h1>MEI Customization Service</h1>
         <p>Select an MEI version and a customization to generate a custom MEI Schema</p>
+        <form id="customizationForm">
+          <div class="columns">
+            <div class="column col-4 col-lg-6 col-md-12">
+              <div class="optionsBox">
+                <h2>MEI Source</h2>
+                <div id="profileRadios" class="form-group">
+                  <div v-for="(source, index) in sources" :source="source" :key="source.id">
+                    <hr v-if="isLocal(source)"/>
+                    <label class="form-radio">
+                      <input type="radio" name="source" :value="index" v-model="selectedSource" :disabled="processing"/>
+                      <i class="form-icon"></i> {{ source.name }}
+                    </label>
+                    <input type="file" name="source_canonical_file" v-if="isLocal(source) && selectedSource === index"/>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div class="columns">
-          <div class="column col-4 col-lg-6 col-md-12">
-            <div class="optionsBox">
-              <h2>MEI Source</h2>
-              <div id="profileRadios" class="form-group">
-                <label class="form-radio" v-for="(source, index) in sources" :source="source" :key="source.id">
-                  <input type="radio" name="source" :value="index" v-model="selectedSource" :disabled="processing"/>
-                  <i class="form-icon"></i> {{ source.name }}
-                </label>
-                <hr/>
-                <label class="form-radio">
-                  <input type="radio" name="source" :value="sources.length" v-model="selectedSource" :disabled="processing"/>
-                  <i class="form-icon"></i> Local Source [filePicker]
-                </label>
+            <div class="column col-4 col-lg-6 col-md-12">
+              <div class="optionsBox">
+                <h2>Customization</h2>
+                <div id="customizationRadios" class="form-group">
+                  <div v-for="(customization, index) in customizations"
+                    :customization="customization" :key="customization.id">
+                    <hr v-if="isLocal(customization)"/>
+                    <label class="form-radio">
+                      <input type="radio" name="customization" :value="index" v-model="selectedCustomization" :disabled="processing"/>
+                      <i class="form-icon"></i> {{ customization.name }}
+                    </label>
+                    <input type="file" name="local_customization_file" v-if="isLocal(customization) && selectedCustomization === index"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column col-4 col-lg-12 col-md-12">
+              <div class="optionsBox">
+                <h2>Output</h2>
+                <div id="outputRadios" class="form-group">
+                  <label class="form-radio" v-for="(output, index) in outputs"
+                         :output="output" :key="output.id">
+                    <input type="radio" name="output" :value="index" v-model="selectedOutput" :disabled="processing"/>
+                    <i class="form-icon"></i> {{ output.name }}
+                  </label>
+                </div>
               </div>
             </div>
           </div>
-
-          <div class="column col-4 col-lg-6 col-md-12">
-            <div class="optionsBox">
-              <h2>Customization</h2>
-              <div id="customizationRadios" class="form-group">
-                <label class="form-radio" v-for="(customization, index) in customizations"
-                       :customization="customization" :key="customization.id">
-                  <input type="radio" name="customization" :value="index" v-model="selectedCustomization" :disabled="processing"/>
-                  <i class="form-icon"></i> {{ customization.name }}
-                </label>
-                <hr/>
-                <label class="form-radio">
-                  <input type="radio" name="customization" :value="customizations.length" v-model="selectedCustomization" :disabled="processing"/>
-                  <i class="form-icon"></i> Local Source [filePicker]
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="column col-4 col-lg-12 col-md-12">
-            <div class="optionsBox">
-              <h2>Output</h2>
-              <div id="outputRadios" class="form-group">
-                <label class="form-radio" v-for="(output, index) in outputs"
-                       :output="output" :key="output.id">
-                  <input type="radio" name="output" :value="index" v-model="selectedOutput" :disabled="processing"/>
-                  <i class="form-icon"></i> {{ output.name }}
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
+        </form>
 
         <div id="results">
           <div class="columns">
@@ -97,30 +96,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Current Development Version</td>
-                <td>some date</td>
-                <td><a href="https://github.com/music-encoding/music-encoding/commit/482220a54c0dc4da78b1591b99b542649514e618" target="_blank">482220a</a></td>
-              </tr>
-              <tr>
-                <td>MEI 4.0.1</td>
-                <td>2019-04-12</td>
-                <td><a href="https://github.com/music-encoding/music-encoding/releases/tag/v4.0.1" target="_blank">5e43035</a></td>
-              </tr>
-              <tr>
-                <td>MEI 3.0.0</td>
-                <td>2016-06-15</td>
-                <td><a href="https://github.com/music-encoding/music-encoding/releases/tag/v3.0.0" target="_blank">86dbcaf</a></td>
-              </tr>
-              <tr>
-                <td>MEI 2.1.1</td>
-                <td>2013</td>
-                <td><a href="https://github.com/music-encoding/music-encoding/releases/tag/v2.1.1" target="_blank">b9dff53</a></td>
-              </tr>
-              <tr>
-                <td>MEI 2.0.0</td>
-                <td>2012</td>
-                <td><a href="https://github.com/music-encoding/music-encoding/releases/tag/v3.0.0" target="_blank">1233176</a></td>
+              <tr v-for="version of customizationVersions" :key="version.hash" :version="version">
+                <td>{{ version.version }}</td>
+                <td>{{ version.date }}</td>
+                <td><a :href="'https://github.com/music-encoding/music-encoding/' + version.link" target="_blank">{{ version.hash }}</a></td>
               </tr>
             </tbody>
           </table>
@@ -180,46 +159,53 @@ export default {
   components: {
     Breadcrumb
   },
-  /*async getInitialData({this.$store, this.$route}) {
-    await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
-  },*/
   methods: {
     buttonClick() {
       switch (this.processState) {
-        case 0:
+        case 0: {
           this.processState++;
+          const form = document.getElementById("customizationForm");
+          const formData = new FormData(form);
+          formData.delete("source");
+          formData.delete("customization");
+          formData.delete("output");
+          this.$store
+            .dispatch("triggerCustomization", {
+              settingId: this.settingId,
+              sourceId: this.sources[this.selectedSource].id,
+              customizationId: this.customizations[this.selectedCustomization]
+                .id,
+              outputFormat: this.outputs[this.selectedOutput].name,
+              formData
+            })
+            .then(() => {
+              this.processState++;
+            })
+            .catch(reason => {
+              this.log.push(reason);
+              this.processState = 0;
+            });
           break;
+        }
         case 1:
           break;
         case 2:
           // TODO: trigger download
           break;
       }
+    },
+    isLocal(entity) {
+      return entity && entity.type && entity.type === "type_client-file";
     }
   },
   data() {
     return {
       processState: 0, // 0 = initial, 1 = processing, 2 = ready for download
-      sources: [
-        { id: "4.0.1", name: "MEI v4.0.1" },
-        { id: "3.0.0", name: "MEI v3.0.0" },
-        { id: "2.1.1", name: "MEI v2.1.1" },
-        { id: "2.0.0", name: "MEI v2.0.0" }
-      ],
-      customizations: [
-        { id: "all", name: "MEI All" },
-        { id: "anystart", name: "MEI All anyStart" },
-        { id: "cmn", name: "MEI CMN" },
-        { id: "mensural", name: "MEI Mensural" },
-        { id: "neumes", name: "MEI Neumes" }
-      ],
-      outputs: [
-        { id: "relax", name: "RelaxNG" },
-        { id: "odd", name: "Compiled ODD" }
-      ],
       selectedSource: 0,
       selectedCustomization: 0,
-      selectedOutput: 0
+      selectedOutput: 0,
+      settingId: "mei",
+      log: []
     };
   },
   computed: {
@@ -235,6 +221,29 @@ export default {
     },
     processing() {
       return this.processState === 1;
+    },
+    storedCustomizations() {
+      const store = this.$store.getters.customizations;
+      if (this.settingId in store) {
+        return store[this.settingId];
+      }
+      return {
+        customizations: [],
+        outputFormats: [],
+        sources: []
+      };
+    },
+    customizations() {
+      return this.storedCustomizations.customizations;
+    },
+    sources() {
+      return this.storedCustomizations.sources;
+    },
+    outputs() {
+      return this.storedCustomizations.outputFormats;
+    },
+    customizationVersions() {
+      return this.$store.getters.customizationVersions;
     }
   },
   watch: {
