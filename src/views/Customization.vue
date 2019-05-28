@@ -148,6 +148,7 @@
 <script>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
+import { download } from "@/util";
 
 export default {
   name: "customization",
@@ -173,7 +174,8 @@ export default {
               outputFormat: this.outputs[this.selectedOutput].name,
               formData
             })
-            .then(() => {
+            .then(downloadable => {
+              this.link = downloadable;
               this.processState++;
             })
             .catch(reason => {
@@ -185,7 +187,9 @@ export default {
         case 1:
           break;
         case 2:
-          // TODO: trigger download
+          if (this.link) {
+            download(this.link, false);
+          }
           break;
       }
     },
@@ -200,7 +204,8 @@ export default {
       selectedCustomization: 0,
       selectedOutput: 0,
       settingId: "mei",
-      log: []
+      log: [],
+      link: null
     };
   },
   computed: {

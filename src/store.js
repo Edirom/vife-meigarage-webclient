@@ -4,6 +4,8 @@ import Vuex from "vuex";
 import parser from "fast-xml-parser";
 import axios from "axios";
 
+import { responseToDownloadable } from "@/util";
+
 const parserOptions = {
   attributeNamePrefix: "@_",
   attrNodeName: "attr",
@@ -277,12 +279,25 @@ export default new Vuex.Store({
       { settingId, sourceId, customizationId, outputFormat, formData }
     ) {
       const href = `${api}Customization/${settingId}/${sourceId}/${customizationId}/${outputFormat}/`;
-      return axios.post(href, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
+      return new Promise((resolve, reject) => {
+        axios
+          .post(href, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
+          .then(result => {
+            if (result.data.length === 0) {
+              reject("Received empty file");
+              return;
+            }
+            // TODO: the result should be stored for a certain amount of time
+            resolve(responseToDownloadable(result));
+          })
+          .catch(reason => {
+            reject(reason);
+          });
       });
-      // TODO: the result should be stored for a certain amount of time
     }
   }
 });

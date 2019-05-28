@@ -38,6 +38,7 @@
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import axios from "axios";
 import ConversionStep from "@/components/ConversionStep.vue";
+import { responseToDownloadable, download } from "@/util";
 
 export default {
   name: "conversion-options",
@@ -62,26 +63,7 @@ export default {
           headers: { "Content-Type": "multipart/form-data" }
         })
         .then(function(response) {
-          //handle success
-
-          const blob = new Blob([response.data], { type: response.data.type });
-          const url = window.URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = url;
-
-          console.log("getting this back…");
-
-          const contentDisposition = response.headers["content-disposition"];
-          let fileName = "unknown";
-          if (contentDisposition) {
-            const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
-            if (fileNameMatch.length === 2) fileName = fileNameMatch[1];
-          }
-          link.setAttribute("download", fileName);
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-          window.URL.revokeObjectURL(url);
+          download(responseToDownloadable(response));
         })
         .catch(function(response) {
           //handle error
