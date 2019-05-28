@@ -65,21 +65,16 @@ export default {
       ],
       conversions: [
         {
-          name: "MEI 2.1 to MEI 3.0",
-          link: "/conversions/mei21/mei30"
+          name: "MEI 3.0 to MEI 4.0",
+          link: "/conversions/mei30/mei40"
         },
         {
-          name: "MusicXML to MEI",
-          link: "/conversions/musicxml/mei30"
+          name: "MusicXML (partwise) to MEI",
+          link: "/conversions/musicxml-partwise/mei40"
         },
         {
-          name: "MEI to PDF (coming soon)"
-        },
-        {
-          name: "MEI to Audio (coming soon)"
-        },
-        {
-          name: "Dummy"
+          name: "MusicXML (timewise) to MEI",
+          link: "/conversions/musicxml-timewise/mei40"
         }
       ],
       customizations: [
