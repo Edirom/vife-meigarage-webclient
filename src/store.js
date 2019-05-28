@@ -152,54 +152,54 @@ export default new Vuex.Store({
               parsed["conversions-paths"] &&
               parsed["conversions-paths"]["conversions-path"]
             ) {
-              outputs = parsed["conversions-paths"]["conversions-path"].map(
-                path => {
-                  if (!Array.isArray(path.conversion)) {
-                    path.conversion = [path.conversion];
-                  }
-                  const href = path.attr["@_xlink:href"];
-                  const steps = path.conversion.map(step => {
-                    const [label, format] = step.attr["@_id"]
-                      .split(":")
-                      .slice(5, 7);
-                    const id = encodeURI(format.split(",")[0]);
-                    const stepHref = step.attr["@_xlink:href"];
-                    if (!step["property"]) {
-                      step["property"] = [];
-                    }
-                    if (!Array.isArray(step["property"])) {
-                      step["property"] = [step["property"]];
-                    }
-                    const parameters = step["property"].map(param => {
-                      const type = param["type"];
-                      const label = param["property-name"];
-                      const parameter = {
-                        id: param.attr["@_id"],
-                        type,
-                        label
-                      };
-                      if (type === "array") {
-                        parameter.values = param["value"].split(",");
-                      }
-                      return parameter;
-                    });
-                    return {
-                      id,
-                      label,
-                      href: stepHref,
-                      parameters
-                    };
-                  });
-                  const target = steps[steps.length - 1];
-                  return {
-                    id: target.id,
-                    label: target.label,
-                    href,
-                    steps,
-                    input: inputID
-                  };
+              let paths = parsed["conversions-paths"]["conversions-path"];
+              if (!Array.isArray(paths)) {
+                paths = [paths];
+              }
+              outputs = paths.map(path => {
+                if (!Array.isArray(path.conversion)) {
+                  path.conversion = [path.conversion];
                 }
-              );
+                const href = path.attr["@_xlink:href"];
+                const steps = path.conversion.map(step => {
+                  const [label, format] = step.attr["@_id"]
+                    .split(":")
+                    .slice(5, 7);
+                  const id = encodeURI(format.split(",")[0]);
+                  if (!step["property"]) {
+                    step["property"] = [];
+                  }
+                  if (!Array.isArray(step["property"])) {
+                    step["property"] = [step["property"]];
+                  }
+                  const parameters = step["property"].map(param => {
+                    const type = param["type"];
+                    const label = param["property-name"];
+                    const parameter = {
+                      id: param.attr["@_id"],
+                      type,
+                      label
+                    };
+                    if (type === "array") {
+                      parameter.values = param["value"].split(",");
+                    }
+                    return parameter;
+                  });
+                  return {
+                    id,
+                    label,
+                    parameters
+                  };
+                });
+                const target = steps[steps.length - 1];
+                return {
+                  id: target.id,
+                  label: target.label,
+                  href,
+                  steps,
+                  input: inputID
+                };
+              });
             }
             commit("FETCH_OUTPUTS", { id: inputID, outputs: outputs });
             resolve();

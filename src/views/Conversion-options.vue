@@ -122,6 +122,9 @@ export default {
       return "#";
     },
     hasParameters() {
+      // backend gives us non-sense values, we know we do not have any so return false
+      return false;
+      /*
       const steps = this.steps;
       for (const step of steps) {
         if (step && step.parameters && step.parameters.length > 0) {
@@ -129,6 +132,7 @@ export default {
         }
       }
       return false;
+      */
     }
   }
 };
