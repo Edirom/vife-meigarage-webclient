@@ -3,6 +3,7 @@
     <header class="navbar">
       <section class="navbar-section">
         <a id="meiLink" href="http://music-encoding.org" target="_blank" class="btn btn-link"><img alt="Music Encoding Initiative" id="meiLogo" src="./assets/meilogo.png"></a>
+        <a id="home" href="/" class="btn btn-link"><img alt="MEI Garage" id="garageLogo" src="./assets/meigarage.logo.png"></a>
       </section>
       <section class="navbar-section">
         <a id="vifeLink" href="https://edirom.de" target="_blank" class="btn btn-link"><img alt="ViFE" id="vifeLogo" src="./assets/vife-logo.svg"></a>
@@ -43,6 +44,20 @@ header.navbar {
 
     #meiLogo {
       width: 3rem;
+    }
+  }
+
+  #home {
+    margin: 0;
+    padding: 0 1rem;
+    line-height: 1rem;
+    position: absolute;
+    top: .1rem;
+    left: 4rem;
+
+    #garageLogo {
+      width: 3rem;
+
     }
   }
 
