@@ -71,14 +71,9 @@
               <div id="logBox" class="columnBox">
                 <h2>Logs</h2>
                 <div id="logs">
-                  May 17 19:55:06 hobbes Console[25877]: DEPRECATED USE in libdispatch client: dispatch source activated with no event handler set; set a breakpoint on _dispatch_bug_deprecated to debug
-                  May 17 19:55:07 hobbes diagnosticd[25879]: Posting empty stream filter
-                  May 17 19:55:07 hobbes diagnosticd[25879]: no EOS device present
-                  May 17 19:55:07 hobbes diagnosticd[25879]: allowing Console (25877) access to stream due to admin status
-                  May 17 19:55:07 hobbes diagnosticd[25879]: Posting stream filter: "{
-                	    global = 30064771083;
-                	}"
-
+                  <div v-for="(entry, index) in log" :key="index" :entry="entry">
+                    {{ entry }}
+                  </div>
                 </div>
               </div>
             </div>
