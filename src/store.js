@@ -55,7 +55,9 @@ export default new Vuex.Store({
         hash: "1233176",
         link: "releases/tag/v2.0.0"
       }
-    ]
+    ],
+    inputsLoaded: false,
+    customizationsLoaded: false
   },
   mutations: {
     FETCH_INPUTS(state, inputs) {
@@ -72,8 +74,9 @@ export default new Vuex.Store({
       state.inputs[data.id].outputs = data.outputs;
       state.inputs = Object.assign({}, state.inputs);
     },
-    SET_CUSTOMIZATIONS(state, conversions) {
-      state.customizations = conversions;
+    SET_CUSTOMIZATIONS(state, customizations) {
+      state.customizations = customizations;
+      state.customizationsLoaded = true;
     },
     ADD_CUSTOMIZATION_VERSION(state, version) {
       state.customizationVersions.push(version);
