@@ -2,14 +2,9 @@
   <div class="columns">
 
     <div class="column col-12">
-      <h1>MEIGarage</h1>
+      <div class="logo"><img id="largeLogo" alt="MEI Garage" src="../assets/meigarage.logo.png"></div>
       <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-        mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-        quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo,
-        rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
-        Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
+        Welcome to the MEI Garage. Please select a task you would like to accomplish.
       </p>
     </div>
 
@@ -79,13 +74,16 @@ export default {
       ],
       customizations: [
         {
-          name: "MEI All"
+          name: "MEI Customization Service",
+          link: "/customization"
         },
         {
-          name: "MEI CMN (2013+)"
+          name: "MEI ProfileDrafter (helps to restrict MEI)",
+          href: "/profileDrafter.html"
         },
         {
-          name: "Local Customization File"
+          name: "MEI Comparison (compares MEI 4.0 with MEI 3.0)",
+          href: "https://music-encoding.org/archive/comparison-4.0.html"
         }
       ],
       configurations: [
@@ -108,5 +106,10 @@ export default {
 .column {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+.logo {
+  img {
+    max-height: 15vh;
+  }
 }
 </style>

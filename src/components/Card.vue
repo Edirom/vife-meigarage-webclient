@@ -15,7 +15,8 @@
                   <tr v-for="entry in firstFew" :entry="entry" :key="entry.name">
                     <td>
                       <router-link v-if="entry.link" :to="entry.link">{{entry.name}}</router-link>
-                      <span v-if="!entry.link">{{entry.name}}</span>
+                      <span v-if="!entry.link && !entry.href">{{entry.name}}</span>
+                      <a v-if="entry.href" :href="entry.href" target="_blank">{{ entry.name }}</a>
                     </td>
                   </tr>
                 </tbody>

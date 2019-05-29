@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <not-found v-if="notFound">
-        <router-link to="/customizations"></router-link>
+        <router-link to="/customization"></router-link>
       </not-found>
       <div v-else class="columns">
         <div class="column col-12">
