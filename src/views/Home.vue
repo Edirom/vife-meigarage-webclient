@@ -31,9 +31,9 @@
               <tr>
                 <td>MEI to PDF (coming soon)</td>
               </tr>
-              <tr>
+              <!--<tr>
                 <td>MEI to Audio (coming soon)</td>
-              </tr>
+              </tr>-->
             </tbody>
           </table>
           <router-link to="/conversions" class="btn btn-sm float-right seeAllButton">See all</router-link>
@@ -55,18 +55,18 @@
             </tr>
             </thead>
             <tbody>
+              <tr>
+                <td><router-link to="/customization">MEI Customization Service</router-link></td>
+              </tr>
             <tr>
-              <td>MEI All</td>
+              <td><a href="/profileDrafter.html" target="_blank">MEI ProfileDrafter</a> (helps to restrict MEI)</td>
             </tr>
             <tr>
-              <td>MEI CMN (2013+)</td>
-            </tr>
-            <tr>
-              <td>Local Customization File</td>
+              <td><a href="https://music-encoding.org/archive/comparison-4.0.html" target="_blank">MEI Comparison</a> (compares MEI 4.0 with MEI 3.0)</td>
             </tr>
             </tbody>
           </table>
-          <router-link to="/customization" class="btn btn-sm float-right seeAllButton">See all</router-link>
+          <router-link to="/customization" class="btn btn-sm float-right seeAllButton">Customize MEI</router-link>
         </div>
       </div>
     </div>
