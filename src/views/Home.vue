@@ -23,10 +23,10 @@
             </thead>
             <tbody>
             <tr>
-              <td><router-link to="/conversions/mei21/mei30">MEI 2.1 to MEI 3.0</router-link></td>
+              <td><router-link to="/conversions/mei30/mei40">MEI 3.0 (2016) to MEI 4.0 (2018)</router-link></td>
             </tr>
               <tr>
-                <td><router-link to="/conversions/musicxml/mei30">MusicXML to MEI</router-link></td>
+                <td><router-link to="/conversions/musicxml-partwise/mei40">MusicXML (partwise) to MEI 4.0 (2018)</router-link></td>
               </tr>
               <tr>
                 <td>MEI to PDF (coming soon)</td>
@@ -96,7 +96,8 @@
               </tr>
             </tbody>
           </table>
-          <router-link to="/validation" class="btn btn-sm float-right seeAllButton">See all</router-link>
+          <!--<router-link to="/validation" class="btn btn-sm float-right seeAllButton">See all</router-link>-->
+          <button class="btn btn-sm float-right seeAllButton">coming soon</button>
         </div>
       </div>
     </div>
@@ -126,7 +127,8 @@
               </tr>
             </tbody>
           </table>
-          <router-link to="/configuration" class="btn btn-sm float-right seeAllButton">See all</router-link>
+          <!--<router-link to="/configuration" class="btn btn-sm float-right seeAllButton">See all</router-link>-->
+          <button class="btn btn-sm float-right seeAllButton">coming soon</button>
         </div>
       </div>
     </div>

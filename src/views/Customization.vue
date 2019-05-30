@@ -111,11 +111,11 @@
             <h1>REST</h1>
             <p>This customization service is available through a RESTful API. Please use the
               following POST:</p>
-              <div class="restURL">https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala</div>
-            <p><a onclick="alert('Link zur Swagger-Dokumentation')">API Documentation</a></p>
+              <div class="restURL">https://meigarage.edirom.de/ege-webservice/Customization/mei/mei401/c-mei-all/RelaxNG/</div>
+            <!--<p><a onclick="alert('Link zur Swagger-Dokumentation')">API Documentation</a></p>-->
           </div>
 
-          <div class="internalComment">
+          <!--<div class="internalComment">
             <h1>Interne Hinweise zur Umsetzung</h1>
             <p>
               Alle Kombinationen oberhalb der Striche bei Source und Customization können m.E.
@@ -146,7 +146,7 @@
               kann. Ggf. kann das erstmal wegbleiben; zumindest muss das erstmal
               noch genauer durchdacht und dann hier entsprechend beschrieben werden.
             </p>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>

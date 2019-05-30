@@ -25,12 +25,12 @@ export default new Vuex.Store({
     customizations: {},
     // dummy data for now
     customizationVersions: [
-      {
-        version: "Current Development Version",
-        date: "some date",
-        hash: "482220",
-        link: "commit/482220a54c0dc4da78b1591b99b542649514e618"
-      },
+      //{
+      //  version: "Current Development Version",
+      //  date: "some date",
+      //  hash: "482220",
+      //  link: "commit/482220a54c0dc4da78b1591b99b542649514e618"
+      //},
       {
         version: "MEI 4.0.1",
         date: "2019-04-12",
