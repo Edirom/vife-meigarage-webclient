@@ -17,26 +17,26 @@ const checkInputsLoaded = (to, from, next) => {
   target = target[target.length - 1];
 
   function proceed() {
-    console.log("proceeding");
+    //console.log("proceeding");
     if (target in store.state.inputs) {
-      console.log("will load now");
+      //console.log("will load now");
       next();
     }
   }
   if (!(target in store.state.inputs)) {
-    console.log("I need to load first");
+    //console.log("I need to load first");
     store.watch(
       state => {
-        console.log("\n---coming back");
-        console.log(state);
-        console.log(store.state.inputs);
+        //console.log("\n---coming back");
+        //console.log(state);
+        //console.log(store.state.inputs);
         if (target in state.inputs) {
-          console.log("-------halllo-------");
+          //console.log("-------halllo-------");
           proceed();
         }
       },
       value => {
-        console.log("change is now happening: " + value);
+        //console.log("change is now happening: " + value);
         if (value === true) {
           proceed();
         }
@@ -110,6 +110,11 @@ export default new Router({
       path: "/configuration",
       name: "configuration",
       component: () => import("./views/Configuration.vue")
+    },
+    {
+      path: "/profiler",
+      name: "profiler",
+      component: () => import("./views/Profiler.vue")
     }
   ]
 });

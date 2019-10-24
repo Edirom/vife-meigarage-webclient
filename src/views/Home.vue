@@ -59,7 +59,7 @@
                 <td><router-link to="/customization">MEI Customization Service</router-link></td>
               </tr>
             <tr>
-              <td><a href="/profileDrafter.html" target="_blank">MEI ProfileDrafter</a> (helps to restrict MEI)</td>
+              <td><router-link to="/profiler">MEI ProfileDrafter</router-link> (helps to restrict MEI)</td>
             </tr>
             <tr>
               <td><a href="https://music-encoding.org/archive/comparison-4.0.html" target="_blank">MEI Comparison</a> (compares MEI 4.0 with MEI 3.0)</td>

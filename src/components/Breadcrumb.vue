@@ -32,6 +32,9 @@
       <li v-if="$route.path == '/configuration'" class="breadcrumb-item">
         <router-link to="/configuration">Data Configuration</router-link>
       </li>
+      <li v-if="$route.path == '/profiler'" class="breadcrumb-item">
+        <router-link to="/profiler">MEI ProfileDrafter</router-link>
+      </li>
     </ul>
   </div>
 </template>
