@@ -8,10 +8,10 @@
 #########################################
 # 1. build the vife web client with npm
 #########################################
-FROM alpine:3.7 as builder
+FROM alpine as builder
 LABEL maintainer="Daniel Röwenstrunk for the ViFE"
 
-RUN apk add --update nodejs
+RUN apk add --update nodejs npm
 RUN mkdir -p /app
 WORKDIR /app
 COPY . .
