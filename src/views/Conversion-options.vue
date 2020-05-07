@@ -70,9 +70,11 @@ export default {
       if (!file || file.size === 0) {
         return;
       }
+
       axios
         .post(this.href, formData, {
-          headers: { "Content-Type": "multipart/form-data" }
+          headers: { "Content-Type": "multipart/form-data" },
+          responseType: 'blob'
         })
         .then(function(response) {
           download(responseToDownloadable(response));

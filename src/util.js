@@ -1,12 +1,14 @@
 "use strict";
 
 export const responseToDownloadable = httpResponse => {
-  const blob = new Blob([httpResponse.data], { type: httpResponse.data.type });
-  const url = window.URL.createObjectURL(blob);
+
+  const url = window.URL.createObjectURL(httpResponse.data);
 
   const contentDisposition = httpResponse.headers["content-disposition"];
+
   let fileName = "unknown";
   if (contentDisposition) {
+
     const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
     if (fileNameMatch.length === 2) fileName = fileNameMatch[1];
   }

@@ -541,7 +541,8 @@ export default new Vuex.Store({
           .post(href, formData, {
             headers: {
               "Content-Type": "multipart/form-data"
-            }
+            },
+            responseType: 'blob'
           })
           .then(result => {
             if (result.data.length === 0) {
