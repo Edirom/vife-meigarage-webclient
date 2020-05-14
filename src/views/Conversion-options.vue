@@ -119,16 +119,17 @@ export default {
     },
     hasParameters() {
       // backend gives us non-sense values, we know we do not have any so return false
-      return false;
-      /*
+      // return false;
+
       const steps = this.steps;
       for (const step of steps) {
+        //  && !(step.parameters.length === 1 && step.parameters[0].id === 'de.edirom.meigarage.mei.profileNames')
         if (step && step.parameters && step.parameters.length > 0) {
           return true;
         }
       }
       return false;
-      */
+
     },
     isLoading() {
       return !this.$store.state.inputsLoaded;
