@@ -9,7 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "browserslist": "^4.16.0",
     "caniuse-lite": "^1.0.30001173",
     "fast-xml-parser": "^3.17.6",
