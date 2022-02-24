@@ -14,7 +14,6 @@ LABEL maintainer="Daniel Röwenstrunk for the ViFE"
 WORKDIR /app
 COPY . .
 RUN npm install \
-    npm rebuild node-sass \
     && npm run build
 
 
