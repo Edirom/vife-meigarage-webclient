@@ -8,7 +8,7 @@
 #########################################
 # 1. build the vife web client with npm
 #########################################
-FROM node:lts-alpine as builder
+FROM node:14-alpine3.13 as builder
 LABEL maintainer="Daniel Röwenstrunk for the ViFE"
 
 WORKDIR /app
