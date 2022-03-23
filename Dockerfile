@@ -8,22 +8,19 @@
 #########################################
 # 1. build the vife web client with npm
 #########################################
-FROM alpine as builder
+FROM node:14-alpine3.13 as builder
 LABEL maintainer="Daniel Röwenstrunk for the ViFE"
 
-RUN apk add --update nodejs npm
-RUN mkdir -p /app
 WORKDIR /app
 COPY . .
 RUN npm install \
-    npm rebuild node-sass \
     && npm run build
 
 
 #########################################
 # 2. run the nginx
 #########################################
-FROM nginx:alpine
+FROM nginx:stable-alpine
 LABEL maintainer="Daniel Röwenstrunk for the ViFE"
 
 # Copy the respective nginx configuration files
