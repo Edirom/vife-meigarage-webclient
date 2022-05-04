@@ -4,7 +4,7 @@
 
 ## Install using Docker
 
-You can get the Docker image created with the GitHub action using `docker pull edirom/vife-meigarage-webclient`, the current development version is available using `docker pull edirom/vife-meigarage-webclient:dev`.
+You can get the Docker image created with the GitHub action using `docker pull edirom/vife-meigarage-webclient`, the current development version is available using `docker pull edirom/vife-meigarage-webclient:dev`. You can run it using `docker run -p 8080:8080 edirom/vife-meigarage-webclient` and point your browser to `http://localhost:8080`.
 
 ## Project setup
 ```
