@@ -347,7 +347,7 @@ export default {
         //using ege-webservice api to turn odd into rng and supply this result
         const formData = new FormData();
         var xmlBlob = new Blob([xml]);
-        formData.append("local_customization_file", xmlBlob, filename);
+        formData.append("local_customization_file", xmlBlob, "MEI-customization-" + date.substr(0, 19) + ".rng");
         this.$store
           .dispatch("triggerCustomization", {
             settingId: "mei",
