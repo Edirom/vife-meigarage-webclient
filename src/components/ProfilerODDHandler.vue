@@ -331,7 +331,6 @@ export default {
       button.removeAttribute("disabled");
 
       let buttonrng = document.getElementById("downloadRNG");
-      buttonrng.removeAttribute("disabled");
 
       try {
         let customization = customizations[this.activeCustomizationName];
@@ -357,6 +356,7 @@ export default {
             formData: formData,
           })
           .then((downloadable) => {
+            buttonrng.removeAttribute("disabled");
             buttonrng.setAttribute("href", downloadable.url);
             buttonrng.setAttribute(
               "download",
