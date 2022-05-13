@@ -16,7 +16,7 @@
         <a id="downloadODD" href="" disabled download="MEI-Customization.odd" class="btn btn-action btn-link btn-sm"><i class="icon icon-download"></i> Download ODD</a>
       </div>
       <div>
-        <button id="downloadRNG" disabled download="MEI-Customization.rng" class="btn btn-action btn-link btn-sm"><i class="icon icon-download"></i> Download RelaxNG</button>
+        <a id="downloadRNG" href="" disabled download="MEI-Customization.rng" class="btn btn-action btn-link btn-sm"><i class="icon icon-download"></i> Download RelaxNG</a>
       </div>
       <div>
         <button id="uploadODD" v-on:click="uploadODD()" class="btn btn-action btn-link btn-sm"><i class="icon icon-upload"></i> Upload ODD</i></button>
@@ -344,25 +344,25 @@ export default {
           "download",
           "MEI-customization-" + date.substr(0, 19) + ".odd"
         );
-        //todo: use ege-webservice api to turn odd into rng and supply this result
+        //using ege-webservice api to turn odd into rng and supply this result
         const formData = new FormData();
-        let rngresult = this.$store
+        var xmlBlob = new Blob([xml]);
+        formData.append("local_customization_file", xmlBlob, filename);
+        this.$store
           .dispatch("triggerCustomization", {
             settingId: "mei",
             sourceId: "mei401",
-            customizationId: "c-local",
+            customizationId: "c-mei-local",
             outputFormat: "RelaxNG",
-            formData: fullString,
+            formData: formData,
           })
-          .catch((reason) => {
-            this.log.push(reason);
-            this.processState = 0;
-          }).result;
-        buttonrng.setAttribute("href", rngresult);
-        buttonrng.setAttribute(
-          "download",
-          "MEI-customization-" + date.substr(0, 19) + ".rng"
-        );
+          .then((downloadable) => {
+            buttonrng.setAttribute("href", downloadable.url);
+            buttonrng.setAttribute(
+              "download",
+              "MEI-customization-" + date.substr(0, 19) + ".rng"
+            );
+          });
       } catch (err) {
         console.log("not ready yet: " + err);
       }
