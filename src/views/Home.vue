@@ -29,7 +29,8 @@
                 <td><router-link to="/conversions/musicxml-partwise/mei40">MusicXML (partwise) to MEI 4.0 (2018)</router-link></td>
               </tr>
               <tr>
-                <td>MEI to PDF (coming soon)</td>
+                <!-- TODO -->
+                <td><router-link to="/conversions/mei40/pdf-lilypond">MEI 4.0 (2018) to PDF Score (LilyPond)</router-link></td>
               </tr>
               <!--<tr>
                 <td>MEI to Audio (coming soon)</td>
