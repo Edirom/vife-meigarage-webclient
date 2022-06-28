@@ -19,7 +19,7 @@
         <a id="downloadRNG" href="" disabled download="MEI-Customization.rng" class="btn btn-action btn-link btn-sm"><i class="icon icon-download"></i> Download RelaxNG</a>
       </div>
       <div>
-        <button id="uploadODD" v-on:click="uploadODD()" disabled class="btn btn-action btn-link btn-sm" title="coming soon"><i class="icon icon-upload"></i> Upload ODD</i></button>
+        <button id="uploadODD" v-on:click="uploadODD()" disabled class="btn btn-action btn-link btn-sm" title="coming soon"><i class="icon icon-upload"></i> Upload ODD</button>
       </div>
     </div>
   </div>
