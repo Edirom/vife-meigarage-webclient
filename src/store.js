@@ -5,6 +5,8 @@ import axios from "axios";
 
 import { responseToDownloadable } from "@/util";
 
+import { version } from "../package.json";
+
 const {XMLParser} = require('fast-xml-parser');
 
 const parserOptions = {
@@ -19,6 +21,7 @@ const parserOptions = {
 const parser = new XMLParser(parserOptions);
 const api = process.env.VUE_APP_WEBSERVICE_URL;
 const oddApi = process.env.VUE_APP_ODD_API_URL;
+const packageVersion = process.env.VUE_APP_VERSION;
 
 /* Vue.use(Vuex); */
 
@@ -75,7 +78,8 @@ export default new createStore({
       activeCustomization: "mei-all",
       customModifications: false,
       maintenanceMode: false,
-    }
+    },
+    packageVersion: version
   },
   mutations: {
     FETCH_INPUTS(state, inputs) {
@@ -362,6 +366,9 @@ export default new createStore({
     },
     profilerActiveCustomization: state => {
       return state.profiler.activeCustomization;
+    },
+    appVersion: (state) => {
+      return state.packageVersion
     }
   },
   actions: {
