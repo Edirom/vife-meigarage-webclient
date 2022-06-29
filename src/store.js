@@ -373,14 +373,10 @@ export default new createStore({
           .then(data => {
             let inputs = [];
             const parsed = parser.parse(data);
-            console.log("Parsed the data");
-            console.log(parsed);
             if (
               parsed["input-data-types"] &&
               parsed["input-data-types"]["input-data-type"]
             ) {
-              console.log(parsed["input-data-types"]["input-data-type"]);
-              console.log(parsed["input-data-types"]["input-data-type"]);
               inputs = parsed["input-data-types"]["input-data-type"].map(
                 dataType => {
                   // eslint-disable-next-line no-unused-vars
