@@ -1,10 +1,11 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import { createStore } from 'vuex';
 
-import parser from "fast-xml-parser";
 import axios from "axios";
 
 import { responseToDownloadable } from "@/util";
+
+const {XMLParser} = require('fast-xml-parser');
 
 const parserOptions = {
   attributeNamePrefix: "@_",
@@ -15,12 +16,13 @@ const parserOptions = {
   parseAttributeValue: true
 };
 
+const parser = new XMLParser(parserOptions);
 const api = process.env.VUE_APP_WEBSERVICE_URL;
 const oddApi = process.env.VUE_APP_ODD_API_URL;
 
-Vue.use(Vuex);
+/* Vue.use(Vuex); */
 
-export default new Vuex.Store({
+export default new createStore({
   state: {
     inputs: {},
     customizations: {},
@@ -370,17 +372,21 @@ export default new Vuex.Store({
           .then(response => response.text()) //add error handling for failing requests
           .then(data => {
             let inputs = [];
-            const parsed = parser.parse(data, parserOptions);
+            const parsed = parser.parse(data);
+            console.log("Parsed the data");
+            console.log(parsed);
             if (
               parsed["input-data-types"] &&
               parsed["input-data-types"]["input-data-type"]
             ) {
+              console.log(parsed["input-data-types"]["input-data-type"]);
+              console.log(parsed["input-data-types"]["input-data-type"]);
               inputs = parsed["input-data-types"]["input-data-type"].map(
                 dataType => {
                   // eslint-disable-next-line no-unused-vars
-                  const [_, label, mime] = dataType.attr["@_id"].split(":");
+                  const [_, label, mime] = dataType["@_id"].split(":");
                   const [id, mimetype] = mime.split(",");
-                  const targetsDef = dataType.attr["@_xlink:href"];
+                  const targetsDef = dataType["@_xlink:href"];
                   return {
                     id,
                     mimetype,
@@ -406,7 +412,7 @@ export default new Vuex.Store({
           .then(response => response.text()) //add error handling for failing requests
           .then(data => {
             let outputs = [];
-            const parsed = parser.parse(data, parserOptions);
+            const parsed = parser.parse(data);
             if (
               parsed["conversions-paths"] &&
               parsed["conversions-paths"]["conversions-path"]
@@ -419,9 +425,9 @@ export default new Vuex.Store({
                 if (!Array.isArray(path.conversion)) {
                   path.conversion = [path.conversion];
                 }
-                const href = path.attr["@_xlink:href"];
+                const href = path["@_xlink:href"];
                 const steps = path.conversion.map(step => {
-                  const [label, format] = step.attr["@_id"]
+                  const [label, format] = step["@_id"]
                     .split(":")
                     .slice(5, 7);
                   const id = encodeURI(format.split(",")[0]);
@@ -435,7 +441,7 @@ export default new Vuex.Store({
                     const type = param["type"];
                     const label = param["property-name"];
                     const parameter = {
-                      id: param.attr["@_id"],
+                      id: param["@_id"],
                       type,
                       label
                     };
@@ -471,7 +477,7 @@ export default new Vuex.Store({
         fetch(api + "Customization/")
           .then(response => response.text())
           .then(data => {
-            const parsed = parser.parse(data, parserOptions);
+            const parsed = parser.parse(data);
             const storedCustomizations = {};
             if (
               parsed["customizations"] &&
@@ -482,7 +488,7 @@ export default new Vuex.Store({
                 settings = [settings];
               }
               settings.forEach(setting => {
-                const id = setting.attr["@_id"];
+                const id = setting["@_id"];
                 let xmlCustomizations =
                   setting["customizations"]["customization"];
                 if (!Array.isArray(xmlCustomizations)) {
@@ -490,10 +496,10 @@ export default new Vuex.Store({
                 }
                 const customizations = xmlCustomizations.map(customization => {
                   return {
-                    id: customization.attr["@_id"],
-                    name: customization.attr["@_name"],
-                    path: customization.attr["@_path"],
-                    type: customization.attr["@_type"]
+                    id: customization["@_id"],
+                    name: customization["@_name"],
+                    path: customization["@_path"],
+                    type: customization["@_type"]
                   };
                 });
                 let xmlOutputFormats = setting["outputFormats"]["outputFormat"];
@@ -502,7 +508,7 @@ export default new Vuex.Store({
                 }
                 const outputFormats = xmlOutputFormats.map(outputFormat => {
                   return {
-                    name: outputFormat.attr["@_name"]
+                    name: outputFormat["@_name"]
                   };
                 });
                 let xmlSources = setting["sources"]["source"];
@@ -511,10 +517,10 @@ export default new Vuex.Store({
                 }
                 const sources = xmlSources.map(source => {
                   return {
-                    id: source.attr["@_id"],
-                    name: source.attr["@_name"],
-                    type: source.attr["@_type"],
-                    path: source.attr["@_path"]
+                    id: source["@_id"],
+                    name: source["@_name"],
+                    type: source["@_type"],
+                    path: source["@_path"]
                   };
                 });
                 storedCustomizations[id] = {
