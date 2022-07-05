@@ -8,6 +8,7 @@
     <p>If you would like to contribute to the MEI Garage – perhaps by adding another transformation or tool – please <a href="https://music-encoding.org/community/community-contacts.html" target="_blank">contact</a> us.</p>
     <p>The MEI Garage, and all data operations done with it, are provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose or noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.</p>
     <p>If you notice problems of any conversion, script or tool offered by the MEI Garage, please reach out and help us to remedy that flaw, for the benefit of all other users of these tools, both inside and outside the MEI Garage context. Thanks!</p>
+    <p>The currently used webclient version is {{ $store.getters.appVersion }}.</p>
   </div>
 </template>
 
