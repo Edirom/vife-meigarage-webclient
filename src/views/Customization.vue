@@ -26,7 +26,7 @@
                         <input type="radio" name="source" :value="index" v-model="selectedSource" :disabled="processing"/>
                         <i class="form-icon"></i> {{ source.name }}
                       </label>
-                      <input type="file" name="source_canonical_file" v-if="isLocal(source) && selectedSource === index"/>
+                      <input type="file" name="source_canonical_file" v-if="isLocal(source) && selectedSource === index" @change="handleFileChange"/>
                     </div>
                   </div>
                 </div>
@@ -43,7 +43,7 @@
                         <input type="radio" name="customization" :value="index" v-model="selectedCustomization" :disabled="processing"/>
                         <i class="form-icon"></i> {{ customization.name }}
                       </label>
-                      <input type="file" name="local_customization_file" v-if="isLocal(customization) && selectedCustomization === index"/>
+                      <input type="file" name="local_customization_file" v-if="isLocal(customization) && selectedCustomization === index"  @change="handleFileChange"/>
                     </div>
                   </div>
                 </div>
@@ -207,6 +207,9 @@ export default {
     },
     isLocal(entity) {
       return entity && entity.type && entity.type === "type_client-file";
+    },
+    handleFileChange() {
+      this.processState = 0;
     }
   },
   data() {
