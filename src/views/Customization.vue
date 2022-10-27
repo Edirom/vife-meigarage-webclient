@@ -13,7 +13,7 @@
         </div>
         <div class="column col-12">
           <h1>MEI Customization Service</h1>
-          <p>Select an MEI version and a customization to generate a custom MEI Schema</p>
+          <p>Select a published MEI version and a respective customization to generate a custom MEI Schema in RelaxNG or Compiled ODD format. You can use a local canonicalized version of MEI (in ODD format) and a local RelaxNG customization as well. The customizations refer to the respective MEI versions. Currently, when using a local MEI source a corresponding local customization needs to be selected.</p>
           <form id="customizationForm">
             <div class="columns">
               <div class="column col-4 col-lg-6 col-md-12">
