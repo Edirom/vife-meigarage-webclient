@@ -11,6 +11,10 @@
 FROM node:alpine as builder
 LABEL maintainer="Daniel Röwenstrunk for the ViFE"
 
+ARG VUE_APP_WEBSERVICE_URL=https://meigarage.edirom.de/ege-webservice/
+ENV VUE_APP_WEBSERVICE_URL=$VUE_APP_WEBSERVICE_URL
+
+
 WORKDIR /app
 COPY . .
 RUN npm install \
