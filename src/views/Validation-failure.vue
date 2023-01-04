@@ -2,96 +2,96 @@
   <div>
     <div class="columns">
       <div class="column col-12">
-        <Breadcrumb/>
+        <Breadcrumb />
       </div>
       <div class="column col-12">
         <h1>Validation</h1>
-        <p>Validating <span class="filename">FILENAME</span> against <span class="format">{{format}}</span>
-          in version <span class="version">{{version}}</span></p>
+        <p>
+          Validating <span class="filename">FILENAME</span> against
+          <span class="format">{{ format }}</span> in version
+          <span class="version">{{ version }}</span>
+        </p>
 
-          <div class="viewBox">
-            <div class="viewBoxInner">
-              <h1>Failure</h1>
-              <i class="icon icon-4x icon-cross"></i>
-              <p>Your file is not valid.</p>
+        <div class="viewBox">
+          <div class="viewBoxInner">
+            <h1>Failure</h1>
+            <i class="icon icon-4x icon-cross"></i>
+            <p>Your file is not valid.</p>
+          </div>
+        </div>
+
+        <div class="resultsBox">
+          <h1>Detailed Validation Results</h1>
+          <div class="columns">
+            <div class="column col-6">
+              <h2>Errors (<span id="errorCount">14</span>)</h2>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>message</th>
+                    <th>line</th>
+                  </tr>
+                </thead>
+                <tbody id="errors">
+                  <tr>
+                    <td>element "blub" not allowed anywhere; expected the…</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td>element "blub" not allowed anywhere; expected the…</td>
+                    <td>14</td>
+                  </tr>
+                  <tr>
+                    <td>element "blub" not allowed anywhere; expected the…</td>
+                    <td>110</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="column col-6">
+              <h2>Warnings (<span id="warningCount">7</span>)</h2>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>message</th>
+                    <th>line</th>
+                  </tr>
+                </thead>
+                <tbody id="warnings">
+                  <tr>
+                    <td>element "blub" not allowed anywhere; expected the…</td>
+                    <td>10</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
+        </div>
 
-          <div class="resultsBox">
-            <h1>Detailed Validation Results</h1>
-            <div class="columns">
-              <div class="column col-6">
-                <h2>Errors (<span id="errorCount">14</span>)</h2>
-                <table class="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>message</th>
-                      <th>line</th>
-                    </tr>
-                  </thead>
-                  <tbody id="errors">
-                    <tr>
-                      <td>element "blub" not allowed anywhere; expected the…</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>element "blub" not allowed anywhere; expected the…</td>
-                      <td>14</td>
-                    </tr>
-                    <tr>
-                      <td>element "blub" not allowed anywhere; expected the…</td>
-                      <td>110</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="column col-6">
-                <h2>Warnings (<span id="warningCount">7</span>)</h2>
-                <table class="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>message</th>
-                      <th>line</th>
-                    </tr>
-                  </thead>
-                  <tbody id="warnings">
-                    <tr>
-                      <td>element "blub" not allowed anywhere; expected the…</td>
-                      <td>10</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+        <p class="additionalInfo">
+          This results page will be available for
+          <span id="remainingTime">two hours</span>. After that, you will be
+          redirected to the options page, and we will delete your uploaded file
+          from our servers automatically.
+        </p>
 
-
-          <p class="additionalInfo">
-            This results page will be available for
-            <span id="remainingTime">two hours</span>. After that, you will be
-            redirected to the options page, and we will delete your uploaded file
-            from our servers automatically.
+        <div class="internalComment">
+          <h1>Interne Hinweise</h1>
+          <p>
+            Solange wir nicht wissen, in welcher Form die Validierungsergebnisse
+            zurückkommen, ist es auch ziemlich schwierig, hier eine
+            Ergebnisseite zu basteln. Das ganze ist also noch ziemlich flexibel…
           </p>
-
-          <div class="internalComment">
-            <h1>Interne Hinweise</h1>
-            <p>
-              Solange wir nicht wissen, in welcher Form die
-              Validierungsergebnisse zurückkommen, ist es auch ziemlich schwierig,
-              hier eine Ergebnisseite zu basteln. Das ganze ist also noch
-              ziemlich flexibel…
-            </p>
-            <p>
-              Ich bin noch unsicher, ob wir auch eine Seite brauchen, falls es nur
-              Warnungen, aber keine Fehlermeldungen gibt. Das tritt eigentlich nur
-              bei Schematron auf, und dürfte etwas verwirrend sein. Mein Vorschlag
-              für den ersten Anlauf der Garage wäre also, das hier auf der
-              Fehlerseite abzuhandeln. Wenn jemand gewillt ist, Warnungen zu
-              akzeptieren, wird er das Ergebnis auch interpretieren können…
-            </p>
-            <p>Siehe auch die Hinweise auf der Seite Validation-success.vue</p>
-          </div>
-
+          <p>
+            Ich bin noch unsicher, ob wir auch eine Seite brauchen, falls es nur
+            Warnungen, aber keine Fehlermeldungen gibt. Das tritt eigentlich nur
+            bei Schematron auf, und dürfte etwas verwirrend sein. Mein Vorschlag
+            für den ersten Anlauf der Garage wäre also, das hier auf der
+            Fehlerseite abzuhandeln. Wenn jemand gewillt ist, Warnungen zu
+            akzeptieren, wird er das Ergebnis auch interpretieren können…
+          </p>
+          <p>Siehe auch die Hinweise auf der Seite Validation-success.vue</p>
+        </div>
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@ import Breadcrumb from "@/components/Breadcrumb.vue";
 export default {
   name: "validation-failure",
   components: {
-    Breadcrumb
+    Breadcrumb,
   },
   computed: {
     format() {
@@ -113,8 +113,8 @@ export default {
 
     version() {
       return this.$route.params.version;
-    }
-  }
+    },
+  },
 };
 </script>
 

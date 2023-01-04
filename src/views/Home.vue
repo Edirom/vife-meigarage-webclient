@@ -1,10 +1,16 @@
 <template>
   <div class="columns">
-
     <div class="column col-12">
-      <h1><img id="largeLogo" alt="MEI Garage" src="../assets/meigarage.logo.png"></h1>
+      <h1>
+        <img
+          id="largeLogo"
+          alt="MEI Garage"
+          src="../assets/meigarage.logo.png"
+        />
+      </h1>
       <p>
-        Welcome to the MEI Garage. Please select a task you would like to accomplish.
+        Welcome to the MEI Garage. Please select a task you would like to
+        accomplish.
       </p>
     </div>
 
@@ -22,22 +28,38 @@
               </tr>
             </thead>
             <tbody>
-            <tr>
-              <td><router-link to="/conversions/mei30/mei40">MEI 3.0 (2016) to MEI 4.0 (2018)</router-link></td>
-            </tr>
               <tr>
-                <td><router-link to="/conversions/musicxml-partwise/mei40">MusicXML (partwise) to MEI 4.0 (2018)</router-link></td>
+                <td>
+                  <router-link to="/conversions/mei30/mei40"
+                    >MEI 3.0 (2016) to MEI 4.0 (2018)</router-link
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <router-link to="/conversions/musicxml-partwise/mei40"
+                    >MusicXML (partwise) to MEI 4.0 (2018)</router-link
+                  >
+                </td>
               </tr>
               <tr>
                 <!-- TODO -->
-                <td><router-link to="/conversions/mei40/pdf-lilypond">MEI 4.0 (2018) to PDF Score (LilyPond)</router-link></td>
+                <td>
+                  <router-link to="/conversions/mei40/pdf-lilypond"
+                    >MEI 4.0 (2018) to PDF Score (LilyPond)</router-link
+                  >
+                </td>
               </tr>
               <!--<tr>
                 <td>MEI to Audio (coming soon)</td>
               </tr>-->
             </tbody>
           </table>
-          <router-link to="/conversions" class="btn btn-sm float-right seeAllButton">See all</router-link>
+          <router-link
+            to="/conversions"
+            class="btn btn-sm float-right seeAllButton"
+            >See all</router-link
+          >
         </div>
       </div>
     </div>
@@ -51,23 +73,41 @@
         <div class="card-body">
           <table class="table table-striped table-hover">
             <thead>
-            <tr>
-              <th>Common customizations:</th>
-            </tr>
+              <tr>
+                <th>Common customizations:</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
-                <td><router-link to="/customization">MEI Customization Service</router-link></td>
+                <td>
+                  <router-link to="/customization"
+                    >MEI Customization Service</router-link
+                  >
+                </td>
               </tr>
-            <tr>
-              <td><router-link to="/profiler">MEI ProfileDrafter</router-link> (helps to restrict MEI)</td>
-            </tr>
-            <tr>
-              <td><a href="https://music-encoding.org/archive/comparison-4.0.html" target="_blank">MEI Comparison</a> (compares MEI 4.0 with MEI 3.0)</td>
-            </tr>
+              <tr>
+                <td>
+                  <router-link to="/profiler">MEI ProfileDrafter</router-link>
+                  (helps to restrict MEI)
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a
+                    href="https://music-encoding.org/archive/comparison-4.0.html"
+                    target="_blank"
+                    >MEI Comparison</a
+                  >
+                  (compares MEI 4.0 with MEI 3.0)
+                </td>
+              </tr>
             </tbody>
           </table>
-          <router-link to="/customization" class="btn btn-sm float-right seeAllButton">Customize MEI</router-link>
+          <router-link
+            to="/customization"
+            class="btn btn-sm float-right seeAllButton"
+            >Customize MEI</router-link
+          >
         </div>
       </div>
     </div>
@@ -98,7 +138,9 @@
             </tbody>
           </table>
           <!--<router-link to="/validation" class="btn btn-sm float-right seeAllButton">See all</router-link>-->
-          <button class="btn btn-sm float-right seeAllButton">coming soon</button>
+          <button class="btn btn-sm float-right seeAllButton">
+            coming soon
+          </button>
         </div>
       </div>
     </div>
@@ -129,13 +171,13 @@
             </tbody>
           </table>
           <!--<router-link to="/configuration" class="btn btn-sm float-right seeAllButton">See all</router-link>-->
-          <button class="btn btn-sm float-right seeAllButton">coming soon</button>
+          <button class="btn btn-sm float-right seeAllButton">
+            coming soon
+          </button>
         </div>
       </div>
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -143,52 +185,50 @@
 
 export default {
   name: "home",
-  components: {
-  },
+  components: {},
   methods: {
     goBack() {
-      window.history.length > 1
-        ? this.$router.go(-1)
-        : this.$router.push('/')
-    }
-  }
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-  .seeAllButton {
-    margin-top: .5rem;
-  }
+.seeAllButton {
+  margin-top: 0.5rem;
+}
 
-  .column {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-  }
+.column {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
-  #largeLogo {
-    width: 16rem;
-  }
+#largeLogo {
+  width: 16rem;
+}
 
-  .cardBg {
-    position: relative;
-    overflow: hidden;
-  }
+.cardBg {
+  position: relative;
+  overflow: hidden;
+}
 
-  #validationCard, #configurationCard {
-    &:before {
-      font-weight: 700;
-      content: 'coming soon';
-      text-align: center;
-      width: 150%;
-      position: absolute;
-      top: 36%;
-      left: -25%;
-      transform-origin: center;
-      transform: rotate(-30deg);
-      padding: 1.5rem;
-      color: red;
-      background-color: rgba(240,210,210,.7);
-      border: 1px solid red;
-    }
+#validationCard,
+#configurationCard {
+  &:before {
+    font-weight: 700;
+    content: "coming soon";
+    text-align: center;
+    width: 150%;
+    position: absolute;
+    top: 36%;
+    left: -25%;
+    transform-origin: center;
+    transform: rotate(-30deg);
+    padding: 1.5rem;
+    color: red;
+    background-color: rgba(240, 210, 210, 0.7);
+    border: 1px solid red;
   }
+}
 </style>

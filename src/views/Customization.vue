@@ -9,24 +9,46 @@
       </not-found>
       <div v-else class="columns">
         <div class="column col-12">
-          <Breadcrumb/>
+          <Breadcrumb />
         </div>
         <div class="column col-12">
           <h1>MEI Customization Service</h1>
-          <p>Select a published MEI version and a respective customization to generate a custom MEI Schema in RelaxNG or Compiled ODD format. You can use a local canonicalized version of MEI (in ODD format) and a local RelaxNG customization as well. The customizations refer to the respective MEI versions. Currently, when using a local MEI source a corresponding local customization needs to be selected.</p>
+          <p>
+            Select a published MEI version and a respective customization to
+            generate a custom MEI Schema in RelaxNG or Compiled ODD format. You
+            can use a local canonicalized version of MEI (in ODD format) and a
+            local RelaxNG customization as well. The customizations refer to the
+            respective MEI versions. Currently, when using a local MEI source a
+            corresponding local customization needs to be selected.
+          </p>
           <form id="customizationForm">
             <div class="columns">
               <div class="column col-4 col-lg-6 col-md-12">
                 <div class="optionsBox">
                   <h2>MEI Source</h2>
                   <div id="profileRadios" class="form-group">
-                    <div v-for="(source, index) in sources" :source="source" :key="source.id">
-                      <hr v-if="isLocal(source)"/>
+                    <div
+                      v-for="(source, index) in sources"
+                      :source="source"
+                      :key="source.id"
+                    >
+                      <hr v-if="isLocal(source)" />
                       <label class="form-radio">
-                        <input type="radio" name="source" :value="index" v-model="selectedSource" :disabled="processing"/>
+                        <input
+                          type="radio"
+                          name="source"
+                          :value="index"
+                          v-model="selectedSource"
+                          :disabled="processing"
+                        />
                         <i class="form-icon"></i> {{ source.name }}
                       </label>
-                      <input type="file" name="source_canonical_file" v-if="isLocal(source) && selectedSource === index" @change="handleFileChange"/>
+                      <input
+                        type="file"
+                        name="source_canonical_file"
+                        v-if="isLocal(source) && selectedSource === index"
+                        @change="handleFileChange"
+                      />
                     </div>
                   </div>
                 </div>
@@ -36,14 +58,31 @@
                 <div class="optionsBox">
                   <h2>Customization</h2>
                   <div id="customizationRadios" class="form-group">
-                    <div v-for="(customization, index) in customizations"
-                      :customization="customization" :key="customization.id">
-                      <hr v-if="isLocal(customization)"/>
+                    <div
+                      v-for="(customization, index) in customizations"
+                      :customization="customization"
+                      :key="customization.id"
+                    >
+                      <hr v-if="isLocal(customization)" />
                       <label class="form-radio">
-                        <input type="radio" name="customization" :value="index" v-model="selectedCustomization" :disabled="processing"/>
+                        <input
+                          type="radio"
+                          name="customization"
+                          :value="index"
+                          v-model="selectedCustomization"
+                          :disabled="processing"
+                        />
                         <i class="form-icon"></i> {{ customization.name }}
                       </label>
-                      <input type="file" name="local_customization_file" v-if="isLocal(customization) && selectedCustomization === index"  @change="handleFileChange"/>
+                      <input
+                        type="file"
+                        name="local_customization_file"
+                        v-if="
+                          isLocal(customization) &&
+                          selectedCustomization === index
+                        "
+                        @change="handleFileChange"
+                      />
                     </div>
                   </div>
                 </div>
@@ -52,9 +91,19 @@
                 <div class="optionsBox">
                   <h2>Output</h2>
                   <div id="outputRadios" class="form-group">
-                    <label class="form-radio" v-for="(output, index) in outputs"
-                           :output="output" :key="output.id">
-                      <input type="radio" name="output" :value="index" v-model="selectedOutput" :disabled="processing"/>
+                    <label
+                      class="form-radio"
+                      v-for="(output, index) in outputs"
+                      :output="output"
+                      :key="output.id"
+                    >
+                      <input
+                        type="radio"
+                        name="output"
+                        :value="index"
+                        v-model="selectedOutput"
+                        :disabled="processing"
+                      />
                       <i class="form-icon"></i> {{ output.name }}
                     </label>
                   </div>
@@ -67,7 +116,13 @@
             <div class="columns">
               <div class="column col-4">
                 <div id="btnBox" class="columnBox">
-                  <button class="btn btn-primary btn-lg" @click="buttonClick" :disabled="processing">{{buttonText}}</button>
+                  <button
+                    class="btn btn-primary btn-lg"
+                    @click="buttonClick"
+                    :disabled="processing"
+                  >
+                    {{ buttonText }}
+                  </button>
 
                   <div id="processing" v-if="processing">
                     <progress class="progress" max="100"></progress>
@@ -78,7 +133,11 @@
                 <div id="logBox" class="columnBox">
                   <h2>Logs</h2>
                   <div id="logs">
-                    <div v-for="(entry, index) in log" :key="index" :entry="entry">
+                    <div
+                      v-for="(entry, index) in log"
+                      :key="index"
+                      :entry="entry"
+                    >
                       {{ entry }}
                     </div>
                   </div>
@@ -98,10 +157,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="version of customizationVersions" :key="version.hash" :version="version">
+                <tr
+                  v-for="version of customizationVersions"
+                  :key="version.hash"
+                  :version="version"
+                >
                   <td>{{ version.version }}</td>
                   <td>{{ version.date }}</td>
-                  <td><a :href="'https://github.com/music-encoding/music-encoding/' + version.link" target="_blank">{{ version.hash }}</a></td>
+                  <td>
+                    <a
+                      :href="
+                        'https://github.com/music-encoding/music-encoding/' +
+                        version.link
+                      "
+                      target="_blank"
+                      >{{ version.hash }}</a
+                    >
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -109,9 +181,13 @@
 
           <div class="rest">
             <h1>REST</h1>
-            <p>This customization service is available through a RESTful API. Please use the
-              following POST:</p>
-              <div class="restURL">https://meigarage.edirom.de/ege-webservice/Customization/mei/mei401/c-mei-all/RelaxNG/</div>
+            <p>
+              This customization service is available through a RESTful API.
+              Please use the following POST:
+            </p>
+            <div class="restURL">
+              https://meigarage.edirom.de/ege-webservice/Customization/mei/mei401/c-mei-all/RelaxNG/
+            </div>
             <!--<p><a onclick="alert('Link zur Swagger-Dokumentation')">API Documentation</a></p>-->
           </div>
 
@@ -165,7 +241,7 @@ export default {
   components: {
     Breadcrumb,
     Loading,
-    NotFound
+    NotFound,
   },
   methods: {
     buttonClick() {
@@ -181,16 +257,16 @@ export default {
             .dispatch("triggerCustomization", {
               settingId: this.settingId,
               sourceId: this.sources[this.selectedSource].id,
-              customizationId: this.customizations[this.selectedCustomization]
-                .id,
+              customizationId:
+                this.customizations[this.selectedCustomization].id,
               outputFormat: this.outputs[this.selectedOutput].name,
-              formData
+              formData,
             })
-            .then(downloadable => {
+            .then((downloadable) => {
               this.link = downloadable;
               this.processState++;
             })
-            .catch(reason => {
+            .catch((reason) => {
               this.log.push(reason);
               this.processState = 0;
             });
@@ -210,7 +286,7 @@ export default {
     },
     handleFileChange() {
       this.processState = 0;
-    }
+    },
   },
   data() {
     return {
@@ -220,7 +296,7 @@ export default {
       selectedOutput: 0,
       settingId: "mei",
       log: [],
-      link: null
+      link: null,
     };
   },
   computed: {
@@ -245,7 +321,7 @@ export default {
       return {
         customizations: [],
         outputFormats: [],
-        sources: []
+        sources: [],
       };
     },
     customizations() {
@@ -266,7 +342,7 @@ export default {
     notFound() {
       const store = this.$store.getters.customizations;
       return !(this.settingId in store);
-    }
+    },
   },
   watch: {
     selectedSource(newValue, oldValue) {
@@ -283,8 +359,8 @@ export default {
       if (newValue !== oldValue) {
         this.processState = 0;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

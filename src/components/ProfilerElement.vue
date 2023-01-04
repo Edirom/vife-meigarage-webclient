@@ -1,9 +1,21 @@
 <template>
-  <div class="element" v-bind:class="{'inactive': inactive}">
-    <span class="form-group customSwitch"><label class="form-checkbox form-inline input-sm"><input v-on:click="toggleElement()" type="checkbox" v-bind:checked="active"><i class="form-icon"></i></label></span>
-    <button v-on:click="selectAttributes()" v-bind:disabled="inactive" class="btn btn-sm">set attributes</button>
-    <div class="name">&lt;{{element.name}}&gt;</div>
-    <div class="desc">{{element.desc}}</div>
+  <div class="element" v-bind:class="{ inactive: inactive }">
+    <span class="form-group customSwitch"
+      ><label class="form-checkbox form-inline input-sm"
+        ><input
+          v-on:click="toggleElement()"
+          type="checkbox"
+          v-bind:checked="active" /><i class="form-icon"></i></label
+    ></span>
+    <button
+      v-on:click="selectAttributes()"
+      v-bind:disabled="inactive"
+      class="btn btn-sm"
+    >
+      set attributes
+    </button>
+    <div class="name">&lt;{{ element.name }}&gt;</div>
+    <div class="desc">{{ element.desc }}</div>
   </div>
 </template>
 
@@ -11,73 +23,79 @@
 export default {
   name: "ProfilerElement",
   props: {
-    element: Object
+    element: Object,
   },
   computed: {
-    inactive: function() {
-      return this.$store.getters.profilerInactiveElements.indexOf(this.element.name) !== -1
+    inactive: function () {
+      return (
+        this.$store.getters.profilerInactiveElements.indexOf(
+          this.element.name
+        ) !== -1
+      );
     },
-    active: function() {
-      return this.$store.getters.profilerInactiveElements.indexOf(this.element.name) === -1
-    }
+    active: function () {
+      return (
+        this.$store.getters.profilerInactiveElements.indexOf(
+          this.element.name
+        ) === -1
+      );
+    },
   },
   methods: {
-    deactivateElement: function() {
-      this.$store.dispatch('profilerDeActivateElement',this.element.name)
+    deactivateElement: function () {
+      this.$store.dispatch("profilerDeActivateElement", this.element.name);
     },
-    activateElement: function() {
-      this.$store.dispatch('profilerActivateElement',this.element.name)
+    activateElement: function () {
+      this.$store.dispatch("profilerActivateElement", this.element.name);
     },
-    toggleElement: function() {
+    toggleElement: function () {
       if (this.inactive) {
-        this.activateElement()
+        this.activateElement();
       } else {
-        this.deactivateElement()
+        this.deactivateElement();
       }
     },
-    selectAttributes: function() {
-      this.$store.dispatch('profilerSetCurrentElement',this.element.name)
-    }
-  }
+    selectAttributes: function () {
+      this.$store.dispatch("profilerSetCurrentElement", this.element.name);
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+.element {
+  margin: 0 0 0.8em 0.5em;
+  border: 0.5px solid #999999;
+  border-radius: 3px;
+  background-color: #deeff5;
+  padding: 0.3rem 0.5rem 0.5rem;
 
-  .element {
-    margin: 0 0 .8em .5em;
-    border: .5px solid #999999;
-    border-radius: 3px;
-    background-color: #deeff5;
-    padding: .3rem .5rem .5rem;
-
-    &.inactive {
-      color: #999999;
-      background-color: #cccccc;
-    }
-
-    .customSwitch {
-      display: inline-block;
-      float: left;
-    }
-
-    button {
-      float: right;
-      margin-top: .2rem;
-    }
-
-    .name {
-      font-weight: 700;
-      font-size: .9rem;
-    }
-
-    .desc {
-      font-weight: 300;
-      margin-left: 1.6rem;
-      .number {
-        font-weight: 500;
-      }
-    }
-
+  &.inactive {
+    color: #999999;
+    background-color: #cccccc;
   }
+
+  .customSwitch {
+    display: inline-block;
+    float: left;
+  }
+
+  button {
+    float: right;
+    margin-top: 0.2rem;
+  }
+
+  .name {
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .desc {
+    font-weight: 300;
+    margin-left: 1.6rem;
+    .number {
+      font-weight: 500;
+    }
+  }
+}
 </style>

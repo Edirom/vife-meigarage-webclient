@@ -1,24 +1,22 @@
 "use strict";
 
-export const responseToDownloadable = httpResponse => {
-
+export const responseToDownloadable = (httpResponse) => {
   const url = window.URL.createObjectURL(httpResponse.data);
 
   const contentDisposition = httpResponse.headers["content-disposition"];
 
   let fileName = "unknown";
   if (contentDisposition) {
-
     const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
     if (fileNameMatch.length === 2) fileName = fileNameMatch[1];
   }
   return {
     url,
-    fileName
+    fileName,
   };
 };
 
-export const invalidate = url => {
+export const invalidate = (url) => {
   window.URL.revokeObjectURL(url);
 };
 

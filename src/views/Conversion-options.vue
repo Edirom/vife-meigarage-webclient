@@ -7,31 +7,60 @@
       <not-found v-if="notFound">
         <router-link to="/conversions">Back to conversions</router-link>
       </not-found>
-      <form v-else id="conversionForm" method="post" name="conversionForm" enctype="multipart/form-data">
+      <form
+        v-else
+        id="conversionForm"
+        method="post"
+        name="conversionForm"
+        enctype="multipart/form-data"
+      >
         <div class="columns">
           <div class="column col-12">
-            <Breadcrumb/>
+            <Breadcrumb />
           </div>
           <div class="column col-12">
-            <h1>{{this.$route.params.inputFormat}} to {{this.$route.params.outputFormat}}</h1>
-            <p>Convert {{input}} files to {{output}}</p>
+            <h1>
+              {{ this.$route.params.inputFormat }} to
+              {{ this.$route.params.outputFormat }}
+            </h1>
+            <p>Convert {{ input }} files to {{ output }}</p>
             <div class="viewBox">
               <div class="viewBoxInner">
                 <h1>File Upload</h1>
                 <div id="fileInput">
-                  <span><strong id="lang_selectfile">Select file to convert</strong><br/>
-                    <br/>
-                    <input type="file" id="fileToConvert" name="fileToConvert"/><br/>
-                    <br/>
+                  <span
+                    ><strong id="lang_selectfile">Select file to convert</strong
+                    ><br />
+                    <br />
+                    <input
+                      type="file"
+                      id="fileToConvert"
+                      name="fileToConvert"
+                    /><br />
+                    <br />
                   </span>
                 </div>
-                <button type="button" v-on:click="convert" class="btn btn-primary">Convert</button>
+                <button
+                  type="button"
+                  v-on:click="convert"
+                  class="btn btn-primary"
+                >
+                  Convert
+                </button>
               </div>
             </div>
             <div class="parameterBox" v-if="hasParameters">
-              <h1><i class="icon icon-caret"></i>Conversion Steps and Parameters</h1>
+              <h1>
+                <i class="icon icon-caret"></i>Conversion Steps and Parameters
+              </h1>
               <div class="parametersList">
-                <ConversionStep v-for="step in steps" :step="step" :label="step.label" :id="step.id" :key="step.id"/>
+                <ConversionStep
+                  v-for="step in steps"
+                  :step="step"
+                  :label="step.label"
+                  :id="step.id"
+                  :key="step.id"
+                />
               </div>
             </div>
           </div>
@@ -56,13 +85,13 @@ export default {
     Loading,
     NotFound,
     Breadcrumb,
-    ConversionStep
+    ConversionStep,
   },
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
   },*/
   methods: {
-    convert: function() {
+    convert: function () {
       let myForm = document.getElementById("conversionForm");
       let formData = new FormData(myForm);
       // we require the file to be present
@@ -74,16 +103,16 @@ export default {
       axios
         .post(this.href, formData, {
           headers: { "Content-Type": "multipart/form-data" },
-          responseType: 'blob'
+          responseType: "blob",
         })
-        .then(function(response) {
+        .then(function (response) {
           download(responseToDownloadable(response));
         })
-        .catch(function(response) {
+        .catch(function (response) {
           //handle error
           console.log(response);
         });
-    }
+    },
   },
   computed: {
     input() {
@@ -129,7 +158,6 @@ export default {
         }
       }
       return false;
-
     },
     isLoading() {
       return !this.$store.state.inputsLoaded;
@@ -141,8 +169,8 @@ export default {
         if (output.id === this.$route.params.outputFormat) return false;
       }
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 

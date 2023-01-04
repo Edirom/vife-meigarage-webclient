@@ -1,25 +1,93 @@
 <template>
   <div>
     <div class="customizations">
-      <div class="customization" v-bind:class="{'active': (activeCustomizationName === 'mei-all')}" v-on:click="activateCustomization('mei-all')">MEI all</div>
-      <div class="customization" v-bind:class="{'active': (activeCustomizationName === 'mei-all_anyStart')}" v-on:click="activateCustomization('mei-all_anyStart')">MEI all anystart</div>
-      <div class="customization" v-bind:class="{'active': (activeCustomizationName === 'mei-CMN')}" v-on:click="activateCustomization('mei-CMN')">MEI CMN</div>
-      <div class="customization" v-bind:class="{'active': (activeCustomizationName === 'mei-Mensural')}" v-on:click="activateCustomization('mei-Mensural')">MEI Mensural</div>
-      <div class="customization" v-bind:class="{'active': (activeCustomizationName === 'mei-Neumes')}" v-on:click="activateCustomization('mei-Neumes')">MEI Neumes</div>
-      <div class="customization" v-bind:class="{'active': (activeCustomizationName === 'bw_module2_works')}" v-on:click="activateCustomization('bw_module2_works')">BW Module 2</div>
-      <hr/>
-      <div class="customization" v-bind:class="{'active': (activeCustomizationName === 'custom')}" v-on:click="activateCustomization('custom')">Custom Profile</div>
+      <div
+        class="customization"
+        v-bind:class="{ active: activeCustomizationName === 'mei-all' }"
+        v-on:click="activateCustomization('mei-all')"
+      >
+        MEI all
+      </div>
+      <div
+        class="customization"
+        v-bind:class="{
+          active: activeCustomizationName === 'mei-all_anyStart',
+        }"
+        v-on:click="activateCustomization('mei-all_anyStart')"
+      >
+        MEI all anystart
+      </div>
+      <div
+        class="customization"
+        v-bind:class="{ active: activeCustomizationName === 'mei-CMN' }"
+        v-on:click="activateCustomization('mei-CMN')"
+      >
+        MEI CMN
+      </div>
+      <div
+        class="customization"
+        v-bind:class="{ active: activeCustomizationName === 'mei-Mensural' }"
+        v-on:click="activateCustomization('mei-Mensural')"
+      >
+        MEI Mensural
+      </div>
+      <div
+        class="customization"
+        v-bind:class="{ active: activeCustomizationName === 'mei-Neumes' }"
+        v-on:click="activateCustomization('mei-Neumes')"
+      >
+        MEI Neumes
+      </div>
+      <div
+        class="customization"
+        v-bind:class="{
+          active: activeCustomizationName === 'bw_module2_works',
+        }"
+        v-on:click="activateCustomization('bw_module2_works')"
+      >
+        BW Module 2
+      </div>
+      <hr />
+      <div
+        class="customization"
+        v-bind:class="{ active: activeCustomizationName === 'custom' }"
+        v-on:click="activateCustomization('custom')"
+      >
+        Custom Profile
+      </div>
     </div>
-    <hr/>
+    <hr />
     <div class="buttons">
       <div>
-        <a id="downloadODD" href="" disabled download="MEI-Customization.odd" class="btn btn-action btn-link btn-sm"><i class="icon icon-download"></i> Download ODD</a>
+        <a
+          id="downloadODD"
+          href=""
+          disabled
+          download="MEI-Customization.odd"
+          class="btn btn-action btn-link btn-sm"
+          ><i class="icon icon-download"></i> Download ODD</a
+        >
       </div>
       <div>
-        <a id="downloadRNG" href="" disabled download="MEI-Customization.rng" class="btn btn-action btn-link btn-sm"><i class="icon icon-download"></i> Download RelaxNG</a>
+        <a
+          id="downloadRNG"
+          href=""
+          disabled
+          download="MEI-Customization.rng"
+          class="btn btn-action btn-link btn-sm"
+          ><i class="icon icon-download"></i> Download RelaxNG</a
+        >
       </div>
       <div>
-        <button id="uploadODD" v-on:click="uploadODD()" disabled class="btn btn-action btn-link btn-sm" title="coming soon"><i class="icon icon-upload"></i> Upload ODD</button>
+        <button
+          id="uploadODD"
+          v-on:click="uploadODD()"
+          disabled
+          class="btn btn-action btn-link btn-sm"
+          title="coming soon"
+        >
+          <i class="icon icon-upload"></i> Upload ODD
+        </button>
       </div>
     </div>
   </div>
@@ -346,7 +414,11 @@ export default {
         //using ege-webservice api to turn odd into rng and supply this result
         const formData = new FormData();
         var xmlBlob = new Blob([xml]);
-        formData.append("local_customization_file", xmlBlob, "MEI-customization-" + date.substr(0, 19) + ".rng");
+        formData.append(
+          "local_customization_file",
+          xmlBlob,
+          "MEI-customization-" + date.substr(0, 19) + ".rng"
+        );
         this.$store
           .dispatch("triggerCustomization", {
             settingId: "mei",
