@@ -13,6 +13,24 @@
       needs.
     </p>
     <p>
+      <a id="meiLink" href="https://music-encoding.org" target="_blank"
+        ><img
+          alt="Music Encoding Initiative"
+          id="meiLogo"
+          src="../assets/meilogo.png"
+          width="105"
+          height="69"
+      /></a>
+      <a id="vifeLink" href="https://edirom.de" target="_blank"
+        ><img
+          alt="ViFE"
+          id="vifeLogo"
+          src="../assets/vife-logo.svg"
+          width="105"
+          height="69"
+      /></a>
+    </p>
+    <p>
       MEI Garage uses existing open source transformations, scripts and tools.
       The MEI Garage itself is open source as well. It has been initiated by the
       <a href="https://edirom.de" target="_blank"
@@ -48,12 +66,15 @@
     <p>
       The currently used webclient version is {{ $store.getters.appVersion }}.
     </p>
-    <img
-      src="https://nfdi4culture.de/typo3conf/ext/culture_portal/Resources/Public/Build/images/n4c-logo-black.4b9cb10d.svg"
-      alt="Logo NFDI for Culture"
-      width="105"
-      height="69"
-    />
+    <p>
+      <a id="nfdi4cLink" href="https://nfdi4culture.de" target="_blank"
+        ><img
+          src="https://nfdi4culture.de/typo3conf/ext/culture_portal/Resources/Public/Build/images/n4c-logo-black.4b9cb10d.svg"
+          alt="Logo NFDI for Culture"
+          width="105"
+          height="69"
+      /></a>
+    </p>
     <p>
       <small
         >MEIGarage is currently supported by the Consortium for Research Data on
