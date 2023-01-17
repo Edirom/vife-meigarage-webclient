@@ -48,6 +48,12 @@
     <p>
       The currently used webclient version is {{ $store.getters.appVersion }}.
     </p>
+    <img
+      src="https://nfdi4culture.de/typo3conf/ext/culture_portal/Resources/Public/Build/images/n4c-logo-black.4b9cb10d.svg"
+      alt="Logo NFDI for Culture"
+      width="105"
+      height="69"
+    />
     <p>
       <small
         >MEIGarage is currently supported by the Consortium for Research Data on
