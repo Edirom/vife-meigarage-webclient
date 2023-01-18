@@ -2,7 +2,7 @@
   <div>
     <div class="columns">
       <div class="column col-12">
-        <Breadcrumb/>
+        <Breadcrumb />
       </div>
       <div class="column col-12">
         <h1>Choose an input format</h1>
@@ -22,7 +22,12 @@
                   <td></td>
                   <td><i class="icon icon-forward"></i></td>
                 </tr>-->
-                <ConversionInputItem v-for="input in inputs" v-bind="input" :id="input.id" :label="input.label"/>
+                <ConversionInputItem
+                  v-for="input in inputs"
+                  v-bind="input"
+                  :id="input.id"
+                  :label="input.label"
+                />
               </tbody>
             </table>
           </div>
@@ -41,13 +46,13 @@ export default {
   name: "conversion-inputSelection",
   components: {
     Breadcrumb,
-    ConversionInputItem
+    ConversionInputItem,
   },
   computed: {
-    inputs: function() {
+    inputs: function () {
       return this.$store.getters.inputs;
-    }
-  }
+    },
+  },
 };
 </script>
 

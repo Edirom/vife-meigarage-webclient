@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "./views/Home.vue";
 import store from "./store.js";
 
@@ -25,7 +25,7 @@ const checkInputsLoaded = (to, from, next) => {
   if (!(target in store.state.inputs)) {
     //console.log("I need to load first");
     store.watch(
-      state => {
+      (state) => {
         //console.log("\n---coming back");
         //console.log(state);
         //console.log(store.state.inputs);
@@ -34,7 +34,7 @@ const checkInputsLoaded = (to, from, next) => {
           proceed();
         }
       },
-      value => {
+      (value) => {
         //console.log("change is now happening: " + value);
         if (value === true) {
           proceed();
@@ -49,7 +49,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Home,
   },
   {
     path: "/about",
@@ -58,62 +58,62 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "./views/About.vue")
+      import(/* webpackChunkName: "about" */ "./views/About.vue"),
   },
   {
     path: "/conversions",
     name: "conversions",
-    component: () => import("./views/Conversion-inputSelection.vue")
+    component: () => import("./views/Conversion-inputSelection.vue"),
   },
   {
     path: "/conversions/:inputFormat",
     name: "input",
     beforeEnter: checkInputsLoaded,
-    component: () => import("./views/Conversion-outputSelection.vue")
+    component: () => import("./views/Conversion-outputSelection.vue"),
   },
   {
     path: "/conversions/:inputFormat/:outputFormat",
     name: "output",
-    component: () => import("./views/Conversion-options.vue")
+    component: () => import("./views/Conversion-options.vue"),
   },
   {
     path: "/validation",
     name: "validation-scenarioList",
-    component: () => import("./views/Validation-scenarioList.vue")
+    component: () => import("./views/Validation-scenarioList.vue"),
   },
   {
     path: "/validation/:format/:version?",
     name: "validation",
-    component: () => import("./views/Validation-scenario.vue")
+    component: () => import("./views/Validation-scenario.vue"),
   },
   {
     path: "/validation/:format/:version/47edf1ec-bc4e-46bd-8be3-292fc270d8f7",
     name: "validation-success",
-    component: () => import("./views/Validation-success.vue")
+    component: () => import("./views/Validation-success.vue"),
   },
   {
     path: "/validation/:format/:version/50ea0681-85dd-4242-995f-c8008ed04917",
     name: "validation-failure",
-    component: () => import("./views/Validation-failure.vue")
+    component: () => import("./views/Validation-failure.vue"),
   },
   {
     path: "/customization",
     name: "customization",
-    component: () => import("./views/Customization.vue")
+    component: () => import("./views/Customization.vue"),
   },
   {
     path: "/configuration",
     name: "configuration",
-    component: () => import("./views/Configuration.vue")
+    component: () => import("./views/Configuration.vue"),
   },
   {
     path: "/profiler",
     name: "profiler",
-    component: () => import("./views/Profiler.vue")
-  }
-]
+    component: () => import("./views/Profiler.vue"),
+  },
+];
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
-export default router
+  routes,
+});
+export default router;

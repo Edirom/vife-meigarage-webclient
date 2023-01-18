@@ -2,42 +2,44 @@
   <div>
     <div class="columns">
       <div class="column col-12">
-        <Breadcrumb/>
+        <Breadcrumb />
       </div>
       <div class="column col-12">
         <h1>Validation</h1>
-        <p>Validating <span class="filename">FILENAME</span> against <span class="format">{{format}}</span>
-          in version <span class="version">{{version}}</span></p>
+        <p>
+          Validating <span class="filename">FILENAME</span> against
+          <span class="format">{{ format }}</span> in version
+          <span class="version">{{ version }}</span>
+        </p>
 
-          <div class="viewBox">
-            <div class="viewBoxInner">
-              <h1>Success</h1>
-              <i class="icon icon-4x icon-check"></i>
-              <p>Your file is valid.</p>
-            </div>
+        <div class="viewBox">
+          <div class="viewBoxInner">
+            <h1>Success</h1>
+            <i class="icon icon-4x icon-check"></i>
+            <p>Your file is valid.</p>
           </div>
-          <p class="additionalInfo">
-            This results page will be available for
-            <span id="remainingTime">two hours</span>. After that, you will be
-            redirected to the options page, and we will delete your uploaded file
-            from our servers automatically.
+        </div>
+        <p class="additionalInfo">
+          This results page will be available for
+          <span id="remainingTime">two hours</span>. After that, you will be
+          redirected to the options page, and we will delete your uploaded file
+          from our servers automatically.
+        </p>
+
+        <div class="internalComment">
+          <h1>Interner Hinweis</h1>
+          <p>
+            Ich fände es ziemlich klasse, wenn wir die verbleibende Zeit mit
+            <a href="https://momentjs.com/" target="_blank">Moment.js</a>
+            angeben könnten. Das ist hinreichend präzise und leichter
+            nachzuvollziehen als irgendwelche UTC-Angaben.
           </p>
-
-          <div class="internalComment">
-            <h1>Interner Hinweis</h1>
-            <p>
-              Ich fände es ziemlich klasse, wenn wir die verbleibende Zeit
-              mit <a href="https://momentjs.com/" target="_blank">Moment.js</a>
-              angeben könnten. Das ist hinreichend präzise und leichter
-              nachzuvollziehen als irgendwelche UTC-Angaben.
-            </p>
-            <p>
-              Wenn man nach Ablauf dieser Zeit nochmal die URL aufruft, sollte
-              der Router einen auf die Validation-scenario-Seite bringen, so
-              dass man dann ggf. neu hochladen muss.
-            </p>
-          </div>
-
+          <p>
+            Wenn man nach Ablauf dieser Zeit nochmal die URL aufruft, sollte der
+            Router einen auf die Validation-scenario-Seite bringen, so dass man
+            dann ggf. neu hochladen muss.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -50,7 +52,7 @@ import Breadcrumb from "@/components/Breadcrumb.vue";
 export default {
   name: "validation-success",
   components: {
-    Breadcrumb
+    Breadcrumb,
   },
   computed: {
     format() {
@@ -59,8 +61,8 @@ export default {
 
     version() {
       return this.$route.params.version;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -2,22 +2,45 @@
   <div id="app">
     <header class="navbar">
       <section class="navbar-section">
-        <a id="meiLink" href="http://music-encoding.org" target="_blank" class="btn btn-link"><img alt="Music Encoding Initiative" id="meiLogo" src="./assets/meilogo.png"></a>
-        <a id="home" href="/" class="btn btn-link"><img alt="MEI Garage" id="garageLogo" src="./assets/meigarage.logo.png"></a>
+        <a
+          id="meiLink"
+          href="http://music-encoding.org"
+          target="_blank"
+          class="btn btn-link"
+          ><img
+            alt="Music Encoding Initiative"
+            id="meiLogo"
+            src="./assets/meilogo.png"
+        /></a>
+        <a id="home" href="/" class="btn btn-link"
+          ><img
+            alt="MEI Garage"
+            id="garageLogo"
+            src="./assets/meigarage.logo.png"
+        /></a>
       </section>
       <section class="navbar-section">
-        <a id="vifeLink" href="https://edirom.de" target="_blank" class="btn btn-link"><img alt="ViFE" id="vifeLogo" src="./assets/vife-logo.svg"></a>
+        <a
+          id="vifeLink"
+          href="https://edirom.de"
+          target="_blank"
+          class="btn btn-link"
+          ><img alt="ViFE" id="vifeLogo" src="./assets/vife-logo.svg"
+        /></a>
       </section>
     </header>
 
     <div class="container grid-lg">
-
-        <router-view/>
-
+      <router-view />
     </div>
     <footer>
       <router-link to="/about" class="btn btn-link">About</router-link> |
-      <a class="btn btn-link" href="https://music-encoding.org/community/community-contacts.html" target="_blank">Contact</a>
+      <a
+        class="btn btn-link"
+        href="https://music-encoding.org/community/community-contacts.html"
+        target="_blank"
+        >Contact</a
+      >
     </footer>
   </div>
 </template>

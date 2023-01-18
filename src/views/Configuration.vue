@@ -2,7 +2,7 @@
   <div>
     <div class="columns">
       <div class="column col-12">
-        <Breadcrumb/>
+        <Breadcrumb />
       </div>
       <div class="column col-12">
         <h1>Data Configuration</h1>
@@ -12,9 +12,18 @@
           <div class="column col-4">
             <div class="columnBox">
               <h2>Input</h2>
-              <form id="validationForm" method="post" name="uploadForm" enctype="multipart/form-data">
+              <form
+                id="validationForm"
+                method="post"
+                name="uploadForm"
+                enctype="multipart/form-data"
+              >
                 <div id="fileInput">
-				          <input type="file" id="fileToTransform" name="fileToTransform">
+                  <input
+                    type="file"
+                    id="fileToTransform"
+                    name="fileToTransform"
+                  />
                 </div>
               </form>
             </div>
@@ -26,7 +35,9 @@
               <div class="transform tile tile-centered">
                 <div class="tile-content">
                   <div class="tile-title">Add IDs</div>
-                  <small class="tile-subtitle text-gray">Ensures UUID-based @xml:id</small>
+                  <small class="tile-subtitle text-gray"
+                    >Ensures UUID-based @xml:id</small
+                  >
                 </div>
                 <div class="tile-action">
                   <button class="btn btn-link">
@@ -38,7 +49,9 @@
               <div class="transform tile tile-centered">
                 <div class="tile-content">
                   <div class="tile-title">Add Timestamps</div>
-                  <small class="tile-subtitle text-gray">Inserts timestamps for all events</small>
+                  <small class="tile-subtitle text-gray"
+                    >Inserts timestamps for all events</small
+                  >
                 </div>
                 <div class="tile-action">
                   <button class="btn btn-link">
@@ -50,7 +63,9 @@
               <div class="transform tile tile-centered">
                 <div class="tile-content">
                   <div class="tile-title">Adjust Controlevents</div>
-                  <small class="tile-subtitle text-gray">Allows consistent Controlevent linking</small>
+                  <small class="tile-subtitle text-gray"
+                    >Allows consistent Controlevent linking</small
+                  >
                 </div>
                 <div class="tile-action">
                   <button class="btn btn-link">
@@ -62,7 +77,9 @@
               <div class="transform tile tile-centered">
                 <div class="tile-content">
                   <div class="tile-title">Resolve Shortcuts</div>
-                  <small class="tile-subtitle text-gray">Fills in abbreviated texts</small>
+                  <small class="tile-subtitle text-gray"
+                    >Fills in abbreviated texts</small
+                  >
                 </div>
                 <div class="tile-action">
                   <button class="btn btn-link">
@@ -74,7 +91,9 @@
               <div class="transform tile tile-centered">
                 <div class="tile-content">
                   <div class="tile-title">Flatten Apps</div>
-                  <small class="tile-subtitle text-gray">Simplifies file by selecting &lt;rdg&gt;</small>
+                  <small class="tile-subtitle text-gray"
+                    >Simplifies file by selecting &lt;rdg&gt;</small
+                  >
                 </div>
                 <div class="tile-action">
                   <button class="btn btn-link">
@@ -86,7 +105,9 @@
               <div class="transform tile tile-centered">
                 <div class="tile-content">
                   <div class="tile-title">Flatten Choices</div>
-                  <small class="tile-subtitle text-gray">Simplifies file by resolving &lt;choice&gt;</small>
+                  <small class="tile-subtitle text-gray"
+                    >Simplifies file by resolving &lt;choice&gt;</small
+                  >
                 </div>
                 <div class="tile-action">
                   <button class="btn btn-link">
@@ -94,7 +115,6 @@
                   </button>
                 </div>
               </div>
-
             </div>
           </div>
           <div class="column col-4">
@@ -104,28 +124,34 @@
           </div>
         </div>
 
-
-
         <div class="rest">
           <h1>REST</h1>
-          <p>This data configuration service is available through a RESTful API. Please use the
-            following POST:</p>
-            <div class="restURL">https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala</div>
-          <p><a onclick="alert('Link zur Swagger-Dokumentation')">API Documentation</a></p>
+          <p>
+            This data configuration service is available through a RESTful API.
+            Please use the following POST:
+          </p>
+          <div class="restURL">
+            https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala
+          </div>
+          <p>
+            <a onclick="alert('Link zur Swagger-Dokumentation')"
+              >API Documentation</a
+            >
+          </p>
         </div>
 
         <div class="internalComment">
           <h1>Interne Hinweise zur Umsetzung</h1>
           <p>
             Die Seite hier ist noch ziemlicher Käse – da müssen wir erst noch
-            genauer überlegen, wie das eigentlich gehen soll. Ich hatte mal
-            über Drag&amp;Drop einzelner Schritte in einen Arbeitsbereich
+            genauer überlegen, wie das eigentlich gehen soll. Ich hatte mal über
+            Drag&amp;Drop einzelner Schritte in einen Arbeitsbereich
             nachgedacht, aber wir müssen dort ja auch bestimmte Reihenfolgen
             einhalten, bzw. manche Abhängigkeiten erfordern dann zusätzliche
-            XSLT. Außerdem muss es noch für viele der XSLT die Möglichkeit geben,
-            Parameter zu spezifizieren (dafür war jeweils das Hamburger-Menü
-            angedacht). Lasst uns mal erstmal nochmal sprechen, bevor wir hier
-            irgendwas umsetzen…
+            XSLT. Außerdem muss es noch für viele der XSLT die Möglichkeit
+            geben, Parameter zu spezifizieren (dafür war jeweils das
+            Hamburger-Menü angedacht). Lasst uns mal erstmal nochmal sprechen,
+            bevor wir hier irgendwas umsetzen…
           </p>
         </div>
       </div>
@@ -140,12 +166,12 @@ import Breadcrumb from "@/components/Breadcrumb.vue";
 export default {
   name: "configuration",
   components: {
-    Breadcrumb
+    Breadcrumb,
   },
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
   },*/
-  methods: {}
+  methods: {},
 };
 </script>
 

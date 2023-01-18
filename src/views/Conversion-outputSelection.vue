@@ -2,7 +2,7 @@
   <div>
     <div class="columns">
       <div class="column col-12">
-        <Breadcrumb/>
+        <Breadcrumb />
       </div>
       <div class="column col-12">
         <h1>Choose an output format</h1>
@@ -17,7 +17,12 @@
                 </tr>
               </thead>
               <tbody id="inputFormats" ref="container">
-                <ConversionOutputItem v-for="output in outputs" :id="output.id" :label="output.label" :input="output.input"/>
+                <ConversionOutputItem
+                  v-for="output in outputs"
+                  :id="output.id"
+                  :label="output.label"
+                  :input="output.input"
+                />
               </tbody>
             </table>
           </div>
@@ -36,11 +41,11 @@ export default {
   name: "conversion-outputSelection",
   components: {
     Breadcrumb,
-    ConversionOutputItem
+    ConversionOutputItem,
   },
   data() {
     return {
-      inputFormat: ""
+      inputFormat: "",
     };
   },
   created() {
@@ -49,8 +54,8 @@ export default {
   computed: {
     outputs() {
       return this.$store.getters.outputs(this.inputFormat);
-    }
-  }
+    },
+  },
 };
 </script>
 

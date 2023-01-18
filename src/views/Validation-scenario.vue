@@ -2,22 +2,36 @@
   <div>
     <div class="columns">
       <div class="column col-12">
-        <Breadcrumb/>
+        <Breadcrumb />
       </div>
       <div class="column col-12">
         <h1>Validation</h1>
-        <p>Validating files against <span class="format">{{formatDisplay}}</span>
-          in version <span class="version">{{version}}</span></p>
+        <p>
+          Validating files against
+          <span class="format">{{ formatDisplay }}</span> in version
+          <span class="version">{{ version }}</span>
+        </p>
 
         <div class="viewBox">
           <div class="viewBoxInner">
             <h1>File Upload</h1>
-            <form id="validationForm" method="post" name="validationForm" enctype="multipart/form-data">
+            <form
+              id="validationForm"
+              method="post"
+              name="validationForm"
+              enctype="multipart/form-data"
+            >
               <div id="fileInput">
-				        <span><strong id="lang_selectfile">Select file to validate</strong><br>
-                  <br>
-				          <input type="file" id="fileToValidate" name="fileToValidate"><br>
-                  <br>
+                <span
+                  ><strong id="lang_selectfile">Select file to validate</strong
+                  ><br />
+                  <br />
+                  <input
+                    type="file"
+                    id="fileToValidate"
+                    name="fileToValidate"
+                  /><br />
+                  <br />
                 </span>
               </div>
             </form>
@@ -25,58 +39,85 @@
           </div>
         </div>
         <div class="parameterBox accordion">
-          <input type="checkbox" id="options-accordion" name="accordion-checkbox" hidden/>
+          <input
+            type="checkbox"
+            id="options-accordion"
+            name="accordion-checkbox"
+            hidden
+          />
           <label for="options-accordion" class="accordion-header">
-            <h1><i class="icon icon-arrow-right mr-1"></i>Validation Options</h1>
+            <h1>
+              <i class="icon icon-arrow-right mr-1"></i>Validation Options
+            </h1>
           </label>
           <div class="columns accordion-body">
             <div class="column col-6" v-if="profiles.length > 0">
-
               <div class="optionsBox profiles">
                 <h2>Available Profiles</h2>
                 <div id="profileRadios" class="form-group">
-                  <label class="form-radio" v-for="(profile, index) in profiles" :key="profile.id" :profile="profile">
-                    <input type="radio" name="profile" :value="index" v-model="activeProfileIndex"/>
+                  <label
+                    class="form-radio"
+                    v-for="(profile, index) in profiles"
+                    :key="profile.id"
+                    :profile="profile"
+                  >
+                    <input
+                      type="radio"
+                      name="profile"
+                      :value="index"
+                      v-model="activeProfileIndex"
+                    />
                     <i class="form-icon"></i> {{ profile.name }}
                   </label>
                 </div>
               </div>
-
             </div>
             <div class="column col-6">
-
               <div class="optionsBox schematron">
                 <h2>Schematron</h2>
                 <div class="form-group">
                   <label class="form-checkbox">
-                    <input type="checkbox" checked>
+                    <input type="checkbox" checked />
                     <i class="form-icon"></i> Validate Schematron Rules
                   </label>
                 </div>
               </div>
-
-
             </div>
           </div>
-
         </div>
 
         <div class="static">
           <h1>Static Validation</h1>
-          <p>You may add the following lines to your local files to validate against this schema.
-            This requires an active internet connection.</p>
-            <div class="validationURL">
-              &lt;?xml-model href="https://www.music-encoding.org/schema/current/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?&gt;<br/>
-              &lt;?xml-model href="http://www.music-encoding.org/schema/current/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?&gt;
-            </div>
+          <p>
+            You may add the following lines to your local files to validate
+            against this schema. This requires an active internet connection.
+          </p>
+          <div class="validationURL">
+            &lt;?xml-model
+            href="https://www.music-encoding.org/schema/current/mei-all.rng"
+            type="application/xml"
+            schematypens="http://relaxng.org/ns/structure/1.0"?&gt;<br />
+            &lt;?xml-model
+            href="http://www.music-encoding.org/schema/current/mei-all.rng"
+            type="application/xml"
+            schematypens="http://purl.oclc.org/dsdl/schematron"?&gt;
+          </div>
         </div>
 
         <div class="rest">
           <h1>REST</h1>
-          <p>This validation is available as a RESTful API. Please use the
-            following POST for the current validation:</p>
-            <div class="restURL">https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala</div>
-          <p><a onclick="alert('Link zur Swagger-Dokumentation')">API Documentation</a></p>
+          <p>
+            This validation is available as a RESTful API. Please use the
+            following POST for the current validation:
+          </p>
+          <div class="restURL">
+            https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala
+          </div>
+          <p>
+            <a onclick="alert('Link zur Swagger-Dokumentation')"
+              >API Documentation</a
+            >
+          </p>
         </div>
 
         <div class="internalComment">
@@ -84,47 +125,60 @@
           <p>
             Aktuell werden für format und version nur die direkten Strings
             ausgegeben. Hier wäre es sinnvoll, da auch entsprechende Objekte im
-            store zu hinterlegen und dann etwas vollständiger zu sein (also "MEI"
-            statt "mei", "MusicXML" statt "musicxml" etc.). Aus diesem Objekt
-            sollten dann auch die verfügbaren Profile und zugehörigen URLs kommen.
-            Daniel, das klingt nach Kommunikation mit dem Backend ;-)
+            store zu hinterlegen und dann etwas vollständiger zu sein (also
+            "MEI" statt "mei", "MusicXML" statt "musicxml" etc.). Aus diesem
+            Objekt sollten dann auch die verfügbaren Profile und zugehörigen
+            URLs kommen. Daniel, das klingt nach Kommunikation mit dem Backend
+            ;-)
           </p>
           <p>
             Der Breadcrumb vereint Format und Version, in der URL sind es aber
             zwei getrennte Routes. Wenn jemand nur auf das Format geht
-            ("/validation/mei") sollte er automatisch zum "latest" bzw. "current"
-            weitergeleitet werden.
+            ("/validation/mei") sollte er automatisch zum "latest" bzw.
+            "current" weitergeleitet werden.
           </p>
           <p>
-            Wenn es zu einem Format mehrere Profile gibt, sollte oben in der Überschrift
-            nicht {format} stehen, sondern das jeweils aktuelle Profil. Das könnte
-            auch verlinkt sein und bei einem Klick nach unten zu den Profilen führen.
-            Bei MusicXML gibt es keine Profile, so dass dort einfach {format}
-            hinkommt.
+            Wenn es zu einem Format mehrere Profile gibt, sollte oben in der
+            Überschrift nicht {format} stehen, sondern das jeweils aktuelle
+            Profil. Das könnte auch verlinkt sein und bei einem Klick nach unten
+            zu den Profilen führen. Bei MusicXML gibt es keine Profile, so dass
+            dort einfach {format} hinkommt.
+          </p>
+          <p>Validation Options soll offensichtlich einklappbar sein.</p>
+          <p>
+            Offensichtlich muss das Format der REST-Anfrage noch spezifiziert
+            werden ;-)
           </p>
           <p>
-            Validation Options soll offensichtlich einklappbar sein.
+            Unten sind zwei Beispielseiten verlinkt, wie das Ergebnis der
+            Validierung aussehen sollte. Mein Vorschlag wäre, pro Validierung
+            eine UUID zu generieren und die an die URL dranzuhängen. Unter der
+            URL könnte das Ergebnis für eine voreingestellte Zeit verfügbar
+            sein, danach wird es automatisch gelöscht.
           </p>
-          <p>
-            Offensichtlich muss das Format der REST-Anfrage noch spezifiziert werden ;-)
-          </p>
-          <p>
-            Unten sind zwei Beispielseiten verlinkt, wie das Ergebnis der Validierung
-            aussehen sollte. Mein Vorschlag wäre, pro Validierung eine UUID zu generieren
-            und die an die URL dranzuhängen. Unter der URL könnte das Ergebnis
-            für eine voreingestellte Zeit verfügbar sein, danach wird es
-            automatisch gelöscht.
-          </p>
-          <router-link to="/validation/mei/4.0.1/47edf1ec-bc4e-46bd-8be3-292fc270d8f7">
-            <button style="margin-right: .25rem;" class="btn btn-lg btn-success">Valides Beispiel</button>
+          <router-link
+            to="/validation/mei/4.0.1/47edf1ec-bc4e-46bd-8be3-292fc270d8f7"
+          >
+            <button
+              style="margin-right: 0.25rem"
+              class="btn btn-lg btn-success"
+            >
+              Valides Beispiel
+            </button>
           </router-link>
 
-          <router-link to="/validation/mei/4.0.1/50ea0681-85dd-4242-995f-c8008ed04917">
-            <button style="margin-left: .25rem;" class="btn btn-lg btn-error">Nicht-valides Beispiel</button>
+          <router-link
+            to="/validation/mei/4.0.1/50ea0681-85dd-4242-995f-c8008ed04917"
+          >
+            <button style="margin-left: 0.25rem" class="btn btn-lg btn-error">
+              Nicht-valides Beispiel
+            </button>
           </router-link>
-          <p style="margin-top: 1rem;">Ich bin nicht sicher, ob wir den Bereich "Static Validation"
+          <p style="margin-top: 1rem">
+            Ich bin nicht sicher, ob wir den Bereich "Static Validation"
             brauchen. Es ist aber vielleicht ein netter Service, wenn wir's
-            gleich dazuschreiben?</p>
+            gleich dazuschreiben?
+          </p>
         </div>
       </div>
     </div>
@@ -138,7 +192,7 @@ import Breadcrumb from "@/components/Breadcrumb.vue";
 export default {
   name: "validation-secnario",
   components: {
-    Breadcrumb
+    Breadcrumb,
   },
   /*async getInitialData({this.$store, this.$route}) {
     await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
@@ -159,7 +213,7 @@ export default {
         return this.profiles[this.activeProfileIndex].name;
       }
       return this.format;
-    }
+    },
   },
   data() {
     return {
@@ -169,10 +223,10 @@ export default {
         { id: "anystart", name: "MEI anyStart" },
         { id: "cmd", name: "MEI CMD" },
         { id: "mensural", name: "MEI Mensural" },
-        { id: "neumes", name: "MEI Neumes" }
-      ]
+        { id: "neumes", name: "MEI Neumes" },
+      ],
     };
-  }
+  },
 };
 </script>
 

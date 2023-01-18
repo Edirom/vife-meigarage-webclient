@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { createStore } from 'vuex';
+import { createStore } from "vuex";
 
 import axios from "axios";
 
@@ -7,7 +7,7 @@ import { responseToDownloadable } from "@/util";
 
 import { version } from "../package.json";
 
-const {XMLParser} = require('fast-xml-parser');
+const { XMLParser } = require("fast-xml-parser");
 
 const parserOptions = {
   attributeNamePrefix: "@_",
@@ -15,7 +15,7 @@ const parserOptions = {
   textNodeName: "text",
   ignoreAttributes: false,
   parseNodeValue: true,
-  parseAttributeValue: true
+  parseAttributeValue: true,
 };
 
 const parser = new XMLParser(parserOptions);
@@ -41,26 +41,26 @@ export default new createStore({
         version: "MEI 4.0.1",
         date: "2019-04-12",
         hash: "5e43035",
-        link: "releases/tag/v4.0.1"
+        link: "releases/tag/v4.0.1",
       },
       {
         version: "MEI 3.0.0",
         date: "2016-06-15",
         hash: "86dbcaf",
-        link: "releases/tag/v3.0.0"
+        link: "releases/tag/v3.0.0",
       },
       {
         version: "MEI 2.1.1",
         date: "2013",
         hash: "b9dff53",
-        link: "releases/tag/v2.1.1"
+        link: "releases/tag/v2.1.1",
       },
       {
         version: "MEI 2.0.0",
         date: "2012",
         hash: "1233176",
-        link: "releases/tag/v2.0.0"
-      }
+        link: "releases/tag/v2.0.0",
+      },
     ],
     inputsLoaded: false,
     customizationsLoaded: false,
@@ -79,11 +79,11 @@ export default new createStore({
       customModifications: false,
       maintenanceMode: false,
     },
-    packageVersion: version
+    packageVersion: version,
   },
   mutations: {
     FETCH_INPUTS(state, inputs) {
-      inputs.forEach(input => {
+      inputs.forEach((input) => {
         const created = {};
         created[input.id] = input;
         state.inputs = Object.assign({}, state.inputs, created);
@@ -106,40 +106,46 @@ export default new createStore({
     PROFILER_SET_MODULES(state, modules) {
       let modulesObj = {};
 
-      modules.forEach(module => {
+      modules.forEach((module) => {
         modulesObj[module.name] = module;
       });
       state.profiler = { ...state.profiler, modules: modulesObj };
     },
     PROFILER_ACTIVATE_MODULE(state, moduleName) {
-      if(!state.profiler.customModifications && !state.profiler.maintenanceMode) {
-        state.profiler.activeCustomization = 'custom';
+      if (
+        !state.profiler.customModifications &&
+        !state.profiler.maintenanceMode
+      ) {
+        state.profiler.activeCustomization = "custom";
         state.profiler.customModifications = true;
       }
       let module = state.profiler.modules[moduleName];
-      let newModule = { ...module, active: true}
+      let newModule = { ...module, active: true };
       let modules = { ...state.profiler.modules };
       modules[moduleName] = newModule;
       state.profiler = { ...state.profiler, modules };
     },
     PROFILER_DEACTIVATE_MODULE(state, moduleName) {
-      if(!state.profiler.customModifications && !state.profiler.maintenanceMode) {
-        state.profiler.activeCustomization = 'custom';
+      if (
+        !state.profiler.customModifications &&
+        !state.profiler.maintenanceMode
+      ) {
+        state.profiler.activeCustomization = "custom";
         state.profiler.customModifications = true;
       }
       let module = state.profiler.modules[moduleName];
-      let newModule = { ...module, active: false}
+      let newModule = { ...module, active: false };
       let modules = { ...state.profiler.modules };
       modules[moduleName] = newModule;
       state.profiler = { ...state.profiler, modules };
     },
-    PROFILER_SET_LEVEL(state,level) {
+    PROFILER_SET_LEVEL(state, level) {
       state.profiler.level = level;
       if (level === "modules") {
         state.profiler.activeModule = null;
       }
     },
-    PROFILER_SET_CURRENT_MODULE(state,moduleName) {
+    PROFILER_SET_CURRENT_MODULE(state, moduleName) {
       state.profiler.currentModule = moduleName;
       if (moduleName === null) {
         state.profiler.level = "modules";
@@ -147,7 +153,7 @@ export default new createStore({
         state.profiler.level = "singleModule";
       }
     },
-    PROFILER_SET_CURRENT_ELEMENT(state,name) {
+    PROFILER_SET_CURRENT_ELEMENT(state, name) {
       state.profiler.currentElement = name;
       if (name === null) {
         state.profiler.level = "singleModule";
@@ -158,7 +164,7 @@ export default new createStore({
     PROFILER_SET_ELEMENTS(state, { name, elements }) {
       let module = state.profiler.modules[name];
       let elemObj = {};
-      elements.forEach(elem => {
+      elements.forEach((elem) => {
         elem.active = true;
         elemObj[elem.name] = elem;
       });
@@ -167,7 +173,7 @@ export default new createStore({
     PROFILER_SET_ATTCLASSES(state, { name, attClasses }) {
       let module = state.profiler.modules[name];
       let attClassesObj = {};
-      attClasses.forEach(attClass => {
+      attClasses.forEach((attClass) => {
         attClassesObj[attClass.name] = attClass;
         let obj = { ...state.profiler.attClasses };
         obj[attClass.name] = attClass;
@@ -175,7 +181,6 @@ export default new createStore({
         state.profiler.attClasses = obj;
       });
       state.profiler.modules[name] = { ...module, attClasses: attClassesObj };
-
     },
     PROFILER_SET_CURRENT_ATTS(state, json) {
       state.profiler.currentAtts = json;
@@ -188,60 +193,90 @@ export default new createStore({
     },
     PROFILER_ACTIVATE_ELEMENT(state, name) {
       try {
-        if(!state.profiler.customModifications && !state.profiler.maintenanceMode) {
-          state.profiler.activeCustomization = 'custom';
+        if (
+          !state.profiler.customModifications &&
+          !state.profiler.maintenanceMode
+        ) {
+          state.profiler.activeCustomization = "custom";
           state.profiler.customModifications = true;
         }
-        state.profiler.modules[state.profiler.currentModule].elements[name].active = true;
-      } catch(err) {
-        console.log('Unable to activate element "' + name +'" in module "' + state.profiler.currentModule + '": ' + err)
+        state.profiler.modules[state.profiler.currentModule].elements[
+          name
+        ].active = true;
+      } catch (err) {
+        console.log(
+          'Unable to activate element "' +
+            name +
+            '" in module "' +
+            state.profiler.currentModule +
+            '": ' +
+            err
+        );
       }
     },
     PROFILER_DEACTIVATE_ELEMENT(state, name) {
       try {
-        if(!state.profiler.customModifications && !state.profiler.maintenanceMode) {
-          state.profiler.activeCustomization = 'custom';
+        if (
+          !state.profiler.customModifications &&
+          !state.profiler.maintenanceMode
+        ) {
+          state.profiler.activeCustomization = "custom";
           state.profiler.customModifications = true;
         }
-        state.profiler.modules[state.profiler.currentModule].elements[name].active = false;
-      } catch(err) {
-        console.log('Unable to deactivate element "' + name +'" in module "' + state.profiler.currentModule + '": ' + err)
+        state.profiler.modules[state.profiler.currentModule].elements[
+          name
+        ].active = false;
+      } catch (err) {
+        console.log(
+          'Unable to deactivate element "' +
+            name +
+            '" in module "' +
+            state.profiler.currentModule +
+            '": ' +
+            err
+        );
       }
     },
     PROFILER_ACTIVATE_ATTCLASS(state, name) {
       try {
-        if(!state.profiler.customModifications && !state.profiler.maintenanceMode) {
-          state.profiler.activeCustomization = 'custom';
+        if (
+          !state.profiler.customModifications &&
+          !state.profiler.maintenanceMode
+        ) {
+          state.profiler.activeCustomization = "custom";
           state.profiler.customModifications = true;
         }
         state.profiler.attClasses[name].active = true;
-      } catch(err) {
-        console.log('Unable to activate att class "' + name +'": ' + err)
+      } catch (err) {
+        console.log('Unable to activate att class "' + name + '": ' + err);
       }
     },
     PROFILER_DEACTIVATE_ATTCLASS(state, name) {
       try {
-        if(!state.profiler.customModifications && !state.profiler.maintenanceMode) {
-          state.profiler.activeCustomization = 'custom';
+        if (
+          !state.profiler.customModifications &&
+          !state.profiler.maintenanceMode
+        ) {
+          state.profiler.activeCustomization = "custom";
           state.profiler.customModifications = true;
         }
         state.profiler.attClasses[name].active = false;
-      } catch(err) {
-        console.log('Unable to deactivate att class "' + name +'": ' + err)
+      } catch (err) {
+        console.log('Unable to deactivate att class "' + name + '": ' + err);
       }
     },
     PROFILER_SET_ACTIVE_CUSTOMIZATION(state, name) {
-      if(name !== 'custom') {
+      if (name !== "custom") {
         state.profiler.customModifications = false;
       }
       state.profiler.activeCustomization = name;
     },
     PROFILER_SET_MAINTENANCE_MODE(state, bool) {
       state.profiler.maintenanceMode = bool;
-    }
+    },
   },
   getters: {
-    inputs: state => {
+    inputs: (state) => {
       const keys = Object.keys(state.inputs);
       const values = [];
       for (const key of keys) {
@@ -249,35 +284,35 @@ export default new createStore({
       }
       return values;
     },
-    input: state => id => {
+    input: (state) => (id) => {
       return state.inputs[id];
     },
-    outputs: (state, getters) => id => {
+    outputs: (state, getters) => (id) => {
       const input = getters.input(id);
       if (!input || !input.outputs) {
         return [];
       }
       return input.outputs;
     },
-    customizations: state => {
+    customizations: (state) => {
       return state.customizations;
     },
-    customizationVersions: state => {
+    customizationVersions: (state) => {
       return state.customizationVersions;
     },
-    profilerFormat: state => {
+    profilerFormat: (state) => {
       return state.profiler.format;
     },
-    profilerVersion: state => {
+    profilerVersion: (state) => {
       return state.profiler.version;
     },
-    profilerModules: state => {
+    profilerModules: (state) => {
       return state.profiler.modules;
     },
-    profilerModuleNames: state => {
+    profilerModuleNames: (state) => {
       return Object.keys(state.profiler.modules);
     },
-    profilerInactiveModules: state => {
+    profilerInactiveModules: (state) => {
       let im = [];
 
       for (let moduleName in state.profiler.modules) {
@@ -288,7 +323,7 @@ export default new createStore({
       }
       return im;
     },
-    profilerInactiveElements: state => {
+    profilerInactiveElements: (state) => {
       let ie = [];
 
       try {
@@ -299,14 +334,13 @@ export default new createStore({
             ie.push(elem.name);
           }
         }
-
-      } catch(err) {
+      } catch (err) {
         //console.log('err: ' + err)
       }
 
       return ie;
     },
-    profilerInactiveAttClasses: state => {
+    profilerInactiveAttClasses: (state) => {
       let ia = [];
 
       try {
@@ -316,68 +350,79 @@ export default new createStore({
             ia.push(attClass.name);
           }
         }
-
-      } catch(err) {
+      } catch (err) {
         //console.log('err: ' + err)
       }
 
       return ia;
     },
-    profilerLevel: state => {
+    profilerLevel: (state) => {
       return state.profiler.level;
     },
-    profilerCurrentModule: state => {
-      if(state.profiler.currentModule === null) {
+    profilerCurrentModule: (state) => {
+      if (state.profiler.currentModule === null) {
         return null;
       }
       return state.profiler.modules[state.profiler.currentModule];
     },
-    profilerCurrentElement: state => {
-      if(state.profiler.currentModule === null) {
+    profilerCurrentElement: (state) => {
+      if (state.profiler.currentModule === null) {
         return null;
       }
-      if(state.profiler.currentElement === null) {
+      if (state.profiler.currentElement === null) {
         return null;
       }
-      return state.profiler.modules[state.profiler.currentModule].elements[state.profiler.currentElement];
+      return state.profiler.modules[state.profiler.currentModule].elements[
+        state.profiler.currentElement
+      ];
     },
-    profilerModuleElements: state => {
-      if (typeof state.profiler.modules[state.profiler.currentModule] !== "undefined" && typeof state.profiler.modules[state.profiler.currentModule].elements !== "undefined") {
+    profilerModuleElements: (state) => {
+      if (
+        typeof state.profiler.modules[state.profiler.currentModule] !==
+          "undefined" &&
+        typeof state.profiler.modules[state.profiler.currentModule].elements !==
+          "undefined"
+      ) {
         return state.profiler.modules[state.profiler.currentModule].elements;
       } else {
         return {};
       }
     },
-    profilerModuleAttClasses: state => {
-      if (typeof state.profiler.modules[state.profiler.currentModule] !== "undefined" && typeof state.profiler.modules[state.profiler.currentModule].attClasses !== "undefined") {
+    profilerModuleAttClasses: (state) => {
+      if (
+        typeof state.profiler.modules[state.profiler.currentModule] !==
+          "undefined" &&
+        typeof state.profiler.modules[state.profiler.currentModule]
+          .attClasses !== "undefined"
+      ) {
         return state.profiler.modules[state.profiler.currentModule].attClasses;
       } else {
         return {};
       }
     },
-    profilerShowDesc: state => {
+    profilerShowDesc: (state) => {
       return state.profiler.showDesc;
     },
-    profilerShowInactive: state => {
+    profilerShowInactive: (state) => {
       return state.profiler.showInactive;
     },
-    profilerCurrentAtts: state => {
+    profilerCurrentAtts: (state) => {
       return state.profiler.currentAtts;
     },
-    profilerActiveCustomization: state => {
+    profilerActiveCustomization: (state) => {
       return state.profiler.activeCustomization;
     },
     appVersion: (state) => {
-      return state.packageVersion
-    }
+      return state.packageVersion;
+    },
   },
   actions: {
     fetchInputs({ commit }) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         //console.log("Fetching available input formats…");
         fetch(api + "Conversions/")
-          .then(response => response.text()) //add error handling for failing requests
-          .then(data => {
+          .then((response) => response.text()) //add error handling for failing requests
+          .then((data) => {
             let inputs = [];
             const parsed = parser.parse(data);
             if (
@@ -385,7 +430,7 @@ export default new createStore({
               parsed["input-data-types"]["input-data-type"]
             ) {
               inputs = parsed["input-data-types"]["input-data-type"].map(
-                dataType => {
+                (dataType) => {
                   // eslint-disable-next-line no-unused-vars
                   const [_, label, mime] = dataType["@_id"].split(":");
                   const [id, mimetype] = mime.split(",");
@@ -395,7 +440,7 @@ export default new createStore({
                     mimetype,
                     label,
                     targetsDef,
-                    outputsLoaded: false
+                    outputsLoaded: false,
                   };
                 }
               );
@@ -410,10 +455,10 @@ export default new createStore({
       let input = state.inputs[inputID];
       if (input.outputsLoaded) return Promise.resolve();
 
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         fetch(input.targetsDef)
-          .then(response => response.text()) //add error handling for failing requests
-          .then(data => {
+          .then((response) => response.text()) //add error handling for failing requests
+          .then((data) => {
             let outputs = [];
             const parsed = parser.parse(data);
             if (
@@ -424,15 +469,13 @@ export default new createStore({
               if (!Array.isArray(paths)) {
                 paths = [paths];
               }
-              outputs = paths.map(path => {
+              outputs = paths.map((path) => {
                 if (!Array.isArray(path.conversion)) {
                   path.conversion = [path.conversion];
                 }
                 const href = path["@_xlink:href"];
-                const steps = path.conversion.map(step => {
-                  const [label, format] = step["@_id"]
-                    .split(":")
-                    .slice(5, 7);
+                const steps = path.conversion.map((step) => {
+                  const [label, format] = step["@_id"].split(":").slice(5, 7);
                   const id = encodeURI(format.split(",")[0]);
                   if (!step["property"]) {
                     step["property"] = [];
@@ -440,13 +483,13 @@ export default new createStore({
                   if (!Array.isArray(step["property"])) {
                     step["property"] = [step["property"]];
                   }
-                  const parameters = step["property"].map(param => {
+                  const parameters = step["property"].map((param) => {
                     const type = param["type"];
                     const label = param["property-name"];
                     const parameter = {
                       id: param["@_id"],
                       type,
-                      label
+                      label,
                     };
                     if (type === "array") {
                       parameter.values = param["value"].split(",");
@@ -456,7 +499,7 @@ export default new createStore({
                   return {
                     id,
                     label,
-                    parameters
+                    parameters,
                   };
                 });
                 const target = steps[steps.length - 1];
@@ -465,7 +508,7 @@ export default new createStore({
                   label: target.label,
                   href,
                   steps,
-                  input: inputID
+                  input: inputID,
                 };
               });
             }
@@ -476,10 +519,10 @@ export default new createStore({
     },
 
     fetchCustomizations({ commit }) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         fetch(api + "Customization/")
-          .then(response => response.text())
-          .then(data => {
+          .then((response) => response.text())
+          .then((data) => {
             const parsed = parser.parse(data);
             const storedCustomizations = {};
             if (
@@ -490,46 +533,48 @@ export default new createStore({
               if (!Array.isArray(settings)) {
                 settings = [settings];
               }
-              settings.forEach(setting => {
+              settings.forEach((setting) => {
                 const id = setting["@_id"];
                 let xmlCustomizations =
                   setting["customizations"]["customization"];
                 if (!Array.isArray(xmlCustomizations)) {
                   xmlCustomizations = [xmlCustomizations];
                 }
-                const customizations = xmlCustomizations.map(customization => {
-                  return {
-                    id: customization["@_id"],
-                    name: customization["@_name"],
-                    path: customization["@_path"],
-                    type: customization["@_type"]
-                  };
-                });
+                const customizations = xmlCustomizations.map(
+                  (customization) => {
+                    return {
+                      id: customization["@_id"],
+                      name: customization["@_name"],
+                      path: customization["@_path"],
+                      type: customization["@_type"],
+                    };
+                  }
+                );
                 let xmlOutputFormats = setting["outputFormats"]["outputFormat"];
                 if (!Array.isArray(xmlOutputFormats)) {
                   xmlOutputFormats = [xmlOutputFormats];
                 }
-                const outputFormats = xmlOutputFormats.map(outputFormat => {
+                const outputFormats = xmlOutputFormats.map((outputFormat) => {
                   return {
-                    name: outputFormat["@_name"]
+                    name: outputFormat["@_name"],
                   };
                 });
                 let xmlSources = setting["sources"]["source"];
                 if (!Array.isArray(xmlSources)) {
                   xmlSources = [xmlSources];
                 }
-                const sources = xmlSources.map(source => {
+                const sources = xmlSources.map((source) => {
                   return {
                     id: source["@_id"],
                     name: source["@_name"],
                     type: source["@_type"],
-                    path: source["@_path"]
+                    path: source["@_path"],
                   };
                 });
                 storedCustomizations[id] = {
                   customizations,
                   outputFormats,
-                  sources
+                  sources,
                 };
               });
             }
@@ -549,11 +594,11 @@ export default new createStore({
         axios
           .post(href, formData, {
             headers: {
-              "Content-Type": "multipart/form-data"
+              "Content-Type": "multipart/form-data",
             },
-            responseType: 'blob'
+            responseType: "blob",
           })
-          .then(result => {
+          .then((result) => {
             if (result.data.length === 0) {
               reject("Received empty file");
               return;
@@ -561,77 +606,110 @@ export default new createStore({
             // TODO: the result should be stored for a certain amount of time
             resolve(responseToDownloadable(result));
           })
-          .catch(reason => {
+          .catch((reason) => {
             reject(reason);
           });
       });
     },
 
     profilerFetchModules({ commit, state }) {
-      return new Promise(resolve => {
-        let uri = oddApi + state.profiler.format + '/' + state.profiler.version + '/modules.json';
-        uri = 'https://odd-api.edirom.de/mei/4.0.1/modules.json';
+      return new Promise((resolve) => {
+        let uri =
+          oddApi +
+          state.profiler.format +
+          "/" +
+          state.profiler.version +
+          "/modules.json";
+        uri = "https://odd-api.edirom.de/mei/4.0.1/modules.json";
         fetch(uri)
-          .then(response => {
+          .then((response) => {
             if (!response.ok) {
               throw Error(response.statusText);
             }
             return response.json();
           })
-          .then(json => {
+          .then((json) => {
             commit("PROFILER_SET_MODULES", json);
 
-            json.forEach(module => {
-              new Promise(resolve2 => {
-                let uri = oddApi + state.profiler.format + '/' + state.profiler.version + '/' + module.name + '/attClasses.json';
-                uri = 'https://odd-api.edirom.de/mei/4.0.1/' + module.name + '/attClasses.json';
+            json.forEach((module) => {
+              new Promise((resolve2) => {
+                let uri =
+                  oddApi +
+                  state.profiler.format +
+                  "/" +
+                  state.profiler.version +
+                  "/" +
+                  module.name +
+                  "/attClasses.json";
+                uri =
+                  "https://odd-api.edirom.de/mei/4.0.1/" +
+                  module.name +
+                  "/attClasses.json";
                 fetch(uri)
-                  .then(response => {
+                  .then((response) => {
                     if (!response.ok) {
                       throw Error(response.statusText);
                     }
                     return response.json();
                   })
-                  .then(attClasses => {
+                  .then((attClasses) => {
                     //console.log(json)
                     try {
-                      commit("PROFILER_SET_ATTCLASSES", { name: module.name, attClasses });
-                    } catch(e) {
-                      console.log('running into troubles with ' + module.name + ': ' + err)
+                      commit("PROFILER_SET_ATTCLASSES", {
+                        name: module.name,
+                        attClasses,
+                      });
+                    } catch (e) {
+                      console.log(
+                        "running into troubles with " + module.name + ": " + err
+                      );
                     }
                     resolve2();
                   })
-                  .catch(error => {
+                  .catch((error) => {
                     //console.log(error);
                     resolve2();
                   });
               });
 
-              new Promise(resolve3 => {
-                let uri = oddApi + state.profiler.format + '/' + state.profiler.version + '/' + name + '/elements.json';
-                uri = 'https://odd-api.edirom.de/mei/4.0.1/' + module.name + '/elements.json';
+              new Promise((resolve3) => {
+                let uri =
+                  oddApi +
+                  state.profiler.format +
+                  "/" +
+                  state.profiler.version +
+                  "/" +
+                  name +
+                  "/elements.json";
+                uri =
+                  "https://odd-api.edirom.de/mei/4.0.1/" +
+                  module.name +
+                  "/elements.json";
                 fetch(uri)
-                  .then(response => {
+                  .then((response) => {
                     if (!response.ok) {
                       throw Error(response.statusText);
                     }
                     return response.json();
                   })
-                  .then(json => {
+                  .then((json) => {
                     //console.log(json)
-                    commit("PROFILER_SET_ELEMENTS", { name: module.name, elements: json });
+                    commit("PROFILER_SET_ELEMENTS", {
+                      name: module.name,
+                      elements: json,
+                    });
                     resolve3();
                   })
-                  .catch(error => {
+                  .catch((error) => {
                     //console.log(error);
                     resolve3();
                   });
               });
-            })
+            });
 
             resolve();
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
             resolve();
           });
@@ -654,24 +732,34 @@ export default new createStore({
     },
     profilerSetCurrentModule({ commit, state }, name) {
       commit("PROFILER_SET_CURRENT_MODULE", name);
-      if (name !== null && !(typeof state.profiler.modules[name].elements === "object")) {
-
-        new Promise(resolve => {
-          let uri = oddApi + state.profiler.format + '/' + state.profiler.version + '/' + name + '/elements.json';
-          uri = 'https://odd-api.edirom.de/mei/4.0.1/' + name + '/elements.json';
+      if (
+        name !== null &&
+        !(typeof state.profiler.modules[name].elements === "object")
+      ) {
+        new Promise((resolve) => {
+          let uri =
+            oddApi +
+            state.profiler.format +
+            "/" +
+            state.profiler.version +
+            "/" +
+            name +
+            "/elements.json";
+          uri =
+            "https://odd-api.edirom.de/mei/4.0.1/" + name + "/elements.json";
           fetch(uri)
-            .then(response => {
+            .then((response) => {
               if (!response.ok) {
                 throw Error(response.statusText);
               }
               return response.json();
             })
-            .then(json => {
+            .then((json) => {
               //console.log(json)
               commit("PROFILER_SET_ELEMENTS", { name, elements: json });
               resolve();
             })
-            .catch(error => {
+            .catch((error) => {
               console.log(error);
               resolve();
             });
@@ -682,21 +770,22 @@ export default new createStore({
       commit("PROFILER_SET_CURRENT_ELEMENT", name);
 
       if (name !== null) {
-        new Promise(resolve => {
-          let uri = 'https://odd-api.edirom.de/mei/4.0.1/' + name + '/atts.json';
+        new Promise((resolve) => {
+          let uri =
+            "https://odd-api.edirom.de/mei/4.0.1/" + name + "/atts.json";
           fetch(uri)
-            .then(response => {
+            .then((response) => {
               if (!response.ok) {
                 throw Error(response.statusText);
               }
               return response.json();
             })
-            .then(json => {
+            .then((json) => {
               //console.log(json)
               commit("PROFILER_SET_CURRENT_ATTS", json);
               resolve();
             })
-            .catch(error => {
+            .catch((error) => {
               console.log(error);
               resolve();
             });
@@ -720,6 +809,6 @@ export default new createStore({
     },
     profilerSetMaintenanceMode({ commit }, bool) {
       commit("PROFILER_SET_MAINTENANCE_MODE", bool);
-    }
-  }
+    },
+  },
 });
