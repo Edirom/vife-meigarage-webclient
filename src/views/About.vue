@@ -13,6 +13,10 @@
       needs.
     </p>
     <p>
+      Documentation on the API can be found
+      <a href="../../ege-webservice/" target="_blank">here</a>.
+    </p>
+    <p>
       <a id="meiLink" href="https://music-encoding.org" target="_blank"
         ><img
           alt="Music Encoding Initiative"
