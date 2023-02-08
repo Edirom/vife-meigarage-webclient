@@ -48,10 +48,25 @@ jobs:
             
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
+      # on main branch dont set Docker build ARG
       - name: Build and push Docker image
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}         
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      # on main set Docker build ARG to use dev webservice
+      - name: Build and push Docker image
+        if: ${{ github.ref == 'refs/heads/dev' }}
         uses: docker/build-push-action@v4
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VUE_APP_WEBSERVICE_URL=https://dev.meigarage.edirom.de/ege-webservice/
