@@ -28,7 +28,7 @@
     "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/test-utils": "^2.2.10",
-    "@babel/core": "7.20.12",
+    "@babel/core": "7.21.0",
     "@babel/eslint-parser": "^7.19.1",
     "babel-jest": "^29.4.3",
     "eslint": "^8.35.0",
