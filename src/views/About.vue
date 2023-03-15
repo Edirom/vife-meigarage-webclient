@@ -10,10 +10,7 @@
       different formats, <u>customization</u> of the MEI Schema,
       <u>validation</u> of various XML-based music encoding formats, and
       <u>configuration</u> of MEI data to conform to specific profiles and
-      needs.
-    </p>
-    <p>
-      Documentation on the API can be found
+      needs. Documentation on the API can be found
       <a href="../../ege-webservice/" target="_blank">here</a>.
     </p>
     <p>
