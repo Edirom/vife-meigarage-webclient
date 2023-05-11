@@ -146,7 +146,16 @@
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12 cardBg">
-      <div class="card" id="configurationCard">
+      <!-- todo: extract values for props into a config file -->
+      <Card
+        id="configurationCard"
+        title="Data Configuration"
+        subtitle="Set data profiles"
+        description="Common data configurations"
+        link="./conversions"
+        :contents="configContent"
+      />
+      <!--<div class="card" id="configurationCard">
         <div class="card-header">
           <div class="card-title h5">Data Configuration</div>
           <div class="card-subtitle text-gray">Set data profiles</div>
@@ -169,23 +178,36 @@
                 <td>Add IDs</td>
               </tr>
             </tbody>
-          </table>
+          </table>-->
           <!--<router-link to="/configuration" class="btn btn-sm float-right seeAllButton">See all</router-link>-->
-          <button class="btn btn-sm float-right seeAllButton">
+          <!--<button class="btn btn-sm float-right seeAllButton">
             coming soon
           </button>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import Card from "@/components/Card.vue";
 
 export default {
   name: "home",
-  components: {},
+  data() {
+    return {
+      //extract configContent in a config file later
+      configContent: [
+        { name: "Adjust MEI ControlEvents", link: "", href: "" },
+        { name: "Add timestamps", link: "", href: "" },
+        { name: "Add IDs", link: "", href: "" },
+      ],
+    };
+  },
+  components: {
+    Card,
+  },
   methods: {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");

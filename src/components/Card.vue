@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :id="id" class="card">
     <div class="card-header">
       <div class="card-title h5">{{ title }}</div>
       <div class="card-subtitle text-gray">{{ subtitle }}</div>
@@ -35,6 +35,7 @@
 export default {
   name: "home-card",
   props: {
+    id: String,
     title: String,
     subtitle: String,
     description: String,
