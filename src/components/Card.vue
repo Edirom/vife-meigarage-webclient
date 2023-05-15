@@ -21,12 +21,15 @@
               <a v-if="entry.href" :href="entry.href" target="_blank">{{
                 entry.name
               }}</a>
+              <span v-if="entry.additionalText">
+                ({{ entry.additionalText }})
+              </span>
             </td>
           </tr>
         </tbody>
       </table>
       <router-link :to="link" class="btn btn-sm float-right seeAllButton"
-        >See all</router-link
+        >{{linkText}}</router-link
       >
     </div>
   </div>
@@ -40,6 +43,7 @@ export default {
     subtitle: String,
     description: String,
     link: String,
+    linkText: String,
     contents: Array,
   },
   computed: {
