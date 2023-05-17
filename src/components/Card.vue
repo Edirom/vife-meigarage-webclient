@@ -28,9 +28,9 @@
           </tr>
         </tbody>
       </table>
-      <router-link :to="link" class="btn btn-sm float-right seeAllButton"
-        >{{linkText}}</router-link
-      >
+      <router-link :to="link" class="btn btn-sm float-right seeAllButton">{{
+        linkText
+      }}</router-link>
     </div>
   </div>
 </template>
