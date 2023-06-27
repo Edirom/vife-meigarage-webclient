@@ -15,177 +15,113 @@
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title h5">Conversion</div>
-          <div class="card-subtitle text-gray">Convert between formats</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Common file conversions:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <router-link to="/conversions/mei30/mei40"
-                    >MEI 3.0 (2016) to MEI 4.0 (2018)</router-link
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <router-link to="/conversions/musicxml-partwise/mei40"
-                    >MusicXML (partwise) to MEI 4.0 (2018)</router-link
-                  >
-                </td>
-              </tr>
-              <tr>
-                <!-- TODO -->
-                <td>
-                  <router-link to="/conversions/mei40/pdf-lilypond"
-                    >MEI 4.0 (2018) to PDF Score (LilyPond)</router-link
-                  >
-                </td>
-              </tr>
-              <!--<tr>
-                <td>MEI to Audio (coming soon)</td>
-              </tr>-->
-            </tbody>
-          </table>
-          <router-link
-            to="/conversions"
-            class="btn btn-sm float-right seeAllButton"
-            >See all</router-link
-          >
-        </div>
-      </div>
+      <Card
+        id="conversionCard"
+        title="Conversion"
+        subtitle="Convert between formats"
+        description="Common file conversions:"
+        link="./conversions"
+        linkText="See all"
+        :contents="conversionContent"
+      />
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title h5">Customization</div>
-          <div class="card-subtitle text-gray">Customize the MEI Schema</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Common customizations:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <router-link to="/customization"
-                    >MEI Customization Service</router-link
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <router-link to="/profiler">MEI ProfileDrafter</router-link>
-                  (helps to restrict MEI)
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a
-                    href="https://music-encoding.org/archive/comparison-4.0.html"
-                    target="_blank"
-                    >MEI Comparison</a
-                  >
-                  (compares MEI 4.0 with MEI 3.0)
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <router-link
-            to="/customization"
-            class="btn btn-sm float-right seeAllButton"
-            >Customize MEI</router-link
-          >
-        </div>
-      </div>
+      <Card
+        id="customizationCard"
+        title="Customization"
+        subtitle="Customize the MEI Schema"
+        description="Common customizations:"
+        link="./customization"
+        linkText="Customize MEI"
+        :contents="customizationContent"
+      />
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12 cardBg">
-      <div class="card" id="validationCard">
-        <div class="card-header">
-          <div class="card-title h5">Validation</div>
-          <div class="card-subtitle text-gray">Validate files</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Common validation scenarios:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Validate MEI 3.0.0</td>
-              </tr>
-              <tr>
-                <td>Validate MEI 4.0.1</td>
-              </tr>
-              <tr>
-                <td>Validate MusicXML 3.1</td>
-              </tr>
-            </tbody>
-          </table>
-          <!--<router-link to="/validation" class="btn btn-sm float-right seeAllButton">See all</router-link>-->
-          <button class="btn btn-sm float-right seeAllButton">
-            coming soon
-          </button>
-        </div>
-      </div>
+      <!-- todo: replace link "./conversions" with "./validation" -->
+      <Card
+        id="validationCard"
+        title="Validation"
+        subtitle="Validate files"
+        description="Common validation scenarios"
+        link="./conversions"
+        linkText="coming soon"
+        :contents="validationContent"
+      />
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12 cardBg">
-      <div class="card" id="configurationCard">
-        <div class="card-header">
-          <div class="card-title h5">Data Configuration</div>
-          <div class="card-subtitle text-gray">Set data profiles</div>
-        </div>
-        <div class="card-body">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>Common data configurations:</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Adjust MEI Controlevents</td>
-              </tr>
-              <tr>
-                <td>Add timestamps</td>
-              </tr>
-              <tr>
-                <td>Add IDs</td>
-              </tr>
-            </tbody>
-          </table>
-          <!--<router-link to="/configuration" class="btn btn-sm float-right seeAllButton">See all</router-link>-->
-          <button class="btn btn-sm float-right seeAllButton">
-            coming soon
-          </button>
-        </div>
-      </div>
+      <!-- todo: extract values for props into a config file; replace link "./conversions" with "./configuration" -->
+      <Card
+        id="configurationCard"
+        title="Data Configuration"
+        subtitle="Set data profiles"
+        description="Common data configurations"
+        link="./conversions"
+        linkText="coming soon"
+        :contents="configContent"
+      />
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import Card from "@/components/Card.vue";
 
 export default {
   name: "home",
-  components: {},
+  data() {
+    return {
+      //todo: extract configContent in a config file later
+      customizationContent: [
+        { name: "MEI Customization Service", link: "/customization", href: "" },
+        {
+          name: "MEI ProfileDrafter",
+          link: "/profiler",
+          href: "",
+          additionalText: "helps to restrict MEI",
+        },
+        {
+          name: "MEI Comparison",
+          link: "",
+          href: "https://music-encoding.org/archive/comparison-4.0.html",
+          additionalText: "compares MEI 4.0 with MEI 3.0",
+        },
+      ],
+      conversionContent: [
+        {
+          name: "MEI 3.0 (2016) to MEI 4.0 (2018)",
+          link: "/conversions/mei30/mei40",
+          href: "",
+        },
+        {
+          name: "MusicXML (partwise) to MEI 4.0 (2018)",
+          link: "/conversions/musicxml-partwise/mei40",
+          href: "",
+        },
+        {
+          name: "MEI 4.0 (2018) to PDF Score (LilyPond)",
+          link: "/conversions/mei40/pdf-lilypond",
+          href: "",
+        },
+      ],
+      validationContent: [
+        { name: "AValidate MEI 3.0.0", link: "", href: "" },
+        { name: "Validate MEI 4.0.1", link: "", href: "" },
+        { name: "Validate MusicXML 3.1", link: "", href: "" },
+      ],
+      configContent: [
+        { name: "Adjust MEI ControlEvents", link: "", href: "" },
+        { name: "Add timestamps", link: "", href: "" },
+        { name: "Add IDs", link: "", href: "" },
+      ],
+    };
+  },
+  components: {
+    Card,
+  },
   methods: {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");

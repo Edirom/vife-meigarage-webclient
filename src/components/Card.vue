@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :id="id" class="card">
     <div class="card-header">
       <div class="card-title h5">{{ title }}</div>
       <div class="card-subtitle text-gray">{{ subtitle }}</div>
@@ -21,13 +21,16 @@
               <a v-if="entry.href" :href="entry.href" target="_blank">{{
                 entry.name
               }}</a>
+              <span v-if="entry.additionalText">
+                ({{ entry.additionalText }})
+              </span>
             </td>
           </tr>
         </tbody>
       </table>
-      <router-link :to="link" class="btn btn-sm float-right seeAllButton"
-        >See all</router-link
-      >
+      <router-link :to="link" class="btn btn-sm float-right seeAllButton">{{
+        linkText
+      }}</router-link>
     </div>
   </div>
 </template>
@@ -35,10 +38,12 @@
 export default {
   name: "home-card",
   props: {
+    id: String,
     title: String,
     subtitle: String,
     description: String,
     link: String,
+    linkText: String,
     contents: Array,
   },
   computed: {
