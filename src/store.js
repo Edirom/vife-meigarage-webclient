@@ -30,6 +30,7 @@ export default new createStore({
     inputs: {},
     customizations: {},
     // dummy data for now
+    validations: {},
     customizationVersions: [
       //{
       //  version: "Current Development Version",
@@ -64,6 +65,7 @@ export default new createStore({
     ],
     inputsLoaded: false,
     customizationsLoaded: false,
+    validationsLoaded: false,
     profiler: {
       format: "mei",
       version: "4.0.1",
@@ -95,6 +97,14 @@ export default new createStore({
       state.inputs[data.id].outputsLoaded = true;
       state.inputs[data.id].outputs = data.outputs;
       state.inputs = Object.assign({}, state.inputs);
+    },
+    FETCH_VALIDATIONS(state, validations) {
+      validations.forEach((validation) => {
+        const created = {};
+        created[validation.id] = validation;
+        state.validations = Object.assign({}, state.validations, created);
+      });
+      state.validationsLoaded = true;
     },
     SET_CUSTOMIZATIONS(state, customizations) {
       state.customizations = customizations;
@@ -517,7 +527,39 @@ export default new createStore({
           });
       });
     },
-
+    fetchValidations({ commit }) {
+      return new Promise((resolve) => {
+        fetch(api + "Validation/")
+          .then((response) => response.text())
+          .then((data) => {
+            const parsed = parser.parse(data);
+            //console.log("parsed validations: ", parsed);
+            if (
+              parsed["validations"] &&
+              parsed["validations"]["input-data-type"]
+            ) {
+              let validations = [];
+              validations = parsed["validations"]["input-data-type"].map(
+                (dataType) => {
+                  // eslint-disable-next-line no-unused-vars
+                  const [_, label, mime] = dataType["@_id"].split(":");
+                  const [id, mimetype] = mime.split(",");
+                  const href = dataType["@_xlink:href"];
+                  return {
+                    id,
+                    mimetype,
+                    label,
+                    href,
+                  };
+                }
+              );
+              commit("FETCH_VALIDATIONS", validations);
+              resolve();
+              //console.log("glory!: ", validations);
+            }
+          });
+      });
+    },
     fetchCustomizations({ commit }) {
       return new Promise((resolve) => {
         fetch(api + "Customization/")
