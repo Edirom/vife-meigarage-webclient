@@ -1,5 +1,12 @@
 "use strict";
 
+import { meiDataTypes } from "@/config";
+
+const meiIdLookup = {};
+Object.entries(meiDataTypes).forEach(([key, value]) => {
+  value.apiIds.forEach(id => meiIdLookup[id] = key);
+});
+
 export const responseToDownloadable = (httpResponse) => {
   const url = window.URL.createObjectURL(httpResponse.data);
 
@@ -32,10 +39,12 @@ export const download = ({ url, fileName }, revoke = true) => {
   }
 };
 
+//const idParser = (id) => meiIdLookup[id];
+
 // temporary utility function to parse validation options provided by MEI Garage
 // will be deprecated once new version of MEI Garage API is available
 export const parseValidationOptions = (validations) => {
-  const notationProfiles = {
+  const customizationProfiles = {
     all: "MEI All",
     any: "MEI anyStart",
     cmn: "MEI CMN",
@@ -60,8 +69,8 @@ export const parseValidationOptions = (validations) => {
             ? MEIversions[pocket[0].match(regxNumbers)[0]] ||
               "(" + pocket[0].match(regxNumbers)[0] + ")"
             : "dev",
-        notation: pocket[1]
-          ? notationProfiles[pocket[1]] || "(" + pocket[1] + ")"
+        customization: pocket[1]
+          ? customizationProfiles[pocket[1]] || "(" + pocket[1] + ")"
           : "MEI all",
       },
       value
