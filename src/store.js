@@ -9,6 +9,8 @@ import { version } from "../package.json";
 
 const { XMLParser } = require("fast-xml-parser");
 
+import { meiDataTypes } from "@/config";
+
 const parserOptions = {
   attributeNamePrefix: "@_",
   attrNodeName: "attr",
@@ -22,6 +24,10 @@ const parser = new XMLParser(parserOptions);
 const api = process.env.VUE_APP_WEBSERVICE_URL;
 const oddApi = process.env.VUE_APP_ODD_API_URL;
 const packageVersion = process.env.VUE_APP_VERSION;
+const meiIdLookup = {};
+Object.entries(meiDataTypes).forEach(([key, value]) => {
+  value.apiIds.forEach(id => meiIdLookup[id] = key);
+});
 
 /* Vue.use(Vuex); */
 
@@ -545,11 +551,19 @@ export default new createStore({
                   const [_, label, mime] = dataType["@_id"].split(":");
                   const [id, mimetype] = mime.split(",");
                   const href = dataType["@_xlink:href"];
+                  const name = meiIdLookup[id];
+                  const version = meiDataTypes[name]?.version;
+                  const format = meiDataTypes[name]?.format;
+                  const customization = meiDataTypes[name]?.customization;
                   return {
                     id,
                     mimetype,
                     label,
                     href,
+                    name,
+                    version,
+                    format,
+                    customization,
                   };
                 }
               );

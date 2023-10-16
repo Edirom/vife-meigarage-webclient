@@ -1,12 +1,5 @@
 "use strict";
 
-import { meiDataTypes } from "@/config";
-
-const meiIdLookup = {};
-Object.entries(meiDataTypes).forEach(([key, value]) => {
-  value.apiIds.forEach(id => meiIdLookup[id] = key);
-});
-
 export const responseToDownloadable = (httpResponse) => {
   const url = window.URL.createObjectURL(httpResponse.data);
 
@@ -37,43 +30,4 @@ export const download = ({ url, fileName }, revoke = true) => {
   if (revoke) {
     invalidate(url);
   }
-};
-
-//const idParser = (id) => meiIdLookup[id];
-
-// temporary utility function to parse validation options provided by MEI Garage
-// will be deprecated once new version of MEI Garage API is available
-export const parseValidationOptions = (validations) => {
-  const customizationProfiles = {
-    all: "MEI All",
-    any: "MEI anyStart",
-    cmn: "MEI CMN",
-    mensural: "MEI Mensural",
-    neumes: "MEI Neumes",
-  };
-  const MEIversions = {
-    211: "2.1.1",
-    300: "3.0.0",
-    400: "4.0.0",
-    401: "4.0.1",
-  };
-  return Object.entries(validations).map(([key, value]) => {
-    const pocket = key.split("-");
-    const regxLetters = /[a-z]+/gi;
-    const regxNumbers = /[0-9]+/gi;
-    return Object.assign(
-      {
-        format: pocket[0].match(regxLetters)[0],
-        version:
-          pocket[0].search(/[0-9]/) > -1
-            ? MEIversions[pocket[0].match(regxNumbers)[0]] ||
-              "(" + pocket[0].match(regxNumbers)[0] + ")"
-            : "dev",
-        customization: pocket[1]
-          ? customizationProfiles[pocket[1]] || "(" + pocket[1] + ")"
-          : "MEI all",
-      },
-      value
-    );
-  });
 };
