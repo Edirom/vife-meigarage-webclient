@@ -14,7 +14,7 @@
                   <tr>
                     <th>name</th>
                     <th>version</th>
-                    <th></th>
+                    <th>customization</th>
                   </tr>
                 </thead>
                 <tbody id="validation-scenarios" ref="container">

@@ -6,6 +6,7 @@
       }}</router-link>
     </td>
     <td>{{ version }}</td>
+    <td>{{ customization }}</td>
   </tr>
 </template>
 
