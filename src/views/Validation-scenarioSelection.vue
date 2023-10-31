@@ -18,21 +18,12 @@
                   </tr>
                 </thead>
                 <tbody id="validation-scenarios" ref="container">
-                  <tr>
-                    <td>
-                      <router-link to="/validation/mei/4.0.1">MEI</router-link>
-                    </td>
-                    <td>4.0.1 (current) [-> nur der hier geht]</td>
-                    <td>
-                      <router-link to="/validation/mei/4.0.1"
-                        ><i class="icon icon-forward"></i
-                      ></router-link>
-                    </td>
-                  </tr>
                   <ValidationOptionItem
-                    format="mei"
-                    version="4.0.1"
-                    name="meimeimei"
+                    v-for="validation in validations"
+                    v-bind="validation"
+                    :format="validation.format"
+                    :version="validation.version"
+                    :name="validation.name"
                   />
                 </tbody>
               </table>
@@ -43,11 +34,19 @@
     </div>
   </div>
 </template>
+
 <script setup>
+import { useStore } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import ValidationOptionItem from "@/components/ValidationOptionItem.vue";
+import { computed } from "vue";
 
+const store = useStore();
+
+const validations = computed(() => store.state.validations);
+console.log("from store", validations);
 </script>
+
 <style scoped lang="scss">
 .viewBox {
   background-color: #f5f5f5;
