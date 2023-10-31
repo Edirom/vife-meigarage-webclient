@@ -569,7 +569,7 @@ export default new createStore({
               );
               commit("FETCH_VALIDATIONS", validations);
               resolve();
-              //console.log("glory!: ", validations);
+              console.log("glory!: ", validations);
             }
           });
       });

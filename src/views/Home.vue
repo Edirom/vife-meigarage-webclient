@@ -45,7 +45,7 @@
         title="Validation"
         subtitle="Validate files"
         description="Common validation scenarios"
-        link="./conversions"
+        link="./validation"
         linkText="coming soon"
         :contents="validationContent"
       />

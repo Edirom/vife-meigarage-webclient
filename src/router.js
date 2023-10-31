@@ -79,7 +79,7 @@ const routes = [
   {
     path: "/validation",
     name: "validation-scenarioList",
-    component: () => import("./views/Validation-scenarioList.vue"),
+    component: () => import("./views/Validation-scenarioSelection.vue"),
   },
   {
     path: "/validation/:format/:version?",

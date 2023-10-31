@@ -146,10 +146,12 @@
 <script>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
+import ValidationOptionItem from "@/components/ValidationOptionItem.vue";
 
 export default {
   name: "validation-scenarios",
   components: {
+    ValidationOptionItem,
     Breadcrumb,
   },
 };
