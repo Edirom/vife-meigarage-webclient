@@ -8,8 +8,9 @@
         <h1>Validation</h1>
         <p>
           Validating files against
-          <span class="format">{{ formatDisplay }}</span> in version
-          <span class="version">{{ version }}</span>
+          <span class="format">{{ format }}</span> in version
+          <span class="version">{{ version }}</span> mit der Customization
+          <span class="customization">{{ customization }}</span>
         </p>
 
         <div class="viewBox">
@@ -38,53 +39,6 @@
             <button class="btn btn-primary">Validate</button>
           </div>
         </div>
-        <div class="parameterBox accordion">
-          <input
-            type="checkbox"
-            id="options-accordion"
-            name="accordion-checkbox"
-            hidden
-          />
-          <label for="options-accordion" class="accordion-header">
-            <h1>
-              <i class="icon icon-arrow-right mr-1"></i>Validation Options
-            </h1>
-          </label>
-          <div class="columns accordion-body">
-            <div class="column col-6" v-if="profiles.length > 0">
-              <div class="optionsBox profiles">
-                <h2>Available Profiles</h2>
-                <div id="profileRadios" class="form-group">
-                  <label
-                    class="form-radio"
-                    v-for="(profile, index) in profiles"
-                    :key="profile.id"
-                    :profile="profile"
-                  >
-                    <input
-                      type="radio"
-                      name="profile"
-                      :value="index"
-                      v-model="activeProfileIndex"
-                    />
-                    <i class="form-icon"></i> {{ profile.name }}
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="column col-6">
-              <div class="optionsBox schematron">
-                <h2>Schematron</h2>
-                <div class="form-group">
-                  <label class="form-checkbox">
-                    <input type="checkbox" checked />
-                    <i class="form-icon"></i> Validate Schematron Rules
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div class="static">
           <h1>Static Validation</h1>
@@ -111,6 +65,7 @@
             following POST for the current validation:
           </p>
           <div class="restURL">
+            {{ `https://meigarage.edirom.de/rest/validation/${format}/${version}/...comingsoon` }}
             https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala
           </div>
           <p>
@@ -190,7 +145,7 @@
 import Breadcrumb from "@/components/Breadcrumb.vue";
 
 export default {
-  name: "validation-secnario",
+  name: "validation-scenario",
   components: {
     Breadcrumb,
   },
@@ -205,17 +160,21 @@ export default {
 
     version() {
       // TODO: specify 'latest'
-      return this.$route.params.version || "4.0.1";
+      return this.$route.params.version; //|| "4.0.1";
     },
 
-    formatDisplay() {
+    customization() {
+      return this.$route.params.customization;
+    },
+
+    /*formatDisplay() {
       if (this.profiles.length > this.activeProfileIndex) {
         return this.profiles[this.activeProfileIndex].name;
       }
       return this.format;
-    },
+    },*/
   },
-  data() {
+  /*data() {
     return {
       activeProfileIndex: 0,
       profiles: [
@@ -226,7 +185,7 @@ export default {
         { id: "neumes", name: "MEI Neumes" },
       ],
     };
-  },
+  },*/
 };
 </script>
 

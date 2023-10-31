@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>
-      <router-link :to="`/validation/${format}/${version}/`">{{
+      <router-link :to="`/validation/${format}/${version}/${customization}/`">{{
         name
       }}</router-link>
     </td>

@@ -5,7 +5,7 @@ export const meiDataTypes = {
     link: "",
     format: "MEI",
     version: "4.0.1",
-    customization: "",
+    customization: "All",
   },
   "MEI 4.0.1 All anyStart": {
     apiIds: ["mei401-any", "c-mei-all-any"],
@@ -45,7 +45,7 @@ export const meiDataTypes = {
     link: "",
     format: "MEI",
     version: "4.0.0",
-    customization: "",
+    customization: "All",
   },
   "MEI 4.0.0 All anyStart": {
     apiIds: ["mei400-any"],
@@ -85,7 +85,7 @@ export const meiDataTypes = {
     link: "",
     format: "MEI",
     version: "3.0.0",
-    customization: "",
+    customization: "All",
   },
   "MEI 3.0.0 All anyStart": {
     apiIds: ["mei300-any"],
@@ -125,7 +125,7 @@ export const meiDataTypes = {
     link: "",
     format: "MEI",
     version: "2.1.1",
-    customization: "",
+    customization: "All",
   },
   "MEI 2.1.1 All anyStart": {
     apiIds: ["mei211-any"],
@@ -165,7 +165,7 @@ export const meiDataTypes = {
     link: "",
     format: "MEI",
     version: "2.0.0",
-    customization: "",
+    customization: "All",
   },
   "MEI 2.0.0 All anyStart": {
     apiIds: ["mei200-any"],
@@ -205,7 +205,7 @@ export const meiDataTypes = {
     link: "",
     format: "MEI",
     version: "1.0.0",
-    customization: "",
+    customization: "All",
   },
   "MEI 1.0.0 All anyStart": {
     apiIds: ["mei100-any"],
@@ -245,7 +245,7 @@ export const meiDataTypes = {
     link: "",
     format: "MEI",
     version: "dev",
-    customization: "",
+    customization: "All",
   },
   "MEI dev All anyStart": {
     apiIds: ["meidev-any"],

@@ -44,7 +44,7 @@ import { computed } from "vue";
 const store = useStore();
 
 const validations = computed(() => store.state.validations);
-console.log("from store", validations);
+//console.log("from store", validations);
 </script>
 
 <style scoped lang="scss">
