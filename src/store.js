@@ -72,6 +72,7 @@ export default new createStore({
     inputsLoaded: false,
     customizationsLoaded: false,
     validationsLoaded: false,
+    currentValidation: {},
     profiler: {
       format: "mei",
       version: "4.0.1",
@@ -118,6 +119,10 @@ export default new createStore({
     },
     ADD_CUSTOMIZATION_VERSION(state, version) {
       state.customizationVersions.push(version);
+    },
+    SET_CURRENT_VALIDATION(state, id) {
+      //todo: finish this
+      state.currentValidation = state.validations[id];
     },
     PROFILER_SET_MODULES(state, modules) {
       let modulesObj = {};
@@ -315,6 +320,12 @@ export default new createStore({
     },
     customizationVersions: (state) => {
       return state.customizationVersions;
+    },
+    getValidations: (state) => {
+      return state.validations;
+    },
+    currentValidation: (state) => {
+      return state.currentValidation;
     },
     profilerFormat: (state) => {
       return state.profiler.format;
@@ -569,7 +580,7 @@ export default new createStore({
               );
               commit("FETCH_VALIDATIONS", validations);
               resolve();
-              //console.log("glory!: ", validations);
+              console.log("glory!: ", validations);
             }
           });
       });
@@ -640,7 +651,6 @@ export default new createStore({
           });
       });
     },
-
     triggerCustomization(
       store,
       { settingId, sourceId, customizationId, outputFormat, formData }

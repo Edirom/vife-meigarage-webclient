@@ -24,6 +24,8 @@
                     :format="validation.format"
                     :version="validation.version"
                     :name="validation.name"
+                    :id="validation.id"
+                    :href="validation.href"
                   />
                 </tbody>
               </table>

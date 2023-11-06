@@ -1,9 +1,15 @@
 <template>
   <tr>
     <td>
-      <router-link :to="`/validation/${format}/${version}/${customization}/`">{{
-        name
-      }}</router-link>
+      <router-link
+        :to="{
+          name: 'validation',
+          params: {
+            id,
+          },
+        }"
+        >{{ name }}</router-link
+      >
     </td>
     <td>{{ version }}</td>
     <td>{{ customization }}</td>
@@ -16,5 +22,6 @@ const props = defineProps({
   version: String,
   customization: String,
   name: String,
+  id: String,
 });
 </script>

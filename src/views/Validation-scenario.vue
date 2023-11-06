@@ -8,9 +8,9 @@
         <h1>Validation</h1>
         <p>
           Validating files against
-          <span class="format">{{ format }}</span> in version
-          <span class="version">{{ version }}</span> mit der Customization
-          <span class="customization">{{ customization }}</span>
+          <span class="format">{{ currentValidation.format }}</span> in version
+          <span class="version">{{ currentValidation.version }}</span> mit der Customization
+          <span class="customization">{{ currentValidation.customization }}</span>
         </p>
 
         <div class="viewBox">
@@ -65,8 +65,7 @@
             following POST for the current validation:
           </p>
           <div class="restURL">
-            {{ `https://meigarage.edirom.de/rest/validation/${format}/${version}/...comingsoon` }}
-            https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala
+            {{ currentValidation.href }}
           </div>
           <p>
             <a onclick="alert('Link zur Swagger-Dokumentation')"
@@ -74,119 +73,31 @@
             >
           </p>
         </div>
-
-        <div class="internalComment">
-          <h1>Interne Hinweise zur Umsetzung</h1>
-          <p>
-            Aktuell werden für format und version nur die direkten Strings
-            ausgegeben. Hier wäre es sinnvoll, da auch entsprechende Objekte im
-            store zu hinterlegen und dann etwas vollständiger zu sein (also
-            "MEI" statt "mei", "MusicXML" statt "musicxml" etc.). Aus diesem
-            Objekt sollten dann auch die verfügbaren Profile und zugehörigen
-            URLs kommen. Daniel, das klingt nach Kommunikation mit dem Backend
-            ;-)
-          </p>
-          <p>
-            Der Breadcrumb vereint Format und Version, in der URL sind es aber
-            zwei getrennte Routes. Wenn jemand nur auf das Format geht
-            ("/validation/mei") sollte er automatisch zum "latest" bzw.
-            "current" weitergeleitet werden.
-          </p>
-          <p>
-            Wenn es zu einem Format mehrere Profile gibt, sollte oben in der
-            Überschrift nicht {format} stehen, sondern das jeweils aktuelle
-            Profil. Das könnte auch verlinkt sein und bei einem Klick nach unten
-            zu den Profilen führen. Bei MusicXML gibt es keine Profile, so dass
-            dort einfach {format} hinkommt.
-          </p>
-          <p>Validation Options soll offensichtlich einklappbar sein.</p>
-          <p>
-            Offensichtlich muss das Format der REST-Anfrage noch spezifiziert
-            werden ;-)
-          </p>
-          <p>
-            Unten sind zwei Beispielseiten verlinkt, wie das Ergebnis der
-            Validierung aussehen sollte. Mein Vorschlag wäre, pro Validierung
-            eine UUID zu generieren und die an die URL dranzuhängen. Unter der
-            URL könnte das Ergebnis für eine voreingestellte Zeit verfügbar
-            sein, danach wird es automatisch gelöscht.
-          </p>
-          <router-link
-            to="/validation/mei/4.0.1/47edf1ec-bc4e-46bd-8be3-292fc270d8f7"
-          >
-            <button
-              style="margin-right: 0.25rem"
-              class="btn btn-lg btn-success"
-            >
-              Valides Beispiel
-            </button>
-          </router-link>
-
-          <router-link
-            to="/validation/mei/4.0.1/50ea0681-85dd-4242-995f-c8008ed04917"
-          >
-            <button style="margin-left: 0.25rem" class="btn btn-lg btn-error">
-              Nicht-valides Beispiel
-            </button>
-          </router-link>
-          <p style="margin-top: 1rem">
-            Ich bin nicht sicher, ob wir den Bereich "Static Validation"
-            brauchen. Es ist aber vielleicht ein netter Service, wenn wir's
-            gleich dazuschreiben?
-          </p>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 
-export default {
-  name: "validation-scenario",
-  components: {
-    Breadcrumb,
-  },
-  /*async getInitialData({this.$store, this.$route}) {
-    await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
-  },*/
-  methods: {},
-  computed: {
-    format() {
-      return this.$route.params.format;
-    },
+const store = useStore();
 
-    version() {
-      // TODO: specify 'latest'
-      return this.$route.params.version; //|| "4.0.1";
-    },
+const props = defineProps({
+  id: { type: String },
+});
 
-    customization() {
-      return this.$route.params.customization;
-    },
+const currentValidation = computed(() => {
+  //console.log(props.id);
+  store.commit("SET_CURRENT_VALIDATION", props.id);
+  return store.state.currentValidation;
+});
 
-    /*formatDisplay() {
-      if (this.profiles.length > this.activeProfileIndex) {
-        return this.profiles[this.activeProfileIndex].name;
-      }
-      return this.format;
-    },*/
-  },
-  /*data() {
-    return {
-      activeProfileIndex: 0,
-      profiles: [
-        { id: "all", name: "MEI All" },
-        { id: "anystart", name: "MEI anyStart" },
-        { id: "cmd", name: "MEI CMD" },
-        { id: "mensural", name: "MEI Mensural" },
-        { id: "neumes", name: "MEI Neumes" },
-      ],
-    };
-  },*/
-};
+/*const id = computed(() => currentValidation.value);
+const href = computed(() => currentValidation.value);*/
 </script>
 
 <style scoped lang="scss">
