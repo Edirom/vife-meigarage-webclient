@@ -28,7 +28,9 @@
         <router-link to="/validation">Validation</router-link>
       </li>
       <li v-if="$route.params.id" class="breadcrumb-item">
-        <router-link to="/validation/id">{{$route.params.id}}</router-link>
+        <router-link :to="'/validation/' + $route.params.id">
+          {{ $route.params.id }}
+        </router-link>
       </li>
       <li
         v-if="

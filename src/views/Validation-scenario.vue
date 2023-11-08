@@ -36,7 +36,9 @@
                 </span>
               </div>
             </form>
-            <button class="btn btn-primary">Validate</button>
+            <button type="button" v-on:click="validate" class="btn btn-primary">
+              Validate
+            </button>
           </div>
         </div>
 
@@ -81,8 +83,12 @@
 <script setup>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import { responseToDownloadable, download } from "@/util";
+import axios from "axios";
+//import notFound from "@/components/NotFound.vue";
+//import Loading from "@/components/Loading.vue";
 
 const store = useStore();
 
@@ -90,14 +96,39 @@ const props = defineProps({
   id: { type: String },
 });
 
-const currentValidation = computed(() => {
-  //console.log(props.id);
+//delete if a current validation does not need to be remembered between routes
+onMounted(() => {
+  console.log(props.id);
   store.commit("SET_CURRENT_VALIDATION", props.id);
-  return store.state.currentValidation;
 });
 
-/*const id = computed(() => currentValidation.value);
-const href = computed(() => currentValidation.value);*/
+const currentValidation = computed(() => {
+  return store.state.validations[props.id];
+});
+
+function validate() {
+  let myForm = document.getElementById("validationForm");
+  let formData = new FormData(myForm);
+  // we require the file to be present
+  const file = formData.get("fileToValidate");
+  if (!file || file.size === 0) {
+    return;
+  }
+
+  axios
+    .post(currentValidation.value.href, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+      responseType: "blob",
+    })
+    .then(function (response) {
+      download(responseToDownloadable(response));
+    })
+    .catch(function (response) {
+      //handle error
+      console.log(response);
+    });
+}
+
 </script>
 
 <style scoped lang="scss">
