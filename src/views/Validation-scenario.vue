@@ -8,9 +8,9 @@
         <h1>Validation</h1>
         <p>
           Validating files against
-          <span class="format">{{ currentValidation.format }}</span> in version
-          <span class="version">{{ currentValidation.version }}</span> mit der Customization
-          <span class="customization">{{ currentValidation.customization }}</span>
+          <span class="format">{{ format }}</span> in version
+          <span class="version">{{ version }}</span> mit der Customization
+          <span class="customization">{{ customization }}</span>
         </p>
 
         <div class="viewBox">
@@ -67,7 +67,7 @@
             following POST for the current validation:
           </p>
           <div class="restURL">
-            {{ currentValidation.href }}
+            {{ href }}
           </div>
           <p>
             <a onclick="alert('Link zur Swagger-Dokumentation')"
@@ -98,13 +98,18 @@ const props = defineProps({
 
 //delete if a current validation does not need to be remembered between routes
 onMounted(() => {
-  console.log(props.id);
   store.commit("SET_CURRENT_VALIDATION", props.id);
 });
 
-const currentValidation = computed(() => {
+const validationMetadata = computed(() => {
   return store.state.validations[props.id];
 });
+
+const format = validationMetadata.value?.format;
+const version = validationMetadata.value?.version;
+const customization = validationMetadata.value?.customization;
+const href = validationMetadata.value?.href;
+
 
 function validate() {
   let myForm = document.getElementById("validationForm");
