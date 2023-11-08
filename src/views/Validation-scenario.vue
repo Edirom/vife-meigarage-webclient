@@ -8,9 +8,9 @@
         <h1>Validation</h1>
         <p>
           Validating files against
-          <span class="format">{{ format }}</span> in version
-          <span class="version">{{ version }}</span> mit der Customization
-          <span class="customization">{{ customization }}</span>
+          <span class="format">{{ validationMetadata?.format }}</span> in version
+          <span class="version">{{ validationMetadata?.version }}</span> mit der Customization
+          <span class="customization">{{ validationMetadata?.customization }}</span>
         </p>
 
         <div class="viewBox">
@@ -67,7 +67,7 @@
             following POST for the current validation:
           </p>
           <div class="restURL">
-            {{ href }}
+            {{ validationMetadata?.href }}
           </div>
           <p>
             <a onclick="alert('Link zur Swagger-Dokumentation')"
@@ -105,12 +105,6 @@ const validationMetadata = computed(() => {
   return store.state.validations[props.id];
 });
 
-const format = validationMetadata.value?.format;
-const version = validationMetadata.value?.version;
-const customization = validationMetadata.value?.customization;
-const href = validationMetadata.value?.href;
-
-
 function validate() {
   let myForm = document.getElementById("validationForm");
   let formData = new FormData(myForm);
@@ -121,7 +115,7 @@ function validate() {
   }
 
   axios
-    .post(currentValidation.value.href, formData, {
+    .post(validationMetadata.value.href, formData, {
       headers: { "Content-Type": "multipart/form-data" },
       responseType: "blob",
     })
@@ -138,6 +132,7 @@ function validate() {
 
 <style scoped lang="scss">
 .format,
+.customization,
 .version {
   font-size: 1.2rem;
   font-weight: 700;
