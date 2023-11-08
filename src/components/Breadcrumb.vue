@@ -27,10 +27,8 @@
       >
         <router-link to="/validation">Validation</router-link>
       </li>
-      <li v-if="$route.params.format" class="breadcrumb-item">
-        <router-link to="/validation/format/version"
-          >{{ $route.params.format }} {{ $route.params.version }}</router-link
-        >
+      <li v-if="$route.params.id" class="breadcrumb-item">
+        <router-link to="/validation/id">{{$route.params.id}}</router-link>
       </li>
       <li
         v-if="
