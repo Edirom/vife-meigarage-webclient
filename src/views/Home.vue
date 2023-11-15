@@ -46,7 +46,7 @@
         subtitle="Validate files"
         description="Common validation scenarios"
         link="./validation"
-        linkText="coming soon"
+        linkText="See all"
         :contents="validationContent"
       />
     </div>
@@ -108,8 +108,8 @@ export default {
         },
       ],
       validationContent: [
-        { name: "Validate MEI 3.0.0", link: "", href: "" },
-        { name: "Validate MEI 4.0.1", link: "", href: "" },
+        { name: "Validate MEI 3.0.0", link: "/validation/mei300", href: "" },
+        { name: "Validate MEI 4.0.1", link: "/validation/mei401", href: "" },
         { name: "Validate MusicXML 3.1", link: "", href: "" },
       ],
       configContent: [
