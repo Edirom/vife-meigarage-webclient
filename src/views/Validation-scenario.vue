@@ -6,10 +6,11 @@
       </div>
       <div class="column col-12">
         <h1>Validation</h1>
-        <p>
+        <p v-if="validationMetadata">
           Validating files against
-          <span class="format">{{ formatDisplay }}</span> in version
-          <span class="version">{{ version }}</span>
+          <span class="format">{{ validationMetadata?.format }}</span> in version
+          <span class="version" v-if="validationMetadata.version">{{ validationMetadata?.version }}</span> with customization
+          <span class="customization" v-if="validationMetadata.customization">{{ validationMetadata?.customization }}</span>
         </p>
 
         <div class="viewBox">
@@ -35,54 +36,10 @@
                 </span>
               </div>
             </form>
-            <button class="btn btn-primary">Validate</button>
-          </div>
-        </div>
-        <div class="parameterBox accordion">
-          <input
-            type="checkbox"
-            id="options-accordion"
-            name="accordion-checkbox"
-            hidden
-          />
-          <label for="options-accordion" class="accordion-header">
-            <h1>
-              <i class="icon icon-arrow-right mr-1"></i>Validation Options
-            </h1>
-          </label>
-          <div class="columns accordion-body">
-            <div class="column col-6" v-if="profiles.length > 0">
-              <div class="optionsBox profiles">
-                <h2>Available Profiles</h2>
-                <div id="profileRadios" class="form-group">
-                  <label
-                    class="form-radio"
-                    v-for="(profile, index) in profiles"
-                    :key="profile.id"
-                    :profile="profile"
-                  >
-                    <input
-                      type="radio"
-                      name="profile"
-                      :value="index"
-                      v-model="activeProfileIndex"
-                    />
-                    <i class="form-icon"></i> {{ profile.name }}
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="column col-6">
-              <div class="optionsBox schematron">
-                <h2>Schematron</h2>
-                <div class="form-group">
-                  <label class="form-checkbox">
-                    <input type="checkbox" checked />
-                    <i class="form-icon"></i> Validate Schematron Rules
-                  </label>
-                </div>
-              </div>
-            </div>
+            <button type="button" v-on:click="validate" class="btn btn-primary">
+              Validate
+            </button>
+            <div v-if="loading" class="loading loading-lg" />
           </div>
         </div>
 
@@ -111,7 +68,7 @@
             following POST for the current validation:
           </p>
           <div class="restURL">
-            https://meigarage.edirom.de/rest/validation/mei/4.0.1/mei-all/tralala
+            {{ validationMetadata?.href }}
           </div>
           <p>
             <a onclick="alert('Link zur Swagger-Dokumentation')"
@@ -119,119 +76,73 @@
             >
           </p>
         </div>
-
-        <div class="internalComment">
-          <h1>Interne Hinweise zur Umsetzung</h1>
-          <p>
-            Aktuell werden für format und version nur die direkten Strings
-            ausgegeben. Hier wäre es sinnvoll, da auch entsprechende Objekte im
-            store zu hinterlegen und dann etwas vollständiger zu sein (also
-            "MEI" statt "mei", "MusicXML" statt "musicxml" etc.). Aus diesem
-            Objekt sollten dann auch die verfügbaren Profile und zugehörigen
-            URLs kommen. Daniel, das klingt nach Kommunikation mit dem Backend
-            ;-)
-          </p>
-          <p>
-            Der Breadcrumb vereint Format und Version, in der URL sind es aber
-            zwei getrennte Routes. Wenn jemand nur auf das Format geht
-            ("/validation/mei") sollte er automatisch zum "latest" bzw.
-            "current" weitergeleitet werden.
-          </p>
-          <p>
-            Wenn es zu einem Format mehrere Profile gibt, sollte oben in der
-            Überschrift nicht {format} stehen, sondern das jeweils aktuelle
-            Profil. Das könnte auch verlinkt sein und bei einem Klick nach unten
-            zu den Profilen führen. Bei MusicXML gibt es keine Profile, so dass
-            dort einfach {format} hinkommt.
-          </p>
-          <p>Validation Options soll offensichtlich einklappbar sein.</p>
-          <p>
-            Offensichtlich muss das Format der REST-Anfrage noch spezifiziert
-            werden ;-)
-          </p>
-          <p>
-            Unten sind zwei Beispielseiten verlinkt, wie das Ergebnis der
-            Validierung aussehen sollte. Mein Vorschlag wäre, pro Validierung
-            eine UUID zu generieren und die an die URL dranzuhängen. Unter der
-            URL könnte das Ergebnis für eine voreingestellte Zeit verfügbar
-            sein, danach wird es automatisch gelöscht.
-          </p>
-          <router-link
-            to="/validation/mei/4.0.1/47edf1ec-bc4e-46bd-8be3-292fc270d8f7"
-          >
-            <button
-              style="margin-right: 0.25rem"
-              class="btn btn-lg btn-success"
-            >
-              Valides Beispiel
-            </button>
-          </router-link>
-
-          <router-link
-            to="/validation/mei/4.0.1/50ea0681-85dd-4242-995f-c8008ed04917"
-          >
-            <button style="margin-left: 0.25rem" class="btn btn-lg btn-error">
-              Nicht-valides Beispiel
-            </button>
-          </router-link>
-          <p style="margin-top: 1rem">
-            Ich bin nicht sicher, ob wir den Bereich "Static Validation"
-            brauchen. Es ist aber vielleicht ein netter Service, wenn wir's
-            gleich dazuschreiben?
-          </p>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 // @ is an alias to /src
 import Breadcrumb from "@/components/Breadcrumb.vue";
+import { computed, onMounted } from "vue";
+import { useStore } from "vuex";
+import { responseToDownloadable, download } from "@/util";
+import axios from "axios";
+//import notFound from "@/components/NotFound.vue";
+//import Loading from "@/components/Loading.vue";
 
-export default {
-  name: "validation-secnario",
-  components: {
-    Breadcrumb,
-  },
-  /*async getInitialData({this.$store, this.$route}) {
-    await this.$store.dispatch("fetchOutputs", this.$route.params.inputFormat);
-  },*/
-  methods: {},
-  computed: {
-    format() {
-      return this.$route.params.format;
-    },
+const store = useStore();
 
-    version() {
-      // TODO: specify 'latest'
-      return this.$route.params.version || "4.0.1";
-    },
+const props = defineProps({
+  id: { type: String },
+});
 
-    formatDisplay() {
-      if (this.profiles.length > this.activeProfileIndex) {
-        return this.profiles[this.activeProfileIndex].name;
-      }
-      return this.format;
-    },
-  },
-  data() {
-    return {
-      activeProfileIndex: 0,
-      profiles: [
-        { id: "all", name: "MEI All" },
-        { id: "anystart", name: "MEI anyStart" },
-        { id: "cmd", name: "MEI CMD" },
-        { id: "mensural", name: "MEI Mensural" },
-        { id: "neumes", name: "MEI Neumes" },
-      ],
-    };
-  },
-};
+//const form = new FormData(document.getElementById("validationForm"));
+//const file = formData.get("fileToValidate");
+
+//delete if a current validation does not need to be remembered between routes
+onMounted(() => {
+  store.commit("SET_CURRENT_VALIDATION", props.id);
+});
+
+const validationMetadata = computed(() => {
+  return store.state.validations[props.id];
+});
+
+const loading = computed(() => {
+  return store.state.validationOngoing;
+});
+
+function validate() {
+  let myForm = document.getElementById("validationForm");
+  let formData = new FormData(myForm);
+  // we require the file to be present
+  const file = formData.get("fileToValidate");
+  store.commit("SET_VALIDATION_ONGOING", true);
+  if (!file || file.size === 0) {
+    return;
+  }
+
+  axios
+    .post(validationMetadata.value.href, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+      responseType: "blob",
+    })
+    .then(function (response) {
+      download(responseToDownloadable(response));
+      store.commit("SET_VALIDATION_ONGOING", false);
+    })
+    .catch(function (response) {
+      //handle error
+      console.log("error response: ", response);
+      store.commit("SET_VALIDATION_ONGOING", false);
+    });
+}
 </script>
 
 <style scoped lang="scss">
 .format,
+.customization,
 .version {
   font-size: 1.2rem;
   font-weight: 700;

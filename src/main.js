@@ -24,3 +24,4 @@ app.mount("#app");
 
 store.dispatch("fetchInputs");
 store.dispatch("fetchCustomizations");
+store.dispatch("fetchValidations");

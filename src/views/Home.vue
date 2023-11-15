@@ -45,7 +45,7 @@
         title="Validation"
         subtitle="Validate files"
         description="Common validation scenarios"
-        link="./conversions"
+        link="./validation"
         linkText="coming soon"
         :contents="validationContent"
       />
@@ -108,7 +108,7 @@ export default {
         },
       ],
       validationContent: [
-        { name: "AValidate MEI 3.0.0", link: "", href: "" },
+        { name: "Validate MEI 3.0.0", link: "", href: "" },
         { name: "Validate MEI 4.0.1", link: "", href: "" },
         { name: "Validate MusicXML 3.1", link: "", href: "" },
       ],
@@ -149,7 +149,6 @@ export default {
   overflow: hidden;
 }
 
-#validationCard,
 #configurationCard {
   &:before {
     font-weight: 700;

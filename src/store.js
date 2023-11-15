@@ -9,6 +9,8 @@ import { version } from "../package.json";
 
 const { XMLParser } = require("fast-xml-parser");
 
+import { meiDataTypes } from "@/config";
+
 const parserOptions = {
   attributeNamePrefix: "@_",
   attrNodeName: "attr",
@@ -22,6 +24,10 @@ const parser = new XMLParser(parserOptions);
 const api = process.env.VUE_APP_WEBSERVICE_URL;
 const oddApi = process.env.VUE_APP_ODD_API_URL;
 const packageVersion = process.env.VUE_APP_VERSION;
+const meiIdLookup = {};
+Object.entries(meiDataTypes).forEach(([key, value]) => {
+  value.apiIds.forEach(id => meiIdLookup[id] = key);
+});
 
 /* Vue.use(Vuex); */
 
@@ -30,6 +36,7 @@ export default new createStore({
     inputs: {},
     customizations: {},
     // dummy data for now
+    validations: {},
     customizationVersions: [
       //{
       //  version: "Current Development Version",
@@ -64,6 +71,9 @@ export default new createStore({
     ],
     inputsLoaded: false,
     customizationsLoaded: false,
+    validationsLoaded: false,
+    validationOngoing: false,
+    currentValidation: {},
     profiler: {
       format: "mei",
       version: "4.0.1",
@@ -96,12 +106,27 @@ export default new createStore({
       state.inputs[data.id].outputs = data.outputs;
       state.inputs = Object.assign({}, state.inputs);
     },
+    FETCH_VALIDATIONS(state, validations) {
+      validations.forEach((validation) => {
+        const created = {};
+        created[validation.id] = validation;
+        state.validations = Object.assign({}, state.validations, created);
+      });
+      state.validationsLoaded = true;
+    },
     SET_CUSTOMIZATIONS(state, customizations) {
       state.customizations = customizations;
       state.customizationsLoaded = true;
     },
     ADD_CUSTOMIZATION_VERSION(state, version) {
       state.customizationVersions.push(version);
+    },
+    SET_CURRENT_VALIDATION(state, id) {
+      //todo: finish this
+      state.currentValidation = state.validations[id];
+    },
+    SET_VALIDATION_ONGOING(state, ongoing) {
+      state.validationOngoing = ongoing;
     },
     PROFILER_SET_MODULES(state, modules) {
       let modulesObj = {};
@@ -299,6 +324,12 @@ export default new createStore({
     },
     customizationVersions: (state) => {
       return state.customizationVersions;
+    },
+    getValidations: (state) => {
+      return state.validations;
+    },
+    currentValidation: (state) => {
+      return state.currentValidation;
     },
     profilerFormat: (state) => {
       return state.profiler.format;
@@ -517,7 +548,47 @@ export default new createStore({
           });
       });
     },
-
+    fetchValidations({ commit }) {
+      return new Promise((resolve) => {
+        fetch(api + "Validation/")
+          .then((response) => response.text())
+          .then((data) => {
+            const parsed = parser.parse(data);
+            //console.log("parsed validations: ", parsed);
+            if (
+              parsed["validations"] &&
+              parsed["validations"]["input-data-type"]
+            ) {
+              let validations = [];
+              validations = parsed["validations"]["input-data-type"].map(
+                (dataType) => {
+                  // eslint-disable-next-line no-unused-vars
+                  const [_, label, mime] = dataType["@_id"].split(":");
+                  const [id, mimetype] = mime.split(",");
+                  const href = dataType["@_xlink:href"];
+                  const name = meiIdLookup[id];
+                  const version = meiDataTypes[name]?.version;
+                  const format = meiDataTypes[name]?.format;
+                  const customization = meiDataTypes[name]?.customization;
+                  return {
+                    id,
+                    mimetype,
+                    label,
+                    href,
+                    name,
+                    version,
+                    format,
+                    customization,
+                  };
+                }
+              );
+              commit("FETCH_VALIDATIONS", validations);
+              resolve();
+              //console.log("glory!: ", validations);
+            }
+          });
+      });
+    },
     fetchCustomizations({ commit }) {
       return new Promise((resolve) => {
         fetch(api + "Customization/")
@@ -584,7 +655,6 @@ export default new createStore({
           });
       });
     },
-
     triggerCustomization(
       store,
       { settingId, sourceId, customizationId, outputFormat, formData }
