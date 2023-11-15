@@ -149,7 +149,6 @@ export default {
   overflow: hidden;
 }
 
-#validationCard,
 #configurationCard {
   &:before {
     font-weight: 700;

@@ -6,11 +6,11 @@
       </div>
       <div class="column col-12">
         <h1>Validation</h1>
-        <p>
+        <p v-if="validationMetadata">
           Validating files against
           <span class="format">{{ validationMetadata?.format }}</span> in version
-          <span class="version">{{ validationMetadata?.version }}</span> mit der Customization
-          <span class="customization">{{ validationMetadata?.customization }}</span>
+          <span class="version" v-if="validationMetadata.version">{{ validationMetadata?.version }}</span> with customization
+          <span class="customization" v-if="validationMetadata.customization">{{ validationMetadata?.customization }}</span>
         </p>
 
         <div class="viewBox">
@@ -39,6 +39,7 @@
             <button type="button" v-on:click="validate" class="btn btn-primary">
               Validate
             </button>
+            <div v-if="loading" class="loading loading-lg" />
           </div>
         </div>
 
@@ -96,6 +97,9 @@ const props = defineProps({
   id: { type: String },
 });
 
+//const form = new FormData(document.getElementById("validationForm"));
+//const file = formData.get("fileToValidate");
+
 //delete if a current validation does not need to be remembered between routes
 onMounted(() => {
   store.commit("SET_CURRENT_VALIDATION", props.id);
@@ -105,11 +109,16 @@ const validationMetadata = computed(() => {
   return store.state.validations[props.id];
 });
 
+const loading = computed(() => {
+  return store.state.validationOngoing;
+});
+
 function validate() {
   let myForm = document.getElementById("validationForm");
   let formData = new FormData(myForm);
   // we require the file to be present
   const file = formData.get("fileToValidate");
+  store.commit("SET_VALIDATION_ONGOING", true);
   if (!file || file.size === 0) {
     return;
   }
@@ -121,13 +130,14 @@ function validate() {
     })
     .then(function (response) {
       download(responseToDownloadable(response));
+      store.commit("SET_VALIDATION_ONGOING", false);
     })
     .catch(function (response) {
       //handle error
-      console.log(response);
+      console.log("error response: ", response);
+      store.commit("SET_VALIDATION_ONGOING", false);
     });
 }
-
 </script>
 
 <style scoped lang="scss">
