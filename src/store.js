@@ -73,6 +73,7 @@ export default new createStore({
     customizationsLoaded: false,
     validationsLoaded: false,
     validationOngoing: false,
+    conversionOngoing: false,
     currentValidation: {},
     profiler: {
       format: "mei",
@@ -127,6 +128,9 @@ export default new createStore({
     },
     SET_VALIDATION_ONGOING(state, ongoing) {
       state.validationOngoing = ongoing;
+    },
+    SET_CONVERSION_ONGOING(state, ongoing) {
+      state.conversionOngoing = ongoing;
     },
     PROFILER_SET_MODULES(state, modules) {
       let modulesObj = {};
