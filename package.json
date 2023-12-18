@@ -15,7 +15,7 @@
     "fast-xml-parser": "^4.2.5",
     "spectre.css": "^0.5.9",
     "stream": "0.0.2",
-    "vue": "^3.3.11",
+    "vue": "^3.3.12",
     "vue-router": "^4.2.2",
     "vuex": "^4.1.0",
     "vuex-router-sync": "^5.0.0",
