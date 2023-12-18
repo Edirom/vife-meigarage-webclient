@@ -110,7 +110,7 @@ export default {
       validationContent: [
         { name: "Validate MEI 3.0.0", link: "/validation/mei300", href: "" },
         { name: "Validate MEI 4.0.1", link: "/validation/mei401", href: "" },
-        { name: "Validate MusicXML 3.1", link: "", href: "" },
+        { name: "Validate MEI dev Neumes", link: "/validation/meidev-neumes", href: "" },
       ],
       configContent: [
         { name: "Adjust MEI ControlEvents", link: "", href: "" },
