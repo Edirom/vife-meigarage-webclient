@@ -47,6 +47,7 @@
                 >
                   Convert
                 </button>
+                <div v-if="loading" class="loading loading-lg" />
               </div>
             </div>
             <div class="parameterBox" v-if="hasParameters">
@@ -78,6 +79,9 @@ import ConversionStep from "@/components/ConversionStep.vue";
 import { responseToDownloadable, download } from "@/util";
 import NotFound from "@/components/NotFound";
 import Loading from "@/components/Loading";
+//import { useStore } from "vuex";
+
+//const store = useStore();
 
 export default {
   name: "conversion-options",
@@ -94,12 +98,16 @@ export default {
     convert: function () {
       let myForm = document.getElementById("conversionForm");
       let formData = new FormData(myForm);
+      let store = this.$store;
       // we require the file to be present
       const file = formData.get("fileToConvert");
       if (!file || file.size === 0) {
         return;
       }
-
+      // unsure if directly committing values to the store is clean
+      // also use of axios here is a side effect
+      // same would be the case for validation-scenario
+      store.commit("SET_CONVERSION_ONGOING", true);
       axios
         .post(this.href, formData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -107,10 +115,12 @@ export default {
         })
         .then(function (response) {
           download(responseToDownloadable(response));
+          store.commit("SET_CONVERSION_ONGOING", false);
         })
         .catch(function (response) {
           //handle error
           console.log(response);
+          store.commit("SET_CONVERSION_ONGOING", false);
         });
     },
   },
@@ -161,6 +171,9 @@ export default {
     },
     isLoading() {
       return !this.$store.state.inputsLoaded;
+    },
+    loading() {
+      return this.$store.state.conversionOngoing;
     },
     notFound() {
       for (const output of this.$store.getters.outputs(
