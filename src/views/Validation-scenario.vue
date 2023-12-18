@@ -8,9 +8,15 @@
         <h1>Validation</h1>
         <p v-if="validationMetadata">
           Validating files against
-          <span class="format">{{ validationMetadata?.format }}</span> in version
-          <span class="version" v-if="validationMetadata.version">{{ validationMetadata?.version }}</span> with customization
-          <span class="customization" v-if="validationMetadata.customization">{{ validationMetadata?.customization }}</span>
+          <span class="format">{{ validationMetadata?.format }}</span> in
+          version
+          <span class="version" v-if="validationMetadata.version">{{
+            validationMetadata?.version
+          }}</span>
+          with customization
+          <span class="customization" v-if="validationMetadata.customization">{{
+            validationMetadata?.customization
+          }}</span>
         </p>
 
         <div class="viewBox">

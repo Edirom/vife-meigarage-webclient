@@ -26,7 +26,7 @@ const oddApi = process.env.VUE_APP_ODD_API_URL;
 const packageVersion = process.env.VUE_APP_VERSION;
 const meiIdLookup = {};
 Object.entries(meiDataTypes).forEach(([key, value]) => {
-  value.apiIds.forEach(id => meiIdLookup[id] = key);
+  value.apiIds.forEach((id) => (meiIdLookup[id] = key));
 });
 
 /* Vue.use(Vuex); */
