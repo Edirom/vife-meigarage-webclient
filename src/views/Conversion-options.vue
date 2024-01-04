@@ -134,7 +134,7 @@ export default {
     },
     output() {
       for (let output of this.$store.getters.outputs(
-        this.$route.params.inputFormat
+        this.$route.params.inputFormat,
       )) {
         if (output.id === this.$route.params.outputFormat) return output.label;
       }
@@ -142,7 +142,7 @@ export default {
     },
     steps() {
       for (let output of this.$store.getters.outputs(
-        this.$route.params.inputFormat
+        this.$route.params.inputFormat,
       )) {
         if (output.id === this.$route.params.outputFormat) return output.steps;
       }
@@ -150,7 +150,7 @@ export default {
     },
     href() {
       for (let output of this.$store.getters.outputs(
-        this.$route.params.inputFormat
+        this.$route.params.inputFormat,
       )) {
         if (output.id === this.$route.params.outputFormat) return output.href;
       }
@@ -177,7 +177,7 @@ export default {
     },
     notFound() {
       for (const output of this.$store.getters.outputs(
-        this.$route.params.inputFormat
+        this.$route.params.inputFormat,
       )) {
         if (output.id === this.$route.params.outputFormat) return false;
       }

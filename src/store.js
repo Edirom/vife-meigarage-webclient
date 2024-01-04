@@ -239,7 +239,7 @@ export default new createStore({
             '" in module "' +
             state.profiler.currentModule +
             '": ' +
-            err
+            err,
         );
       }
     },
@@ -262,7 +262,7 @@ export default new createStore({
             '" in module "' +
             state.profiler.currentModule +
             '": ' +
-            err
+            err,
         );
       }
     },
@@ -477,7 +477,7 @@ export default new createStore({
                     targetsDef,
                     outputsLoaded: false,
                   };
-                }
+                },
               );
             }
             commit("FETCH_INPUTS", inputs);
@@ -584,7 +584,7 @@ export default new createStore({
                     format,
                     customization,
                   };
-                }
+                },
               );
               commit("FETCH_VALIDATIONS", validations);
               resolve();
@@ -623,7 +623,7 @@ export default new createStore({
                       path: customization["@_path"],
                       type: customization["@_type"],
                     };
-                  }
+                  },
                 );
                 let xmlOutputFormats = setting["outputFormats"]["outputFormat"];
                 if (!Array.isArray(xmlOutputFormats)) {
@@ -661,7 +661,7 @@ export default new createStore({
     },
     triggerCustomization(
       store,
-      { settingId, sourceId, customizationId, outputFormat, formData }
+      { settingId, sourceId, customizationId, outputFormat, formData },
     ) {
       const href = `${api}Customization/${settingId}/${sourceId}/${customizationId}/${outputFormat}/`;
       return new Promise((resolve, reject) => {
@@ -735,7 +735,10 @@ export default new createStore({
                       });
                     } catch (e) {
                       console.log(
-                        "running into troubles with " + module.name + ": " + err
+                        "running into troubles with " +
+                          module.name +
+                          ": " +
+                          err,
                       );
                     }
                     resolve2();

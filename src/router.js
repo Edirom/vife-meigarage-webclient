@@ -39,7 +39,7 @@ const checkInputsLoaded = (to, from, next) => {
         if (value === true) {
           proceed();
         }
-      }
+      },
     );
   } else {
     proceed();
