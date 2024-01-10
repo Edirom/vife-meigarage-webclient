@@ -193,7 +193,7 @@ export default {
           let includesArr = includes.split(" ");
           this.$store.dispatch("profilerSetCurrentModule", name);
           let allElements = Object.keys(
-            this.$store.getters.profilerModuleElements
+            this.$store.getters.profilerModuleElements,
           );
           let excludes = allElements.filter((elem) => {
             return includesArr.indexOf(elem) === -1;
@@ -319,7 +319,7 @@ export default {
         console.log(
           "Error: this should not have happend, while trying to add " +
             ident +
-            " to moduleIdent"
+            " to moduleIdent",
         );
         console.log(moduleRef);
       }
@@ -375,7 +375,7 @@ export default {
             ident +
             ", as it wasn't deleted in the first place… (" +
             err +
-            ")"
+            ")",
         );
       }
     },
@@ -409,7 +409,7 @@ export default {
         let date = new Date(Date.now()).toISOString();
         button.setAttribute(
           "download",
-          "MEI-customization-" + date.substr(0, 19) + ".odd"
+          "MEI-customization-" + date.substr(0, 19) + ".odd",
         );
         //using ege-webservice api to turn odd into rng and supply this result
         const formData = new FormData();
@@ -417,7 +417,7 @@ export default {
         formData.append(
           "local_customization_file",
           xmlBlob,
-          "MEI-customization-" + date.substr(0, 19) + ".rng"
+          "MEI-customization-" + date.substr(0, 19) + ".rng",
         );
         this.$store
           .dispatch("triggerCustomization", {
@@ -432,7 +432,7 @@ export default {
             buttonrng.setAttribute("href", downloadable.url);
             buttonrng.setAttribute(
               "download",
-              "MEI-customization-" + date.substr(0, 19) + ".rng"
+              "MEI-customization-" + date.substr(0, 19) + ".rng",
             );
           });
       } catch (err) {
@@ -557,7 +557,7 @@ export default {
         ) {
           console.log("copying object");
           let newCus = JSON.parse(
-            JSON.stringify(customizations[oldState.customization])
+            JSON.stringify(customizations[oldState.customization]),
           );
           customizations["custom"] = newCus;
           this.setSchemaSpec();
@@ -648,7 +648,7 @@ export default {
         } catch (err) {
           console.log("apparently no download yet");
         }
-      }
+      },
     );
   },
   beforeDestroy() {

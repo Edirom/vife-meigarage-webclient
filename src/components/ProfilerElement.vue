@@ -29,14 +29,14 @@ export default {
     inactive: function () {
       return (
         this.$store.getters.profilerInactiveElements.indexOf(
-          this.element.name
+          this.element.name,
         ) !== -1
       );
     },
     active: function () {
       return (
         this.$store.getters.profilerInactiveElements.indexOf(
-          this.element.name
+          this.element.name,
         ) === -1
       );
     },

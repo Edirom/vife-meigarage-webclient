@@ -40,7 +40,7 @@ export default {
     inactive: function () {
       return (
         this.$store.getters.profilerInactiveAttClasses.indexOf(
-          this.attClass.name
+          this.attClass.name,
         ) !== -1
       );
     },
@@ -50,14 +50,14 @@ export default {
       }
       return (
         this.$store.getters.profilerInactiveModules.indexOf(
-          this.attClass.module
+          this.attClass.module,
         ) !== -1
       );
     },
     active: function () {
       return (
         this.$store.getters.profilerInactiveAttClasses.indexOf(
-          this.attClass.name
+          this.attClass.name,
         ) === -1
       );
     },

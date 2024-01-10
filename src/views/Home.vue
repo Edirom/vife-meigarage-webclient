@@ -45,8 +45,8 @@
         title="Validation"
         subtitle="Validate files"
         description="Common validation scenarios"
-        link="./conversions"
-        linkText="coming soon"
+        link="./validation"
+        linkText="See all"
         :contents="validationContent"
       />
     </div>
@@ -108,9 +108,13 @@ export default {
         },
       ],
       validationContent: [
-        { name: "AValidate MEI 3.0.0", link: "", href: "" },
-        { name: "Validate MEI 4.0.1", link: "", href: "" },
-        { name: "Validate MusicXML 3.1", link: "", href: "" },
+        { name: "Validate MEI 3.0.0", link: "/validation/mei300", href: "" },
+        { name: "Validate MEI 4.0.1", link: "/validation/mei401", href: "" },
+        {
+          name: "Validate MEI dev Neumes",
+          link: "/validation/meidev-neumes",
+          href: "",
+        },
       ],
       configContent: [
         { name: "Adjust MEI ControlEvents", link: "", href: "" },
@@ -149,7 +153,6 @@ export default {
   overflow: hidden;
 }
 
-#validationCard,
 #configurationCard {
   &:before {
     font-weight: 700;

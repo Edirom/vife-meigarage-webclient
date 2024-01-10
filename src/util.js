@@ -5,7 +5,7 @@ export const responseToDownloadable = (httpResponse) => {
 
   const contentDisposition = httpResponse.headers["content-disposition"];
 
-  let fileName = "unknown";
+  let fileName = "MEIGarageOutput";
   if (contentDisposition) {
     const fileNameMatch = contentDisposition.match(/filename="(.+)"/);
     if (fileNameMatch.length === 2) fileName = fileNameMatch[1];
