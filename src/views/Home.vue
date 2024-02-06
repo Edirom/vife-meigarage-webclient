@@ -14,32 +14,7 @@
       </p>
     </div>
 
-    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <Card
-        id="conversionCard"
-        title="Conversion"
-        subtitle="Convert between formats"
-        description="Common file conversions:"
-        link="./conversions"
-        linkText="See all"
-        :contents="conversionContent"
-      />
-    </div>
-
-    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
-      <Card
-        id="customizationCard"
-        title="Customization"
-        subtitle="Customize the MEI Schema"
-        description="Common customizations:"
-        link="./customization"
-        linkText="Customize MEI"
-        :contents="customizationContent"
-      />
-    </div>
-
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12 cardBg">
-      <!-- todo: replace link "./conversions" with "./validation" -->
       <Card
         id="validationCard"
         title="Validation"
@@ -51,18 +26,43 @@
       />
     </div>
 
+    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
+      <Card
+        id="conversionCard"
+        title="Conversion"
+        subtitle="Convert between formats"
+        description="Common file conversions"
+        link="./conversions"
+        linkText="See all"
+        :contents="conversionContent"
+      />
+    </div>
+
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12 cardBg">
       <!-- todo: extract values for props into a config file; replace link "./conversions" with "./configuration" -->
       <Card
         id="configurationCard"
-        title="Data Configuration"
-        subtitle="Set data profiles"
-        description="Common data configurations"
-        link="./conversions"
+        title="Enrichment"
+        subtitle="Enrich and enhance files with additional information"
+        description="Common enrichments"
+        link="./enrichments"
         linkText="coming soon"
         :contents="configContent"
       />
     </div>
+
+    <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
+      <Card
+        id="customizationCard"
+        title="Customization"
+        subtitle="Customize the MEI Schema"
+        description="Common customizations"
+        link="./customization"
+        linkText="Customize MEI"
+        :contents="customizationContent"
+      />
+    </div>
+    
   </div>
 </template>
 
