@@ -8,10 +8,10 @@
           src="../assets/meigarage.logo.png"
         />
       </h1>
-      <p>
+      <!-- <p>
         Welcome to the MEI Garage. Please select a task you would like to
         accomplish.
-      </p>
+      </p> -->
     </div>
 
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12 cardBg">
@@ -42,10 +42,10 @@
       <!-- todo: extract values for props into a config file; replace link "./conversions" with "./configuration" -->
       <Card
         id="configurationCard"
-        title="Enrichment"
-        subtitle="Enrich and enhance files with additional information"
-        description="Common enrichments"
-        link="./enrichments"
+        title="Modification"
+        subtitle="Modify, enrich and enhance files with additional information"
+        description="Common modifications"
+        link="./modifications"
         linkText="coming soon"
         :contents="configContent"
       />
@@ -54,15 +54,14 @@
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12">
       <Card
         id="customizationCard"
-        title="Customization"
+        title="Schema Customization"
         subtitle="Customize the MEI Schema"
-        description="Common customizations"
+        description="Available customizations"
         link="./customization"
-        linkText="Customize MEI"
+        linkText="MEI Customization Service"
         :contents="customizationContent"
       />
     </div>
-    
   </div>
 </template>
 
@@ -92,8 +91,8 @@ export default {
       ],
       conversionContent: [
         {
-          name: "MEI 3.0 (2016) to MEI 4.0 (2018)",
-          link: "/conversions/mei30/mei40",
+          name: "MEI 4.0 (2018) to MEI 5.0 (2023)",
+          link: "/conversions/mei40/mei50",
           href: "",
         },
         {
@@ -140,12 +139,12 @@ export default {
 }
 
 .column {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 #largeLogo {
-  width: 16rem;
+  width: 8rem;
 }
 
 .cardBg {
