@@ -55,10 +55,10 @@
   color: #2c3e50;
 }
 .footer {
-    bottom: 0;
-    position: sticky;
-    height: auto;
-    background-color: #f5f5f5;
+  bottom: 0;
+  position: sticky;
+  height: auto;
+  background-color: #f5f5f5;
 }
 header.navbar {
   background-color: #f5f5f5;
