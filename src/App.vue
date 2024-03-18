@@ -33,9 +33,9 @@
     <div class="container grid-lg">
       <router-view />
     </div>
-    <footer>
+    <footer class="footer">
       <router-link to="/about" class="btn btn-link">About</router-link> |
-      <a class="btn btn-link" href="../ege-webservice/" target="_blank">API</a>
+      <a class="btn btn-link" href="/ege-webservice" target="_blank">API</a>
       |<a
         class="btn btn-link"
         href="https://music-encoding.org/community/community-contacts.html"
@@ -53,6 +53,12 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.footer {
+  bottom: 0;
+  position: sticky;
+  height: auto;
+  background-color: #f5f5f5;
 }
 header.navbar {
   background-color: #f5f5f5;

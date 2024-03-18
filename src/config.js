@@ -1,4 +1,12 @@
 export const meiDataTypes = {
+  "MEI 5.0": {
+    apiIds: ["mei50", "c-mei-all"],
+    hash: "",
+    link: "",
+    format: "MEI",
+    version: "5.0",
+    customization: "All",
+  },
   "MEI 4.0.1": {
     apiIds: ["mei401", "c-mei-all"],
     hash: "",

@@ -104,9 +104,9 @@ const routes = [
     component: () => import("./views/Customization.vue"),
   },
   {
-    path: "/configuration",
-    name: "configuration",
-    component: () => import("./views/Configuration.vue"),
+    path: "/modifications",
+    name: "modifications",
+    component: () => import("./views/Modifications.vue"),
   },
   {
     path: "/profiler",
