@@ -35,7 +35,7 @@
     </div>
     <footer class="footer">
       <router-link to="/about" class="btn btn-link">About</router-link> |
-      <a class="btn btn-link" href="../ege-webservice/" target="_blank">API</a>
+      <a class="btn btn-link" href="/ege-webservice" target="_blank">API</a>
       |<a
         class="btn btn-link"
         href="https://music-encoding.org/community/community-contacts.html"
