@@ -104,6 +104,11 @@ const routes = [
     component: () => import("./views/Customization.vue"),
   },
   {
+    path: "/modification",
+    name: "modification",
+    component: () => import("./views/Modifications.vue"),
+  },
+  {
     path: "/modifications",
     name: "modifications",
     component: () => import("./views/Modifications.vue"),
