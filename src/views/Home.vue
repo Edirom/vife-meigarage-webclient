@@ -41,13 +41,13 @@
     <div class="column col-lg-4 col-6 col-md-6 col-xs-12 cardBg">
       <!-- todo: extract values for props into a config file; replace link "./conversions" with "./configuration" -->
       <Card
-        id="configurationCard"
+        id="modificationCard"
         title="Modification"
         subtitle="Modify, enrich and enhance files with additional information"
         description="Common modifications"
-        link="./modifications"
+        link="./modification"
         linkText="coming soon"
-        :contents="configContent"
+        :contents="modificationContent"
       />
     </div>
 
@@ -115,7 +115,7 @@ export default {
           href: "",
         },
       ],
-      configContent: [
+      modificationContent: [
         { name: "Adjust MEI ControlEvents", link: "", href: "" },
         { name: "Add timestamps", link: "", href: "" },
         { name: "Add IDs", link: "", href: "" },
@@ -152,7 +152,7 @@ export default {
   overflow: hidden;
 }
 
-#configurationCard {
+#modificationCard {
   &:before {
     font-weight: 700;
     content: "coming soon";

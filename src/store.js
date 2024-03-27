@@ -37,6 +37,11 @@ export default new createStore({
     customizations: {},
     // dummy data for now
     validations: {},
+    modifications: {
+      //example data, later to be replaced by fetched data
+      add: { name: "something", id: "add" },
+      scd: { name: "something completely different", id: "scd" },
+    },
     customizationVersions: [
       //{
       //  version: "Current Development Version",
@@ -72,6 +77,7 @@ export default new createStore({
     inputsLoaded: false,
     customizationsLoaded: false,
     validationsLoaded: false,
+    modificationsLoaded: false,
     validationOngoing: false,
     conversionOngoing: false,
     currentValidation: {},
@@ -114,6 +120,16 @@ export default new createStore({
         state.validations = Object.assign({}, state.validations, created);
       });
       state.validationsLoaded = true;
+    },
+    FETCH_MODIFICATIONS(state, modifications) {
+      modifications.forEach((modification) => {
+        const created = {};
+        // see if modification has an id key and adjust accordingly
+        created[modification.id] = modification;
+        state.modification = Object.assign({}, state.modifications, created);
+      });
+      //console.log("mods: ", modifications);
+      state.modificationsLoaded = true;
     },
     SET_CUSTOMIZATIONS(state, customizations) {
       state.customizations = customizations;
@@ -334,6 +350,9 @@ export default new createStore({
     },
     currentValidation: (state) => {
       return state.currentValidation;
+    },
+    getModifications: (state) => {
+      return state.modifications;
     },
     profilerFormat: (state) => {
       return state.profiler.format;
@@ -588,10 +607,24 @@ export default new createStore({
               );
               commit("FETCH_VALIDATIONS", validations);
               resolve();
-              //console.log("glory!: ", validations);
+              console.log("glory!: ", validations);
             }
           });
       });
+    },
+    fetchModifications({ commit }) {
+      /*const modifications = [
+        {
+          name: "add some thing",
+          id: "ass",
+        },
+        {
+          name: "something completely different",
+          id: "scd",
+        },
+      ];
+      commit("FETCH_MODIFICATIONS", modifications);
+      //resolve();*/
     },
     fetchCustomizations({ commit }) {
       return new Promise((resolve) => {

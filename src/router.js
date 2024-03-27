@@ -106,7 +106,7 @@ const routes = [
   {
     path: "/modification",
     name: "modification",
-    component: () => import("./views/Modifications.vue"),
+    component: () => import("./views/Modification-selection.vue"),
   },
   {
     path: "/modifications",
