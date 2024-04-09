@@ -8,7 +8,7 @@
 #########################################
 # 1. build the vife web client with npm
 #########################################
-FROM node:21.5.0-alpine as builder
+FROM node:21.7.2-alpine as builder
 LABEL maintainer="Daniel Röwenstrunk for the ViFE"
 
 ARG VUE_APP_WEBSERVICE_URL=https://meigarage.edirom.de/ege-webservice/
