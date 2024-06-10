@@ -34,7 +34,7 @@
     "caniuse-lite": "^1.0.30001627",
     "eslint": "^8.55.0",
     "eslint-plugin-prettier": "^5.1.2",
-    "eslint-plugin-vue": "^9.24.1",
+    "eslint-plugin-vue": "^9.26.0",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "sass": "^1.77.4",
