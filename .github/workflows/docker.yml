@@ -51,7 +51,7 @@ jobs:
       # on main branch dont set Docker build ARG
       - name: Build and push Docker image
         if: ${{ github.ref != 'refs/heads/dev' }}
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
@@ -62,7 +62,7 @@ jobs:
       # on main set Docker build ARG to use dev webservice
       - name: Build and push Docker image
         if: ${{ github.ref == 'refs/heads/dev' }}
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
