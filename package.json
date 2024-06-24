@@ -17,6 +17,7 @@
     "vue-router": "^4.3.3",
     "vuex": "^4.1.0",
     "vuex-router-sync": "^5.0.0",
+    "ws": "^8.17.1",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
