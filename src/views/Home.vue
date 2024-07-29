@@ -116,7 +116,11 @@ export default {
         },
       ],
       configContent: [
-        { name: "Create MEI Diff document from corpus document", link: "/conversions/mei40Corpus/mei40Diff", href: "" },
+        {
+          name: "Create MEI Diff document from corpus document",
+          link: "/conversions/mei40Corpus/mei40Diff",
+          href: "",
+        },
       ],
     };
   },
@@ -149,6 +153,4 @@ export default {
   position: relative;
   overflow: hidden;
 }
-
-
 </style>
