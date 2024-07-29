@@ -45,8 +45,8 @@
         title="Modification"
         subtitle="Modify, enrich and enhance files with additional information"
         description="Common modifications"
-        link="./modifications"
-        linkText="coming soon"
+        link="./conversions/mei40Corpus/mei40Diff"
+        linkText="See all"
         :contents="configContent"
       />
     </div>
@@ -116,9 +116,7 @@ export default {
         },
       ],
       configContent: [
-        { name: "Adjust MEI ControlEvents", link: "", href: "" },
-        { name: "Add timestamps", link: "", href: "" },
-        { name: "Add IDs", link: "", href: "" },
+        { name: "Create MEI Diff document from corpus document", link: "/conversions/mei40Corpus/mei40Diff", href: "" },
       ],
     };
   },
@@ -152,21 +150,5 @@ export default {
   overflow: hidden;
 }
 
-#configurationCard {
-  &:before {
-    font-weight: 700;
-    content: "coming soon";
-    text-align: center;
-    width: 150%;
-    position: absolute;
-    top: 36%;
-    left: -25%;
-    transform-origin: center;
-    transform: rotate(-30deg);
-    padding: 1.5rem;
-    color: red;
-    background-color: rgba(240, 210, 210, 0.7);
-    border: 1px solid red;
-  }
-}
+
 </style>
