@@ -33,7 +33,7 @@
     "axios": "^1.6.7",
     "babel-jest": "^29.5.0",
     "caniuse-lite": "^1.0.30001643",
-    "eslint": "^8.55.0",
+    "eslint": "^9.9.1",
     "eslint-plugin-prettier": "^5.1.2",
     "eslint-plugin-vue": "^9.26.0",
     "postcss": "^8.4.41",
