@@ -30,7 +30,7 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/test-utils": "^2.3.2",
     "@vue/vue3-jest": "^29.2.6",
-    "axios": "^1.6.7",
+    "axios": "^1.7.7",
     "babel-jest": "^29.5.0",
     "caniuse-lite": "^1.0.30001643",
     "eslint": "^8.55.0",
