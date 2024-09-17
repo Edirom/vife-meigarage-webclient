@@ -140,7 +140,7 @@
           </p>
         </div>
 
-        <div class="internalComment">
+        <!-- <div class="internalComment">
           <h1>Interne Hinweise zur Umsetzung</h1>
           <p>
             Die Seite hier ist noch ziemlicher Käse – da müssen wir erst noch
@@ -153,7 +153,7 @@
             Hamburger-Menü angedacht). Lasst uns mal erstmal nochmal sprechen,
             bevor wir hier irgendwas umsetzen…
           </p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

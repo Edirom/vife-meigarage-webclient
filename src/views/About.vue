@@ -11,7 +11,10 @@
       <u>validation</u> of various XML-based music encoding formats, and
       <u>configuration</u> of MEI data to conform to specific profiles and
       needs. Documentation on the API can be found
-      <a href="../../ege-webservice/" target="_blank">here</a>.
+      <a href="../../ege-webservice/" target="_blank">here</a>. The source code
+      can be found
+      <a href="https://github.com/Edirom/MEIGarage" target="_blank">on GitHub</a
+      >.
     </p>
     <p>
       <a id="meiLink" href="https://music-encoding.org" target="_blank"
