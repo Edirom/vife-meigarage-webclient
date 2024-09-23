@@ -73,10 +73,10 @@
     <p>
       <a id="nfdi4cLink" href="https://nfdi4culture.de" target="_blank"
         ><img
-          src="https://nfdi4culture.de/typo3conf/ext/culture_portal/Resources/Public/Build/images/n4c-logo-black.4b9cb10d.svg"
+          src="../assets/nfdi4c-logo.png"
           alt="Logo NFDI for Culture"
-          width="105"
-          height="69"
+          width="88"
+          height="89"
       /></a>
     </p>
     <p>
