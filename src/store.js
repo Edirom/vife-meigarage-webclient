@@ -758,7 +758,7 @@ export default new createStore({
                   "/" +
                   state.profiler.version +
                   "/" +
-                  name +
+                  module.name +
                   "/elements.json";
                 // this hardcodes the previous lines to another string, so it needs to be removed
                 // uri =
@@ -852,8 +852,17 @@ export default new createStore({
 
       if (name !== null) {
         new Promise((resolve) => {
+          //  this hardcodes the previous lines to another string, so it needs to be removed
+          // let uri =
+          //  "https://odd-api.edirom.de/mei/4.0.1/" + name + "/atts.json";
           let uri =
-            "https://odd-api.edirom.de/mei/4.0.1/" + name + "/atts.json";
+            oddApi +
+            state.profiler.format +
+            "/" +
+            state.profiler.version +
+            "/" +
+            name +
+            "/atts.json";
           fetch(uri)
             .then((response) => {
               if (!response.ok) {
