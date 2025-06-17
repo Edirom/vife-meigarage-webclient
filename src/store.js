@@ -694,7 +694,8 @@ export default new createStore({
           "/" +
           state.profiler.version +
           "/modules.json";
-        uri = "https://odd-api.edirom.de/mei/4.0.1/modules.json";
+        // this hardcodes the previous lines to another string, so it needs to be removed
+        // uri = "https://odd-api.edirom.de/mei/4.0.1/modules.json";
         fetch(uri)
           .then((response) => {
             if (!response.ok) {
@@ -715,10 +716,11 @@ export default new createStore({
                   "/" +
                   module.name +
                   "/attClasses.json";
-                uri =
-                  "https://odd-api.edirom.de/mei/4.0.1/" +
-                  module.name +
-                  "/attClasses.json";
+                // this hardcodes the previous lines to another string, so it needs to be removed  
+                // uri =
+                //  "https://odd-api.edirom.de/mei/4.0.1/" +
+                //  module.name +
+                //  "/attClasses.json";
                 fetch(uri)
                   .then((response) => {
                     if (!response.ok) {
@@ -756,12 +758,13 @@ export default new createStore({
                   "/" +
                   state.profiler.version +
                   "/" +
-                  name +
-                  "/elements.json";
-                uri =
-                  "https://odd-api.edirom.de/mei/4.0.1/" +
                   module.name +
                   "/elements.json";
+                // this hardcodes the previous lines to another string, so it needs to be removed
+                // uri =
+                //  "https://odd-api.edirom.de/mei/4.0.1/" +
+                //  module.name +
+                //  "/elements.json";
                 fetch(uri)
                   .then((response) => {
                     if (!response.ok) {
@@ -822,8 +825,9 @@ export default new createStore({
             "/" +
             name +
             "/elements.json";
-          uri =
-            "https://odd-api.edirom.de/mei/4.0.1/" + name + "/elements.json";
+          //  this hardcodes the previous lines to another string, so it needs to be removed
+          // uri =
+          //  "https://odd-api.edirom.de/mei/4.0.1/" + name + "/elements.json";
           fetch(uri)
             .then((response) => {
               if (!response.ok) {
@@ -848,8 +852,17 @@ export default new createStore({
 
       if (name !== null) {
         new Promise((resolve) => {
+          //  this hardcodes the previous lines to another string, so it needs to be removed
+          // let uri =
+          //  "https://odd-api.edirom.de/mei/4.0.1/" + name + "/atts.json";
           let uri =
-            "https://odd-api.edirom.de/mei/4.0.1/" + name + "/atts.json";
+            oddApi +
+            state.profiler.format +
+            "/" +
+            state.profiler.version +
+            "/" +
+            name +
+            "/atts.json";
           fetch(uri)
             .then((response) => {
               if (!response.ok) {
