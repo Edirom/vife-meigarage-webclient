@@ -91,24 +91,24 @@ export default {
       ],
       conversionContent: [
         {
-          name: "MEI 4.0 (2018) to MEI 5.0 (2023)",
-          link: "/conversions/mei40/mei50",
+          name: "MusicXML (partwise) to MEI 5.1",
+          link: "/conversions/musicxml/mei51",
           href: "",
         },
         {
-          name: "MusicXML (partwise) to MEI 4.0 (2018)",
-          link: "/conversions/musicxml-partwise/mei40",
+          name: "MEI 5.1 to PDF Score (Verovio)",
+          link: "/conversions/mei51/pdf-verovio",
           href: "",
         },
-        {
-          name: "MEI 4.0 (2018) to PDF Score (LilyPond)",
-          link: "/conversions/mei40/pdf-lilypond",
+                {
+          name: "MEI 4.0 (2018) to MEI 5.1",
+          link: "/conversions/mei40/mei51",
           href: "",
         },
       ],
       validationContent: [
-        { name: "Validate MEI 3.0.0", link: "/validation/mei300", href: "" },
-        { name: "Validate MEI 4.0.1", link: "/validation/mei401", href: "" },
+        { name: "Validate MEI 5.0", link: "/validation/mei50", href: "" },
+        { name: "Validate MEI 5.1", link: "/validation/mei51", href: "" },
         {
           name: "Validate MEI dev Neumes",
           link: "/validation/meidev-neumes",
