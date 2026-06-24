@@ -41,4 +41,6 @@ This repository is a GUI used for the [MEIGarage](https://github.com/Edirom/MEIG
 
 Further information on the code structure of MEIGarage can be found [here](https://github.com/Edirom/MEIGarage/blob/main/doc/code-structure.md).
 
+## Adding new DataTypes
 
+If there are new datatypes added in functions of the API backend, they need to be added to src/config.js including information on apiIds, hash, link, format, version and customization.
