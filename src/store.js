@@ -570,7 +570,7 @@ export default new createStore({
                   const [_, label, mime] = dataType["@_id"].split(":");
                   const [id, mimetype] = mime.split(",");
                   const href = dataType["@_xlink:href"];
-                  const name = meiIdLookup[id];
+                  const name = (typeof meiIdLookup[id] == "undefined"?id:meiIdLookup[id]);
                   const version = meiDataTypes[name]?.version;
                   const format = meiDataTypes[name]?.format;
                   const customization = meiDataTypes[name]?.customization;
